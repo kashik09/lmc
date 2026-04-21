@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 180 60">
+  <!-- TODO: Replace with real white logo from lmc.co.ug -->
+  <circle cx="30" cy="30" r="20" fill="#1b7a12"/>
+  <text x="30" y="36" font-family="system-ui" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">LMC</text>
+  <text x="105" y="28" font-family="system-ui" font-size="16" font-weight="bold" fill="#1b7a12" text-anchor="middle">Lifeline</text>
+  <text x="105" y="44" font-family="system-ui" font-size="10" fill="#888" text-anchor="middle">Medical Centre</text>
+</svg>
