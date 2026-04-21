@@ -2,6 +2,7 @@
 // CLIENT: Mobile menu toggle, sticky scroll detection
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -38,18 +39,15 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
-            LMC
-          </div>
-          <div className="hidden sm:block">
-            <span className="font-heading text-lg font-bold text-primary">
-              Lifeline
-            </span>
-            <span className="block text-xs text-muted-foreground">
-              Medical Centre
-            </span>
-          </div>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/logo.svg"
+            alt="Lifeline Medical Centre - Quality Healthcare in Gayaza"
+            width={180}
+            height={60}
+            className="h-12 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}

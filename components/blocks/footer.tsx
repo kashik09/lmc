@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const contactInfo = {
@@ -21,18 +22,14 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-3">
           {/* About Widget */}
           <div>
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
-                LMC
-              </div>
-              <div>
-                <span className="font-heading text-lg font-bold text-primary">
-                  Lifeline
-                </span>
-                <span className="block text-xs text-muted-foreground">
-                  Medical Centre
-                </span>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/images/logo-white.svg"
+                alt="Lifeline Medical Centre - Serving Gayaza since 2015"
+                width={180}
+                height={60}
+                className="h-12 w-auto"
+              />
             </div>
             <p className="mb-4 text-sm text-muted-foreground">
               Quality healthcare services in Gayaza, Kampala. We are committed

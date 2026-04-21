@@ -9,8 +9,8 @@ export const heroSlides = [
     title: "LABORATORY",
     description:
       "We have over the years has provided high quality service delivery with a wide range of medical laboratory investigations for our patients.",
-    image: "/images/hero/lab.svg",
-    // TODO: Replace with real image from lmc.co.ug/wp-content/uploads/2026/03/lab.jpg
+    image: "/images/hero/laboratory.svg",
+    // TODO: Replace with real image from lmc.co.ug
     link: "/services/laboratory",
     linkText: "Learn More",
   },
@@ -30,8 +30,8 @@ export const heroSlides = [
     subtitle: "Your Health is our priority",
     description:
       "From preventive care and checkups, to immunizations and exams, our primary care physicians and providers work to keep you and your whole family healthy and strong each and every day.",
-    image: "/images/hero/QualityCare.svg",
-    // TODO: Replace with real image from lmc.co.ug/wp-content/uploads/2026/03/QaulityCare.jpg
+    image: "/images/hero/quality-care.svg",
+    // TODO: Replace with real image from lmc.co.ug
     link: "/services",
     linkText: "Learn More",
   },
@@ -112,6 +112,6 @@ export const ctaSection = {
     "Call Now (+256) 774-202747 and receive Top Quality Healthcare for you and your Family",
   buttonText: "Request Appointment",
   buttonLink: "/appointments",
-  backgroundImage: "/images/hero/QualityCare.svg",
-  // TODO: Replace with real CTA background image
+  backgroundImage: "/images/hero/quality-care.svg",
+  // TODO: Replace with real image from lmc.co.ug
 };

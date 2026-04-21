@@ -9,7 +9,7 @@ export function CtaSection() {
       <div className="absolute inset-0 bg-foreground">
         <Image
           src={ctaSection.backgroundImage}
-          alt=""
+          alt="Healthcare professionals at Lifeline Medical Centre"
           fill
           className="object-cover opacity-40"
         />

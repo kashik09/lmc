@@ -75,7 +75,7 @@ export default function AboutPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-muted">
               <Image
                 src={aboutFacilities.image}
-                alt="Our facilities"
+                alt="Lifeline Medical Centre facilities and staff team"
                 fill
                 className="object-cover"
               />

@@ -27,8 +27,8 @@ export const aboutFacilities = {
   heading: "Our Facilities",
   description:
     "Our modern facility is equipped with state-of-the-art medical equipment and staffed by experienced healthcare professionals. We maintain high standards of hygiene and patient safety in all our departments.",
-  // TODO: Replace with real facility image
-  image: "/images/hero/QualityCare.svg",
+  // TODO: Replace with real facility/staff image from lmc.co.ug
+  image: "/images/about/staff.svg",
 };
 
 export const aboutCta = {

@@ -54,7 +54,7 @@ export function HeroSlider() {
           <div className="absolute inset-0 bg-foreground">
             <Image
               src={slide.image}
-              alt=""
+              alt={`${slide.title} - Lifeline Medical Centre`}
               fill
               className="object-cover opacity-60"
               priority={index === 0}
