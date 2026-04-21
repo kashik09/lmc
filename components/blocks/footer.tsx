@@ -24,7 +24,7 @@ export function Footer() {
           <div>
             <div className="mb-4">
               <Image
-                src="/images/logo-white.svg"
+                src="/images/logo-white.png"
                 alt="Lifeline Medical Centre - Serving Gayaza since 2015"
                 width={180}
                 height={60}

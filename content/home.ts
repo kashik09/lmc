@@ -9,8 +9,7 @@ export const heroSlides = [
     title: "LABORATORY",
     description:
       "We have over the years has provided high quality service delivery with a wide range of medical laboratory investigations for our patients.",
-    image: "/images/hero/laboratory.svg",
-    // TODO: Replace with real image from lmc.co.ug
+    image: "/images/hero/lab.jpg",
     link: "/services/laboratory",
     linkText: "Learn More",
   },
@@ -19,8 +18,7 @@ export const heroSlides = [
     title: "THEATRE",
     description:
       "We have a team of skilled and experienced Doctors and Nurses who are ready to perform common surgical procedures.",
-    image: "/images/hero/theatre.svg",
-    // TODO: Replace with real image from lmc.co.ug/wp-content/uploads/2026/03/theatre.jpg
+    image: "/images/hero/theatre.jpg",
     link: "/services",
     linkText: "Learn More",
   },
@@ -30,8 +28,7 @@ export const heroSlides = [
     subtitle: "Your Health is our priority",
     description:
       "From preventive care and checkups, to immunizations and exams, our primary care physicians and providers work to keep you and your whole family healthy and strong each and every day.",
-    image: "/images/hero/quality-care.svg",
-    // TODO: Replace with real image from lmc.co.ug
+    image: "/images/hero/quality-care.jpg",
     link: "/services",
     linkText: "Learn More",
   },
@@ -83,8 +80,7 @@ export const serviceCards = [
     slug: "xray",
     description:
       "Our radiologists use X-rays in low doses to produce images that help to diagnose and detect bone fractures and breaks, lung problems, tumours and other medical conditions.",
-    image: "/images/services/xray.svg",
-    // TODO: Replace with real image
+    image: "/images/services/x-ray.jpg",
   },
   {
     id: "dental",
@@ -92,8 +88,7 @@ export const serviceCards = [
     slug: "dental",
     description:
       "At LMC, we provide comprehensive and fine dental services to our dear clients. Our team is comprised of highly skilled dental specialists who are committed in their practice.",
-    image: "/images/services/dental.svg",
-    // TODO: Replace with real image
+    image: "/images/services/dental.jpg",
   },
   {
     id: "laboratory",
@@ -101,8 +96,7 @@ export const serviceCards = [
     slug: "laboratory",
     description:
       "LMC over the years has provided high quality service delivery with a wide range of laboratory investigations for our patients. We perform tests for diagnostic and therapeutic evaluations.",
-    image: "/images/services/laboratory.svg",
-    // TODO: Replace with real image
+    image: "/images/services/laboratory.jpg",
   },
 ];
 
@@ -112,6 +106,5 @@ export const ctaSection = {
     "Call Now (+256) 774-202747 and receive Top Quality Healthcare for you and your Family",
   buttonText: "Request Appointment",
   buttonLink: "/appointments",
-  backgroundImage: "/images/hero/quality-care.svg",
-  // TODO: Replace with real image from lmc.co.ug
+  backgroundImage: "/images/hero/quality-care.jpg",
 };

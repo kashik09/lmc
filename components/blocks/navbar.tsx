@@ -41,7 +41,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt="Lifeline Medical Centre - Quality Healthcare in Gayaza"
             width={180}
             height={60}
