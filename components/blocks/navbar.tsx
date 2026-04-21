@@ -1,5 +1,5 @@
 "use client";
-// CLIENT: Mobile menu toggle, dropdown hover/click state, sticky scroll detection
+// CLIENT: Mobile menu toggle, sticky scroll detection
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -7,23 +7,13 @@ import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  {
-    href: "/services",
-    label: "Our Services",
-    dropdown: [
-      { href: "/services/xray", label: "X-ray" },
-      { href: "/services/dental", label: "Dental" },
-      { href: "/services/laboratory", label: "Laboratory" },
-    ],
-  },
+  { href: "/services", label: "Services" },
   { href: "/news", label: "News" },
   { href: "/contacts", label: "Contacts" },
-  { href: "/services", label: "Services" },
 ];
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const pathname = usePathname();
 
@@ -65,65 +55,21 @@ export function Navbar() {
         {/* Desktop Nav */}
         <ul className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
-            <li key={link.href + link.label} className="relative">
-              {link.dropdown ? (
-                <div
-                  className="group"
-                  onMouseEnter={() => setDropdownOpen(true)}
-                  onMouseLeave={() => setDropdownOpen(false)}
-                >
-                  <button
-                    className={`flex items-center gap-1 font-medium transition-colors hover:text-primary ${
-                      pathname.startsWith("/services")
-                        ? "text-primary"
-                        : "text-foreground"
-                    }`}
-                  >
-                    {link.label}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <ul
-                    className={`absolute left-0 top-full z-50 min-w-[160px] rounded-md border border-border bg-card py-2 shadow-lg transition-opacity ${
-                      dropdownOpen
-                        ? "opacity-100"
-                        : "pointer-events-none opacity-0"
-                    }`}
-                  >
-                    {link.dropdown.map((sublink) => (
-                      <li key={sublink.href}>
-                        <Link
-                          href={sublink.href}
-                          className="block px-4 py-2 text-sm hover:bg-muted"
-                        >
-                          {sublink.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                <Link
-                  href={link.href}
-                  className={`font-medium transition-colors hover:text-primary ${
-                    pathname === link.href
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={`font-medium transition-colors hover:text-primary ${
+                  link.href === "/"
+                    ? pathname === "/"
                       ? "text-primary"
                       : "text-foreground"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )}
+                    : pathname.startsWith(link.href)
+                      ? "text-primary"
+                      : "text-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
             </li>
           ))}
         </ul>
@@ -194,37 +140,21 @@ export function Navbar() {
 
           <ul className="space-y-1 pt-2">
             {navLinks.map((link) => (
-              <li key={link.href + link.label}>
-                {link.dropdown ? (
-                  <div>
-                    <span className="block py-2 font-medium text-foreground">
-                      {link.label}
-                    </span>
-                    <ul className="ml-4 space-y-1 border-l border-border pl-4">
-                      {link.dropdown.map((sublink) => (
-                        <li key={sublink.href}>
-                          <Link
-                            href={sublink.href}
-                            className="block py-2 text-sm text-muted-foreground hover:text-primary"
-                          >
-                            {sublink.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <Link
-                    href={link.href}
-                    className={`block py-2 font-medium ${
-                      pathname === link.href
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`block py-2 font-medium ${
+                    link.href === "/"
+                      ? pathname === "/"
                         ? "text-primary"
                         : "text-foreground hover:text-primary"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )}
+                      : pathname.startsWith(link.href)
+                        ? "text-primary"
+                        : "text-foreground hover:text-primary"
+                  }`}
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
