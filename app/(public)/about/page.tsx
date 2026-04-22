@@ -79,7 +79,6 @@ export default function AboutPage() {
                 fill
                 className="object-cover"
               />
-              {/* TODO: Replace with real facility image */}
             </div>
           </div>
         </div>
