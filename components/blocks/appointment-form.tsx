@@ -6,6 +6,7 @@ import {
   appointmentDepartments,
   sexOptions,
 } from "@/content/appointments";
+import { submitAppointment } from "@/lib/actions/appointment";
 
 interface FormData {
   department: string;
@@ -73,11 +74,18 @@ export function AppointmentForm() {
 
     setIsSubmitting(true);
 
-    // TODO: Wire to Supabase appointments table in Phase 5
-    console.log("Appointment form submitted:", formData);
+    const result = await submitAppointment(formData);
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    if (!result.success) {
+      // Map server errors to form errors
+      const serverErrors: Partial<FormData> = {};
+      for (const [key, messages] of Object.entries(result.errors)) {
+        serverErrors[key as keyof FormData] = messages[0];
+      }
+      setErrors(serverErrors);
+      setIsSubmitting(false);
+      return;
+    }
 
     setIsSubmitting(false);
     setIsSuccess(true);

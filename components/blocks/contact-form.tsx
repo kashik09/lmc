@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { contactForm } from "@/content/contacts";
+import { submitContact } from "@/lib/actions/contact";
 
 interface FormData {
   fullName: string;
@@ -63,11 +64,18 @@ export function ContactForm() {
 
     setIsSubmitting(true);
 
-    // TODO: wire to inquiries table in Phase 5
-    console.log("Contact form submission:", formData);
+    const result = await submitContact(formData);
 
-    // Simulate submission delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    if (!result.success) {
+      // Map server errors to form errors
+      const serverErrors: FormErrors = {};
+      for (const [key, messages] of Object.entries(result.errors)) {
+        serverErrors[key as keyof FormErrors] = messages[0];
+      }
+      setErrors(serverErrors);
+      setIsSubmitting(false);
+      return;
+    }
 
     setIsSubmitting(false);
     setIsSuccess(true);
