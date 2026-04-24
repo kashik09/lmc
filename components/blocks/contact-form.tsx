@@ -1,7 +1,8 @@
 "use client";
-// CLIENT: form state + validation
+// CLIENT: form state + validation + redirect
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { contactForm } from "@/content/contacts";
 import { submitContact } from "@/lib/actions/contact";
 
@@ -21,6 +22,7 @@ interface FormErrors {
 }
 
 export function ContactForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     phone: "",
@@ -29,8 +31,8 @@ export function ContactForm() {
     message: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -59,6 +61,7 @@ export function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setGlobalError(null);
 
     if (!validateForm()) return;
 
@@ -66,26 +69,22 @@ export function ContactForm() {
 
     const result = await submitContact(formData);
 
-    if (!result.success) {
-      // Map server errors to form errors
+    if (result.success) {
+      router.push(`/thank-you?ref=${result.referenceNumber}&type=inquiry`);
+      return;
+    }
+
+    setIsSubmitting(false);
+
+    if (result.error === "validation") {
       const serverErrors: FormErrors = {};
       for (const [key, messages] of Object.entries(result.errors)) {
         serverErrors[key as keyof FormErrors] = messages[0];
       }
       setErrors(serverErrors);
-      setIsSubmitting(false);
-      return;
+    } else if (result.error === "rate_limit" || result.error === "database") {
+      setGlobalError(result.message);
     }
-
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({
-      fullName: "",
-      phone: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
   };
 
   const handleChange = (
@@ -96,39 +95,20 @@ export function ContactForm() {
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
+    if (globalError) {
+      setGlobalError(null);
+    }
   };
-
-  if (isSuccess) {
-    return (
-      <div className="rounded-lg border border-primary bg-primary/5 p-6 text-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="mx-auto mb-4 h-12 w-12 text-primary"
-        >
-          <path
-            fillRule="evenodd"
-            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-            clipRule="evenodd"
-          />
-        </svg>
-        <p className="text-lg font-medium text-foreground">
-          {contactForm.successMessage}
-        </p>
-        <button
-          type="button"
-          onClick={() => setIsSuccess(false)}
-          className="mt-4 text-sm text-primary hover:underline"
-        >
-          Send another message
-        </button>
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Global Error (rate limit / database) */}
+      {globalError && (
+        <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">
+          {globalError}
+        </div>
+      )}
+
       {/* Full Name */}
       <div>
         <label
