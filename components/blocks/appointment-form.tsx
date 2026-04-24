@@ -210,10 +210,10 @@ export function AppointmentForm() {
       </div>
 
       {/* Patient Type */}
-      <div>
-        <label className="mb-1 block text-sm font-medium text-foreground">
-          Patient Type <span className="text-destructive">*</span>
-        </label>
+      <fieldset>
+        <legend className="sr-only">
+          Patient Type (required)
+        </legend>
         <div className="flex gap-4">
           {patientTypeOptions.map((opt) => (
             <label key={opt.value} className="flex items-center gap-2">
@@ -232,7 +232,7 @@ export function AppointmentForm() {
         {errors.patientType && (
           <p className="mt-1 text-sm text-destructive">{errors.patientType}</p>
         )}
-      </div>
+      </fieldset>
 
       {/* Date of Birth */}
       <DatePickerField
