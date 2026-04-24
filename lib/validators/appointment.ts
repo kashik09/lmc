@@ -26,7 +26,10 @@ export const appointmentSchema = z.object({
     .string()
     .min(1, "Phone number is required")
     .regex(phoneRegex, "Please enter a valid Ugandan phone number"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .or(z.literal("")),
   appointmentDate: z
     .string()
     .min(1, "Appointment date is required")

@@ -11,7 +11,10 @@ export const contactSchema = z.object({
     .string()
     .min(1, "Phone number is required")
     .regex(phoneRegex, "Please enter a valid Ugandan phone number"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .or(z.literal("")),
   subject: z.string().max(200, "Subject must be less than 200 characters").optional(),
   message: z
     .string()
