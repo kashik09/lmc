@@ -10,10 +10,12 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/blocks/page-header";
 import { AppointmentForm } from "@/components/blocks/appointment-form";
+import { DoctorTimeTable } from "@/components/blocks/doctor-time-table";
 import {
   appointmentsPage,
   appointmentInfoPanel,
   appointmentsWhyChooseUs,
+  doctorAvailabilitySection,
 } from "@/content/appointments";
 
 const iconMap: Record<string, ReactNode> = {
@@ -122,6 +124,21 @@ export default function AppointmentsPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Doctor Availability */}
+      <section className="bg-muted py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-8 text-center">
+            <h2 className="font-heading text-2xl font-bold text-foreground md:text-3xl">
+              {doctorAvailabilitySection.heading}
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              {doctorAvailabilitySection.subtitle}
+            </p>
+          </div>
+          <DoctorTimeTable />
         </div>
       </section>
     </>
