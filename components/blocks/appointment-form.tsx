@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import {
   appointmentDepartments,
   sexOptions,
+  patientTypeOptions,
 } from "@/content/appointments";
 import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
@@ -13,6 +14,7 @@ interface FormData {
   department: string;
   doctorSlug: string;
   fullName: string;
+  patientType: string;
   dateOfBirth: string;
   sex: string;
   phone: string;
@@ -25,6 +27,7 @@ const initialFormData: FormData = {
   department: "",
   doctorSlug: "",
   fullName: "",
+  patientType: "",
   dateOfBirth: "",
   sex: "",
   phone: "",
@@ -70,6 +73,7 @@ export function AppointmentForm() {
 
     if (!formData.department) newErrors.department = "Required";
     if (!formData.fullName.trim()) newErrors.fullName = "Required";
+    if (!formData.patientType) newErrors.patientType = "Required";
     if (!formData.dateOfBirth) newErrors.dateOfBirth = "Required";
     if (!formData.sex) newErrors.sex = "Required";
     if (!formData.phone.trim()) newErrors.phone = "Required";
@@ -218,6 +222,31 @@ export function AppointmentForm() {
         />
         {errors.fullName && (
           <p className="mt-1 text-sm text-destructive">{errors.fullName}</p>
+        )}
+      </div>
+
+      {/* Patient Type */}
+      <div>
+        <label className="mb-1 block text-sm font-medium text-foreground">
+          Patient Type <span className="text-destructive">*</span>
+        </label>
+        <div className="flex gap-4">
+          {patientTypeOptions.map((opt) => (
+            <label key={opt.value} className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="patientType"
+                value={opt.value}
+                checked={formData.patientType === opt.value}
+                onChange={handleChange}
+                className="h-4 w-4 border-input text-primary focus:ring-primary"
+              />
+              <span className="text-sm text-foreground">{opt.label}</span>
+            </label>
+          ))}
+        </div>
+        {errors.patientType && (
+          <p className="mt-1 text-sm text-destructive">{errors.patientType}</p>
         )}
       </div>
 

@@ -16,7 +16,10 @@ export const appointmentSchema = z.object({
       const date = new Date(val);
       return date < new Date();
     }, "Date of birth must be in the past"),
-  sex: z.enum(["male", "female", "other"], {
+  patientType: z.enum(["adult", "child"], {
+    message: "Please select patient type",
+  }),
+  sex: z.enum(["male", "female"], {
     message: "Please select a valid option",
   }),
   phone: z

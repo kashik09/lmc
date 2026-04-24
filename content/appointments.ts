@@ -17,6 +17,10 @@ export const appointmentDepartments = [
 export const sexOptions = [
   { value: "female", label: "Female" },
   { value: "male", label: "Male" },
+];
+
+export const patientTypeOptions = [
+  { value: "adult", label: "Adult" },
   { value: "child", label: "Child" },
 ];
 
