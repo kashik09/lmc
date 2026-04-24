@@ -210,8 +210,8 @@ export type Database = {
           id: string;
           reference_number: string;
           name: string;
-          email: string;
-          phone: string | null;
+          email: string | null;
+          phone: string;
           subject: string | null;
           message: string;
           created_at: string;
@@ -220,8 +220,8 @@ export type Database = {
           id?: string;
           reference_number: string;
           name: string;
-          email: string;
-          phone?: string | null;
+          email?: string | null;
+          phone: string;
           subject?: string | null;
           message: string;
           created_at?: string;
@@ -249,7 +249,7 @@ export type Database = {
           date_of_birth: string;
           sex: "male" | "female";
           phone: string;
-          email: string;
+          email: string | null;
           appointment_date: string;
           message: string | null;
           status: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
@@ -266,7 +266,7 @@ export type Database = {
           date_of_birth: string;
           sex: "male" | "female";
           phone: string;
-          email: string;
+          email?: string | null;
           appointment_date: string;
           message?: string | null;
           status?: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
