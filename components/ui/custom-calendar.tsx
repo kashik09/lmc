@@ -32,6 +32,12 @@ export type CustomCalendarProps = {
 };
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+type ViewMode = "days" | "months" | "years";
 
 export function CustomCalendar({
   value,
@@ -49,6 +55,7 @@ export function CustomCalendar({
     value ? startOfMonth(value) : startOfMonth(defaultMonth ?? new Date())
   );
   const [focusedDate, setFocusedDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("days");
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const today = startOfDay(new Date());
@@ -188,9 +195,26 @@ export function CustomCalendar({
             />
           </svg>
         </button>
-        <span className="font-heading text-sm font-semibold text-foreground">
+        <button
+          type="button"
+          onClick={() => setViewMode("months")}
+          className="flex items-center gap-1 rounded-md px-2 py-1 font-heading text-sm font-semibold text-foreground hover:bg-muted"
+          aria-label="Change month and year"
+        >
           {format(currentMonth, "MMMM yyyy")}
-        </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-4 w-4"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
         <button
           type="button"
           onClick={goToNextMonth}
