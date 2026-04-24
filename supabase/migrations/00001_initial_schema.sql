@@ -93,6 +93,7 @@ CREATE TABLE profiles (
   full_name TEXT,
   phone TEXT,
   avatar_url TEXT,
+  role TEXT DEFAULT 'patient' CHECK (role IN ('patient', 'staff', 'admin')),
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
@@ -188,8 +189,8 @@ CREATE INDEX idx_inquiries_created_at ON inquiries(created_at DESC);
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name)
-  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name');
+  INSERT INTO public.profiles (id, full_name, role)
+  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name', 'patient');
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

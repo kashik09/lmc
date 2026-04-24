@@ -1,6 +1,46 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+// Route protection configuration
+// Routes not listed here are public
+const PROTECTED_ROUTES: Record<string, string[]> = {
+  // Pattern: role(s) that can access
+  "/dashboard": ["patient", "staff", "admin"],
+  "/jobs/dashboard": ["staff", "admin"],
+  "/admin": ["admin"],
+};
+
+// Allowed redirect hosts (open redirect protection)
+const ALLOWED_REDIRECT_HOSTS = [
+  "", // empty = same origin (relative paths)
+];
+
+function isAllowedRedirect(url: string, requestHost: string): boolean {
+  try {
+    // Relative paths are always allowed
+    if (url.startsWith("/") && !url.startsWith("//")) {
+      return true;
+    }
+
+    const parsed = new URL(url);
+    // Only allow same-origin redirects
+    return parsed.host === requestHost;
+  } catch {
+    // Invalid URL, reject
+    return false;
+  }
+}
+
+function getRequiredRoles(pathname: string): string[] | null {
+  // Check each protected route pattern
+  for (const [pattern, roles] of Object.entries(PROTECTED_ROUTES)) {
+    if (pathname === pattern || pathname.startsWith(`${pattern}/`)) {
+      return roles;
+    }
+  }
+  return null; // Not a protected route
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -34,26 +74,71 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protected routes — redirect to login if not authenticated
-  const isProtectedRoute =
-    request.nextUrl.pathname.startsWith("/dashboard") ||
-    request.nextUrl.pathname.startsWith("/jobs/dashboard");
-  const isAuthRoute =
-    request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/signup");
+  const pathname = request.nextUrl.pathname;
+  const requestHost = request.nextUrl.host;
 
-  if (isProtectedRoute && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("redirect", request.nextUrl.pathname);
-    return NextResponse.redirect(url);
+  // Check if this is a protected route
+  const requiredRoles = getRequiredRoles(pathname);
+  const isAuthRoute =
+    pathname.startsWith("/login") || pathname.startsWith("/signup");
+
+  // Protected route handling
+  if (requiredRoles !== null) {
+    // Not authenticated -> redirect to login
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(url);
+    }
+
+    // Authenticated -> check role
+    // FAIL CLOSED: if we can't fetch the role, deny access
+    const { data: profile, error } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (error || !profile) {
+      // Role lookup failed - fail closed, redirect to home with error
+      console.error("Role lookup failed for user:", user.id, error);
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      url.searchParams.set("error", "access_denied");
+      return NextResponse.redirect(url);
+    }
+
+    const userRole = profile.role as string;
+
+    // Check if user's role is in the allowed roles for this route
+    if (!requiredRoles.includes(userRole)) {
+      // Insufficient permissions - redirect based on role
+      const url = request.nextUrl.clone();
+      if (userRole === "patient") {
+        url.pathname = "/dashboard";
+      } else if (userRole === "staff") {
+        url.pathname = "/jobs/dashboard";
+      } else {
+        url.pathname = "/";
+      }
+      url.searchParams.set("error", "insufficient_permissions");
+      return NextResponse.redirect(url);
+    }
   }
 
   // Redirect authenticated users away from auth pages
   if (isAuthRoute && user) {
-    const redirect = request.nextUrl.searchParams.get("redirect") || "/dashboard";
+    const redirectParam = request.nextUrl.searchParams.get("redirect");
+
+    // Validate redirect URL (open redirect protection)
+    let redirectPath = "/dashboard";
+    if (redirectParam && isAllowedRedirect(redirectParam, requestHost)) {
+      redirectPath = redirectParam;
+    }
+
     const url = request.nextUrl.clone();
-    url.pathname = redirect;
+    url.pathname = redirectPath;
     url.search = "";
     return NextResponse.redirect(url);
   }
