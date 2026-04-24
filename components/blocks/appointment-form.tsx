@@ -9,6 +9,7 @@ import {
 } from "@/content/appointments";
 import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
+import { DatePickerField } from "@/components/ui/date-picker-field";
 
 interface FormData {
   department: string;
@@ -251,27 +252,20 @@ export function AppointmentForm() {
       </div>
 
       {/* Date of Birth */}
-      <div>
-        <label
-          htmlFor="dateOfBirth"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Date of Birth <span className="text-destructive">*</span>
-        </label>
-        <input
-          type="date"
-          id="dateOfBirth"
-          name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.dateOfBirth ? "border-destructive" : "border-input"
-          }`}
-        />
-        {errors.dateOfBirth && (
-          <p className="mt-1 text-sm text-destructive">{errors.dateOfBirth}</p>
-        )}
-      </div>
+      <DatePickerField
+        label="Date of Birth"
+        required
+        value={formData.dateOfBirth}
+        onChange={(val) => {
+          setFormData((prev) => ({ ...prev, dateOfBirth: val }));
+          if (errors.dateOfBirth) {
+            setErrors((prev) => ({ ...prev, dateOfBirth: undefined }));
+          }
+        }}
+        error={errors.dateOfBirth}
+        dateRules="past-only"
+        placeholder="Select date of birth"
+      />
 
       {/* Sex */}
       <div>
@@ -351,30 +345,20 @@ export function AppointmentForm() {
       </div>
 
       {/* Appointment Date */}
-      <div>
-        <label
-          htmlFor="appointmentDate"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Appointment Date <span className="text-destructive">*</span>
-        </label>
-        <input
-          type="date"
-          id="appointmentDate"
-          name="appointmentDate"
-          value={formData.appointmentDate}
-          onChange={handleChange}
-          min={new Date().toISOString().split("T")[0]}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.appointmentDate ? "border-destructive" : "border-input"
-          }`}
-        />
-        {errors.appointmentDate && (
-          <p className="mt-1 text-sm text-destructive">
-            {errors.appointmentDate}
-          </p>
-        )}
-      </div>
+      <DatePickerField
+        label="Appointment Date"
+        required
+        value={formData.appointmentDate}
+        onChange={(val) => {
+          setFormData((prev) => ({ ...prev, appointmentDate: val }));
+          if (errors.appointmentDate) {
+            setErrors((prev) => ({ ...prev, appointmentDate: undefined }));
+          }
+        }}
+        error={errors.appointmentDate}
+        dateRules="future-only"
+        placeholder="Select appointment date"
+      />
 
       {/* Message */}
       <div>
