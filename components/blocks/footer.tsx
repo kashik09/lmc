@@ -131,7 +131,16 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 py-4">
           <p className="text-center text-sm text-muted-foreground">
             Copyright ©{new Date().getFullYear()} Lifeline Medical Centre ·
-            Designed by Level 0
+            Designed by{" "}
+            {/* TODO: Update URL when portfolio is ready */}
+            <a
+              href="https://kashikweyu.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Kashi Kweyu
+            </a>
           </p>
         </div>
       </div>
