@@ -1,7 +1,8 @@
 "use client";
-// CLIENT: form state + validation + doctor filtering
+// CLIENT: form state + validation + doctor filtering + redirect
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import {
   appointmentDepartments,
   sexOptions,
@@ -38,10 +39,11 @@ const initialFormData: FormData = {
 };
 
 export function AppointmentForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   // Filter doctors by selected department
   const filteredDoctors = useMemo(() => {
@@ -67,6 +69,9 @@ export function AppointmentForm() {
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
+    if (globalError) {
+      setGlobalError(null);
+    }
   }
 
   function validate(): boolean {
@@ -91,63 +96,41 @@ export function AppointmentForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setGlobalError(null);
+
     if (!validate()) return;
 
     setIsSubmitting(true);
 
     const result = await submitAppointment(formData);
 
-    if (!result.success) {
-      // Map server errors to form errors
+    if (result.success) {
+      router.push(`/thank-you?ref=${result.referenceNumber}&type=appointment`);
+      return;
+    }
+
+    setIsSubmitting(false);
+
+    if (result.error === "validation") {
       const serverErrors: Partial<FormData> = {};
       for (const [key, messages] of Object.entries(result.errors)) {
         serverErrors[key as keyof FormData] = messages[0];
       }
       setErrors(serverErrors);
-      setIsSubmitting(false);
-      return;
+    } else if (result.error === "rate_limit" || result.error === "database") {
+      setGlobalError(result.message);
     }
-
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData(initialFormData);
-  }
-
-  if (isSuccess) {
-    return (
-      <div className="rounded-lg border border-primary/20 bg-primary/5 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-6 w-6"
-          >
-            <path
-              fillRule="evenodd"
-              d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <h3 className="mb-2 font-heading text-xl font-semibold text-foreground">
-          Appointment Request Sent
-        </h3>
-        <p className="mb-4 text-muted-foreground">
-          We&apos;ll contact you shortly to confirm your appointment.
-        </p>
-        <button
-          onClick={() => setIsSuccess(false)}
-          className="text-sm font-medium text-primary hover:underline"
-        >
-          Book another appointment
-        </button>
-      </div>
-    );
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Global Error (rate limit / database) */}
+      {globalError && (
+        <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">
+          {globalError}
+        </div>
+      )}
+
       {/* Department */}
       <div>
         <label
@@ -261,6 +244,9 @@ export function AppointmentForm() {
           if (errors.dateOfBirth) {
             setErrors((prev) => ({ ...prev, dateOfBirth: undefined }));
           }
+          if (globalError) {
+            setGlobalError(null);
+          }
         }}
         error={errors.dateOfBirth}
         dateRules="past-only"
@@ -353,6 +339,9 @@ export function AppointmentForm() {
           setFormData((prev) => ({ ...prev, appointmentDate: val }));
           if (errors.appointmentDate) {
             setErrors((prev) => ({ ...prev, appointmentDate: undefined }));
+          }
+          if (globalError) {
+            setGlobalError(null);
           }
         }}
         error={errors.appointmentDate}
