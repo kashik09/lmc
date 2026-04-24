@@ -83,9 +83,7 @@ export function AppointmentForm() {
     if (!formData.dateOfBirth) newErrors.dateOfBirth = "Required";
     if (!formData.sex) newErrors.sex = "Required";
     if (!formData.phone.trim()) newErrors.phone = "Required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email";
     }
     if (!formData.appointmentDate) newErrors.appointmentDate = "Required";
@@ -312,7 +310,7 @@ export function AppointmentForm() {
           htmlFor="email"
           className="mb-1 block text-sm font-medium text-foreground"
         >
-          Email <span className="text-destructive">*</span>
+          Email <span className="text-muted-foreground">(optional)</span>
         </label>
         <input
           type="email"
