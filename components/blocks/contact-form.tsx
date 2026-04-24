@@ -45,9 +45,7 @@ export function ContactForm() {
       newErrors.phone = "Phone number is required";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email";
     }
 
@@ -166,7 +164,6 @@ export function ContactForm() {
           className="mb-1 block text-sm font-medium text-foreground"
         >
           {contactForm.fields.email.label}
-          <span className="text-destructive"> *</span>
         </label>
         <input
           type="email"
