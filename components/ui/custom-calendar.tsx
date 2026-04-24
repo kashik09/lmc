@@ -270,10 +270,27 @@ export function CustomCalendar({
   const displayedYear = currentMonth.getFullYear();
   const displayedMonthIndex = currentMonth.getMonth();
 
+  // Decade calculation for years view
+  const decadeStart = Math.floor(displayedYear / 10) * 10;
+  const decadeEnd = decadeStart + 9;
+
+  // Generate 12 years for grid: prev decade last year + 10 decade years + next decade first year
+  const yearsInGrid = [
+    decadeStart - 1,
+    ...Array.from({ length: 10 }, (_, i) => decadeStart + i),
+    decadeEnd + 1,
+  ];
+
   // Month selection handler
   const handleMonthSelect = (monthIndex: number) => {
     setCurrentMonth(new Date(displayedYear, monthIndex, 1));
     setViewMode("days");
+  };
+
+  // Year selection handler
+  const handleYearSelect = (year: number) => {
+    setCurrentMonth(new Date(year, displayedMonthIndex, 1));
+    setViewMode("months");
   };
 
   // Year navigation for months view
@@ -282,6 +299,14 @@ export function CustomCalendar({
   };
   const goToNextYear = () => {
     setCurrentMonth(new Date(displayedYear + 1, displayedMonthIndex, 1));
+  };
+
+  // Decade navigation for years view
+  const goToPreviousDecade = () => {
+    setCurrentMonth(new Date(displayedYear - 10, displayedMonthIndex, 1));
+  };
+  const goToNextDecade = () => {
+    setCurrentMonth(new Date(displayedYear + 10, displayedMonthIndex, 1));
   };
 
   return (
@@ -481,11 +506,61 @@ export function CustomCalendar({
         </>
       )}
 
-      {/* ===== YEARS VIEW ===== (placeholder - will be added next) */}
+      {/* ===== YEARS VIEW ===== */}
       {viewMode === "years" && (
-        <div className="flex h-48 items-center justify-center text-muted-foreground">
-          Years view coming...
-        </div>
+        <>
+          {/* Years Header */}
+          <div className="mb-3 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={goToPreviousDecade}
+              className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+              aria-label="Previous decade"
+            >
+              <ChevronLeft />
+            </button>
+            <span className="font-heading text-sm font-semibold text-foreground">
+              {decadeStart} – {decadeEnd}
+            </span>
+            <button
+              type="button"
+              onClick={goToNextDecade}
+              className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+              aria-label="Next decade"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+
+          {/* Year Grid (4x3) */}
+          <div className="grid grid-cols-4 gap-2">
+            {yearsInGrid.map((year) => {
+              const isSelected = year === displayedYear;
+              const isOutsideDecade = year < decadeStart || year > decadeEnd;
+              const isDisabled = isYearDisabled(year, dateRules, minDate, maxDate);
+
+              return (
+                <button
+                  key={year}
+                  type="button"
+                  onClick={() => !isDisabled && handleYearSelect(year)}
+                  disabled={isDisabled}
+                  className={`flex h-10 items-center justify-center rounded-md text-sm transition-colors ${
+                    isSelected
+                      ? "bg-primary font-semibold text-primary-foreground"
+                      : isDisabled
+                        ? "cursor-not-allowed text-muted-foreground/50"
+                        : isOutsideDecade
+                          ? "text-muted-foreground hover:bg-muted"
+                          : "text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {year}
+                </button>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );
