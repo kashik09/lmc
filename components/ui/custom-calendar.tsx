@@ -32,10 +32,6 @@ export type CustomCalendarProps = {
 };
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
 
 export function CustomCalendar({
   value,
@@ -56,20 +52,6 @@ export function CustomCalendar({
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const today = startOfDay(new Date());
-  const currentYear = today.getFullYear();
-
-  // Generate year range based on dateRules
-  const years = (() => {
-    if (dateRules === "past-only") {
-      // DOB: 100 years back to current year
-      return Array.from({ length: 101 }, (_, i) => currentYear - 100 + i);
-    } else if (dateRules === "future-only") {
-      // Appointments: current year to +5 years
-      return Array.from({ length: 6 }, (_, i) => currentYear + i);
-    }
-    // Any: 50 years back to 10 years forward
-    return Array.from({ length: 61 }, (_, i) => currentYear - 50 + i);
-  })();
 
   // Determine if a date is disabled based on rules
   const isDateDisabled = useCallback(
@@ -118,14 +100,6 @@ export function CustomCalendar({
   // Navigation handlers
   const goToPreviousMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
   const goToNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
-
-  const handleMonthChange = (month: number) => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), month, 1));
-  };
-
-  const handleYearChange = (year: number) => {
-    setCurrentMonth(new Date(year, currentMonth.getMonth(), 1));
-  };
 
   // Select date
   const handleDateSelect = (date: Date) => {
@@ -214,32 +188,9 @@ export function CustomCalendar({
             />
           </svg>
         </button>
-        <div className="flex items-center gap-1">
-          <select
-            value={currentMonth.getMonth()}
-            onChange={(e) => handleMonthChange(Number(e.target.value))}
-            className="rounded border-none bg-transparent py-0.5 pr-5 font-heading text-sm font-semibold text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            aria-label="Select month"
-          >
-            {MONTHS.map((month, idx) => (
-              <option key={month} value={idx}>
-                {month}
-              </option>
-            ))}
-          </select>
-          <select
-            value={currentMonth.getFullYear()}
-            onChange={(e) => handleYearChange(Number(e.target.value))}
-            className="rounded border-none bg-transparent py-0.5 pr-5 font-heading text-sm font-semibold text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            aria-label="Select year"
-          >
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
+        <span className="font-heading text-sm font-semibold text-foreground">
+          {format(currentMonth, "MMMM yyyy")}
+        </span>
         <button
           type="button"
           onClick={goToNextMonth}
