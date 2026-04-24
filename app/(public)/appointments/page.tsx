@@ -1,7 +1,26 @@
-import { HeartPulse, Phone, Mail, MapPin, Clock } from "lucide-react";
+import type { ReactNode } from "react";
+import {
+  HeartPulse,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Wallet,
+  BadgeCheck,
+} from "lucide-react";
 import { PageHeader } from "@/components/blocks/page-header";
 import { AppointmentForm } from "@/components/blocks/appointment-form";
-import { appointmentsPage, appointmentInfoPanel } from "@/content/appointments";
+import {
+  appointmentsPage,
+  appointmentInfoPanel,
+  appointmentsWhyChooseUs,
+} from "@/content/appointments";
+
+const iconMap: Record<string, ReactNode> = {
+  wallet: <Wallet className="h-8 w-8" />,
+  "badge-check": <BadgeCheck className="h-8 w-8" />,
+  clock: <Clock className="h-8 w-8" />,
+};
 
 export default function AppointmentsPage() {
   return (
@@ -10,6 +29,29 @@ export default function AppointmentsPage() {
         title={appointmentsPage.title}
         subtitle={appointmentsPage.subtitle}
       />
+
+      {/* Why Choose Us */}
+      <section className="bg-muted py-10">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid gap-6 md:grid-cols-3">
+            {appointmentsWhyChooseUs.map((item) => (
+              <div key={item.id} className="flex items-start gap-4">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  {iconMap[item.icon]}
+                </div>
+                <div>
+                  <h3 className="font-heading text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="py-12 md:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-12">

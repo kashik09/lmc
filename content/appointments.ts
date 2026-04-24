@@ -29,3 +29,29 @@ export const appointmentInfoPanel = {
   addressMapUrl: "https://maps.google.com/?q=Namavundu+Rd+Gayaza+Uganda",
   openingHours: "Open 24/7 · Emergency line always available",
 };
+
+export const appointmentsWhyChooseUs = [
+  {
+    id: "affordable",
+    icon: "wallet",
+    title: "Affordable Services",
+    description: "Quality healthcare at fair prices",
+  },
+  {
+    id: "certified",
+    icon: "badge-check",
+    title: "Certified Doctors",
+    description: "Qualified specialists available 24/7",
+  },
+  {
+    id: "access",
+    icon: "clock",
+    title: "24-Hour Access",
+    description: "Emergency care whenever you need it",
+  },
+];
+
+export const doctorAvailabilitySection = {
+  heading: "Doctor Availability",
+  subtitle: "Our doctors' weekly schedule",
+};
