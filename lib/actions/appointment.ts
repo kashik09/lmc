@@ -38,12 +38,12 @@ export async function submitAppointment(
   const supabase = await createClient();
   const { data } = result;
 
-  // Rate limit check: max 3 submissions per email in 10 minutes
+  // Rate limit check: max 3 submissions per phone in 10 minutes
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
   const { count, error: countError } = await supabase
     .from("appointments")
     .select("*", { count: "exact", head: true })
-    .eq("email", data.email)
+    .eq("phone", data.phone)
     .gte("created_at", tenMinutesAgo);
 
   if (countError) {
@@ -73,7 +73,7 @@ export async function submitAppointment(
     date_of_birth: toIsoDate(data.dateOfBirth),
     sex: data.sex,
     phone: data.phone,
-    email: data.email,
+    email: data.email || null,
     appointment_date: toIsoDate(data.appointmentDate),
     message: data.message || null,
     // status defaults to 'pending' in the DB schema, don't set it here

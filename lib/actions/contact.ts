@@ -28,12 +28,12 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   const supabase = await createClient();
   const { email, fullName, phone, subject, message } = result.data;
 
-  // Rate limit check: max 3 submissions per email in 10 minutes
+  // Rate limit check: max 3 submissions per phone in 10 minutes
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
   const { count, error: countError } = await supabase
     .from("inquiries")
     .select("*", { count: "exact", head: true })
-    .eq("email", email)
+    .eq("phone", phone)
     .gte("created_at", tenMinutesAgo);
 
   if (countError) {
@@ -57,8 +57,8 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   const { error: insertError } = await supabase.from("inquiries").insert({
     reference_number: referenceNumber,
     name: fullName,
-    email,
-    phone: phone || null,
+    email: email || null,
+    phone,
     subject: subject || null,
     message,
   });
