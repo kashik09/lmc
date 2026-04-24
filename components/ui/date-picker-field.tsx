@@ -15,6 +15,7 @@ type DatePickerFieldProps = {
   dateRules?: CustomCalendarProps["dateRules"];
   minDate?: Date;
   maxDate?: Date;
+  defaultMonth?: Date;
   placeholder?: string;
 };
 
@@ -28,6 +29,7 @@ export function DatePickerField({
   dateRules = "any",
   minDate,
   maxDate,
+  defaultMonth,
   placeholder = "Select date",
 }: DatePickerFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,6 +119,7 @@ export function DatePickerField({
             dateRules={dateRules}
             minDate={minDate}
             maxDate={maxDate}
+            defaultMonth={defaultMonth}
           />
         </div>
       )}

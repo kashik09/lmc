@@ -25,6 +25,7 @@ export type CustomCalendarProps = {
   dateRules: "past-only" | "future-only" | "any";
   minDate?: Date;
   maxDate?: Date;
+  defaultMonth?: Date;
   timeSlots?: string[];
   selectedTime?: string | null;
   onTimeChange?: (time: string) => void;
@@ -39,12 +40,13 @@ export function CustomCalendar({
   dateRules,
   minDate,
   maxDate,
+  defaultMonth,
   timeSlots = [],
   selectedTime,
   onTimeChange,
 }: CustomCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(
-    value ? startOfMonth(value) : startOfMonth(new Date())
+    value ? startOfMonth(value) : startOfMonth(defaultMonth ?? new Date())
   );
   const [focusedDate, setFocusedDate] = useState<Date | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
