@@ -37,8 +37,10 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
     .gte("created_at", tenMinutesAgo);
 
   if (countError) {
-    console.error("Rate limit check failed:", countError);
-    // Fail open for rate limit check errors - allow submission
+    // Fail-open: if the abuse-check query errors (e.g., transient DB issue),
+    // we allow the submission to proceed rather than block legitimate users.
+    // Accepted tradeoff — revisit in Phase 6 hardening if threat model changes.
+    console.error("[contact] abuse-check query failed:", countError);
   } else if (count !== null && count >= 3) {
     return {
       success: false,
@@ -62,7 +64,7 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   });
 
   if (insertError) {
-    console.error("Failed to insert inquiry:", insertError);
+    console.error("[contact] inquiry insert failed:", insertError);
     return {
       success: false,
       error: "database",
