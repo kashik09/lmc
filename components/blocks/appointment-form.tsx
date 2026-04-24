@@ -1,15 +1,17 @@
 "use client";
-// CLIENT: form state + validation
+// CLIENT: form state + validation + doctor filtering
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   appointmentDepartments,
   sexOptions,
 } from "@/content/appointments";
+import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
 
 interface FormData {
   department: string;
+  doctorSlug: string;
   fullName: string;
   dateOfBirth: string;
   sex: string;
@@ -21,6 +23,7 @@ interface FormData {
 
 const initialFormData: FormData = {
   department: "",
+  doctorSlug: "",
   fullName: "",
   dateOfBirth: "",
   sex: "",
@@ -36,13 +39,26 @@ export function AppointmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  // Filter doctors by selected department
+  const filteredDoctors = useMemo(() => {
+    if (!formData.department) return doctors;
+    return doctors.filter((doc) => doc.department === formData.department);
+  }, [formData.department]);
+
   function handleChange(
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Reset doctor selection when department changes
+    if (name === "department") {
+      setFormData((prev) => ({ ...prev, department: value, doctorSlug: "" }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+
     // Clear error on change
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
@@ -154,6 +170,31 @@ export function AppointmentForm() {
         {errors.department && (
           <p className="mt-1 text-sm text-destructive">{errors.department}</p>
         )}
+      </div>
+
+      {/* Preferred Doctor */}
+      <div>
+        <label
+          htmlFor="doctorSlug"
+          className="mb-1 block text-sm font-medium text-foreground"
+        >
+          Preferred Doctor{" "}
+          <span className="text-muted-foreground">(optional)</span>
+        </label>
+        <select
+          id="doctorSlug"
+          name="doctorSlug"
+          value={formData.doctorSlug}
+          onChange={handleChange}
+          className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          <option value="">No preference</option>
+          {filteredDoctors.map((doc) => (
+            <option key={doc.slug} value={doc.slug}>
+              {doc.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Full Name */}

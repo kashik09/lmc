@@ -4,6 +4,7 @@ const phoneRegex = /^(\+?256|0)?[37]\d{8}$/;
 
 export const appointmentSchema = z.object({
   department: z.string().min(1, "Department is required"),
+  doctorSlug: z.string().optional(),
   fullName: z
     .string()
     .min(2, "Name must be at least 2 characters")
