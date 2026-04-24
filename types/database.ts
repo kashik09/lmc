@@ -208,6 +208,7 @@ export type Database = {
       inquiries: {
         Row: {
           id: string;
+          reference_number: string;
           name: string;
           email: string;
           phone: string | null;
@@ -217,6 +218,7 @@ export type Database = {
         };
         Insert: {
           id?: string;
+          reference_number: string;
           name: string;
           email: string;
           phone?: string | null;
@@ -226,6 +228,7 @@ export type Database = {
         };
         Update: {
           id?: string;
+          reference_number?: string;
           name?: string;
           email?: string;
           phone?: string | null;
@@ -235,11 +238,65 @@ export type Database = {
         };
         Relationships: [];
       };
+      appointments: {
+        Row: {
+          id: string;
+          reference_number: string;
+          department: string;
+          doctor_slug: string | null;
+          full_name: string;
+          patient_type: "adult" | "child";
+          date_of_birth: string;
+          sex: "male" | "female";
+          phone: string;
+          email: string;
+          appointment_date: string;
+          message: string | null;
+          status: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          reference_number: string;
+          department: string;
+          doctor_slug?: string | null;
+          full_name: string;
+          patient_type: "adult" | "child";
+          date_of_birth: string;
+          sex: "male" | "female";
+          phone: string;
+          email: string;
+          appointment_date: string;
+          message?: string | null;
+          status?: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          reference_number?: string;
+          department?: string;
+          doctor_slug?: string | null;
+          full_name?: string;
+          patient_type?: "adult" | "child";
+          date_of_birth?: string;
+          sex?: "male" | "female";
+          phone?: string;
+          email?: string;
+          appointment_date?: string;
+          message?: string | null;
+          status?: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
-    Views: {};
-    Functions: {};
-    Enums: {};
-    CompositeTypes: {};
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };
 
@@ -262,7 +319,52 @@ export type Post = Tables<"posts">;
 export type Job = Tables<"jobs">;
 export type Profile = Tables<"profiles">;
 export type JobApplication = Tables<"job_applications">;
-export type Inquiry = Tables<"inquiries">;
 
 export type PostCategory = Post["category"];
 export type ApplicationStatus = JobApplication["status"];
+
+// ===========================================
+// APPOINTMENT TYPES
+// ===========================================
+
+export interface Appointment {
+  id: string;
+  reference_number: string;
+  department: string;
+  doctor_slug: string | null;
+  full_name: string;
+  patient_type: "adult" | "child";
+  date_of_birth: string; // ISO date
+  sex: "male" | "female";
+  phone: string;
+  email: string;
+  appointment_date: string; // ISO date
+  message: string | null;
+  status: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+  created_at: string;
+  updated_at: string;
+}
+
+export type AppointmentInsert = Omit<
+  Appointment,
+  "id" | "reference_number" | "status" | "created_at" | "updated_at"
+>;
+
+export type AppointmentStatus = Appointment["status"];
+
+// ===========================================
+// INQUIRY TYPES
+// ===========================================
+
+export interface Inquiry {
+  id: string;
+  reference_number: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  subject: string | null;
+  message: string;
+  created_at: string;
+}
+
+export type InquiryInsert = Omit<Inquiry, "id" | "reference_number" | "created_at">;
