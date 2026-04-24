@@ -248,6 +248,7 @@ export function AppointmentForm() {
         }}
         error={errors.dateOfBirth}
         dateRules="past-only"
+        defaultMonth={new Date(new Date().getFullYear() - 30, 0, 1)}
         placeholder="Select date of birth"
       />
 
