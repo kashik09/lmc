@@ -11,6 +11,13 @@ export const appointmentDepartments = [
   { value: "dental", label: "Dental" },
   { value: "xray", label: "X-Ray" },
   { value: "laboratory", label: "Laboratory" },
+  { value: "cardiology", label: "Cardiology" },
+  { value: "neurology", label: "Neurology" },
+  { value: "orthopedic", label: "Orthopedic" },
+  { value: "pediatrics", label: "Pediatrics" },
+  { value: "diagnostic-imaging", label: "Diagnostic Imaging" },
+  { value: "microbiology-lab", label: "Microbiology Lab" },
+  { value: "gynaecology", label: "Gynaecology & Birth" },
   { value: "general", label: "General Consultation" },
 ];
 
