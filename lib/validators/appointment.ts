@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { calculateAge, ADULT_AGE_THRESHOLD } from "@/lib/utils/age";
 
 const phoneRegex = /^(\+?256|0)?[37]\d{8}$/;
 
@@ -40,6 +41,40 @@ export const appointmentSchema = z.object({
       return date >= today;
     }, "Appointment date cannot be in the past"),
   message: z.string().max(1000, "Message must be less than 1000 characters").optional(),
+}).superRefine((data, ctx) => {
+  const age = calculateAge(data.dateOfBirth);
+
+  if (data.patientType === "adult" && age < ADULT_AGE_THRESHOLD) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["dateOfBirth"],
+      message: `An adult patient must be at least ${ADULT_AGE_THRESHOLD} years old. If the patient is younger, select "Child" above.`,
+    });
+  }
+
+  if (data.patientType === "child" && age >= ADULT_AGE_THRESHOLD) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["patientType"],
+      message: `Patients ${ADULT_AGE_THRESHOLD} and over should be marked as "Adult".`,
+    });
+  }
+
+  // Validate sane DOB bounds
+  if (age > 120) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["dateOfBirth"],
+      message: "Please check the date of birth — that's over 120 years ago.",
+    });
+  }
+  if (age < 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["dateOfBirth"],
+      message: "Date of birth cannot be in the future.",
+    });
+  }
 });
 
 export type AppointmentFormData = z.infer<typeof appointmentSchema>;
