@@ -1,7 +1,7 @@
 "use client";
 // CLIENT: Mobile menu toggle, sticky scroll detection
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,6 +17,7 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const pathname = usePathname();
+  const prevPathnameRef = useRef<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,9 +27,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile menu on route change (not on initial mount)
   useEffect(() => {
-    setMobileMenuOpen(false);
+    if (prevPathnameRef.current !== null && prevPathnameRef.current !== pathname) {
+      setMobileMenuOpen(false);
+    }
+    prevPathnameRef.current = pathname;
   }, [pathname]);
 
   return (
