@@ -10,11 +10,6 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   "/admin": ["admin"],
 };
 
-// Allowed redirect hosts (open redirect protection)
-const ALLOWED_REDIRECT_HOSTS = [
-  "", // empty = same origin (relative paths)
-];
-
 function isAllowedRedirect(url: string, requestHost: string): boolean {
   try {
     // Relative paths are always allowed
