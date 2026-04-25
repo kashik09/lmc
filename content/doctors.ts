@@ -82,6 +82,48 @@ export const doctors: Doctor[] = [
       Sun: ["morning"],
     },
   },
+  {
+    slug: "placeholder-dr-cardiology",
+    name: "[Placeholder] Cardiology Lead",
+    department: "cardiology",
+    schedule: { Mon: ["morning"], Wed: ["afternoon"], Fri: ["morning"] },
+  },
+  {
+    slug: "placeholder-dr-neurology",
+    name: "[Placeholder] Neurology Lead",
+    department: "neurology",
+    schedule: { Tue: ["morning"], Thu: ["afternoon"] },
+  },
+  {
+    slug: "placeholder-dr-orthopedic",
+    name: "[Placeholder] Orthopedic Lead",
+    department: "orthopedic",
+    schedule: { Mon: ["afternoon"], Thu: ["morning"] },
+  },
+  {
+    slug: "placeholder-dr-pediatrics",
+    name: "[Placeholder] Pediatrics Lead",
+    department: "pediatrics",
+    schedule: { Tue: ["morning", "afternoon"], Fri: ["morning"] },
+  },
+  {
+    slug: "placeholder-dr-diagnostic",
+    name: "[Placeholder] Diagnostic Imaging Lead",
+    department: "diagnostic-imaging",
+    schedule: { Wed: ["morning"], Sat: ["morning"] },
+  },
+  {
+    slug: "placeholder-dr-microbiology",
+    name: "[Placeholder] Microbiology Lab Lead",
+    department: "microbiology-lab",
+    schedule: { Mon: ["morning"], Tue: ["evening"], Thu: ["morning"] },
+  },
+  {
+    slug: "placeholder-dr-gynaecology",
+    name: "[Placeholder] Gynaecology Lead",
+    department: "gynaecology",
+    schedule: { Wed: ["morning", "afternoon"], Fri: ["afternoon"] },
+  },
 ];
 
 /**
