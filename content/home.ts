@@ -3,6 +3,26 @@
  * All copy is centralized here for easy editing.
  */
 
+/**
+ * Slugs of services to feature on the home page.
+ * Order matters — this is the display order.
+ * Must match slugs in servicesList.
+ */
+export const featuredServiceSlugs = [
+  "dental",
+  "x-ray",
+  "laboratory",
+  "diagnostic-imaging",
+] as const;
+
+export const featuredServicesSection = {
+  eyebrow: "WHAT WE OFFER",
+  heading: "Our Featured Services",
+  subheading: "Comprehensive care from a team you can trust.",
+  ctaLabel: "View All Services",
+  ctaHref: "/services",
+};
+
 export const heroSlides = [
   {
     id: "laboratory",
