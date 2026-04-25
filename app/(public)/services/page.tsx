@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/blocks/page-header";
+import { ServicesAccordion } from "@/components/blocks/services-accordion";
 import {
   servicesPage,
   servicesIntro,
-  servicesList,
   servicesApproach,
   servicesCta,
 } from "@/content/services";
@@ -75,52 +74,10 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Section 2 - Service Cards Grid */}
-      <section className="bg-muted py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.map((service) => (
-              <div
-                key={service.id}
-                className="group overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                  <Image
-                    src={service.image}
-                    alt={`${service.title} services at Lifeline Medical Centre`}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="mb-2 font-heading text-xl font-semibold text-card-foreground">
-                    {service.title}
-                  </h3>
-                  <p className="mb-4 text-sm text-muted-foreground leading-relaxed">
-                    {service.shortDescription}
-                  </p>
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-                  >
-                    Learn More
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Section 2 - Services Accordion */}
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-4">
+          <ServicesAccordion />
         </div>
       </section>
 
