@@ -3,50 +3,84 @@
  * TODO: Replace placeholder data with real LMC doctor information
  */
 
+export type DayOfWeek = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
+
+export type Shift = "morning" | "afternoon" | "evening";
+// morning   = 8:00 – 11:00
+// afternoon = 11:00 – 14:00
+// evening   = 14:00 – 17:00
+
 export type Doctor = {
   slug: string;
   name: string;
   department: string; // must match a value in appointmentDepartments
-  hours: string; // e.g. "8:00am - 5:00pm"
-  daysAvailable: Array<"Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun">;
+  schedule: Partial<Record<DayOfWeek, Shift[]>>;
 };
 
 export const doctors: Doctor[] = [
-  // TODO: Replace with real LMC doctors
+  // TODO: replace with real LMC doctor schedules from client
   {
-    slug: "dr-mukasa",
+    slug: "placeholder-dr-a",
     name: "[Placeholder] Dr. A — Dental",
     department: "dental",
-    hours: "8:00am - 5:00pm",
-    daysAvailable: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    schedule: {
+      Mon: ["morning", "afternoon"],
+      Tue: ["morning"],
+      Wed: ["morning", "afternoon"],
+      Thu: ["afternoon"],
+      Fri: ["morning", "afternoon"],
+    },
   },
   {
-    slug: "dr-nakato",
+    slug: "placeholder-dr-b",
     name: "[Placeholder] Dr. B — X-Ray",
     department: "xray",
-    hours: "8:00am - 4:00pm",
-    daysAvailable: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    schedule: {
+      Mon: ["morning"],
+      Tue: ["morning", "afternoon"],
+      Wed: ["afternoon"],
+      Thu: ["morning", "afternoon"],
+      Fri: ["morning"],
+      Sat: ["morning"],
+    },
   },
   {
-    slug: "dr-ochieng",
+    slug: "placeholder-dr-c",
     name: "[Placeholder] Dr. C — Laboratory",
     department: "laboratory",
-    hours: "7:00am - 6:00pm",
-    daysAvailable: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    schedule: {
+      Mon: ["morning", "afternoon", "evening"],
+      Tue: ["morning", "evening"],
+      Wed: ["morning", "afternoon"],
+      Thu: ["morning", "afternoon", "evening"],
+      Fri: ["morning", "evening"],
+    },
   },
   {
-    slug: "dr-namukasa",
+    slug: "placeholder-dr-d",
     name: "[Placeholder] Dr. D — General",
     department: "general",
-    hours: "8:00am - 5:00pm",
-    daysAvailable: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    schedule: {
+      Mon: ["evening"],
+      Tue: ["afternoon", "evening"],
+      Wed: ["evening"],
+      Thu: ["afternoon"],
+      Fri: ["afternoon", "evening"],
+      Sat: ["morning", "afternoon"],
+    },
   },
   {
-    slug: "dr-kato",
+    slug: "placeholder-dr-e",
     name: "[Placeholder] Dr. E — General",
     department: "general",
-    hours: "9:00am - 6:00pm",
-    daysAvailable: ["Mon", "Wed", "Fri", "Sat", "Sun"],
+    schedule: {
+      Mon: ["afternoon"],
+      Wed: ["morning"],
+      Thu: ["morning"],
+      Fri: ["afternoon"],
+      Sat: ["afternoon"],
+      Sun: ["morning"],
+    },
   },
 ];
 
@@ -56,13 +90,4 @@ export const doctors: Doctor[] = [
 export function getDoctorsByDepartment(department: string): Doctor[] {
   if (!department) return doctors;
   return doctors.filter((doc) => doc.department === department);
-}
-
-/**
- * Get doctors available on a specific day
- */
-export function getDoctorsByDay(
-  day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun"
-): Doctor[] {
-  return doctors.filter((doc) => doc.daysAvailable.includes(day));
 }
