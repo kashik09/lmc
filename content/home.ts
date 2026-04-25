@@ -75,9 +75,9 @@ We are committed to providing compassionate, patient-centered care in a welcomin
 
 export const serviceCards = [
   {
-    id: "xray",
+    id: "x-ray",
     title: "X-ray",
-    slug: "xray",
+    slug: "x-ray",
     description:
       "Our radiologists use X-rays in low doses to produce images that help to diagnose and detect bone fractures and breaks, lung problems, tumours and other medical conditions.",
     image: "/images/services/x-ray.jpg",

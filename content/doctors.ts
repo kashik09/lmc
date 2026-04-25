@@ -34,7 +34,7 @@ export const doctors: Doctor[] = [
   {
     slug: "placeholder-dr-b",
     name: "[Placeholder] Dr. B — X-Ray",
-    department: "xray",
+    department: "x-ray",
     schedule: {
       Mon: ["morning"],
       Tue: ["morning", "afternoon"],

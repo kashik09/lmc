@@ -9,7 +9,7 @@ export const appointmentsPage = {
 
 export const appointmentDepartments = [
   { value: "dental", label: "Dental" },
-  { value: "xray", label: "X-Ray" },
+  { value: "x-ray", label: "X-Ray" },
   { value: "laboratory", label: "Laboratory" },
   { value: "cardiology", label: "Cardiology" },
   { value: "neurology", label: "Neurology" },
