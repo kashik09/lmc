@@ -78,7 +78,7 @@ export default function ServicesPage() {
       {/* Section 2 - Service Cards Grid */}
       <section className="bg-muted py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {servicesList.map((service) => (
               <div
                 key={service.id}
