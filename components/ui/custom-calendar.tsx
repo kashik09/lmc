@@ -2,6 +2,7 @@
 // CLIENT: date state + keyboard handlers
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   format,
   startOfMonth,
@@ -165,11 +166,14 @@ export function CustomCalendar({
   const goToNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
 
   // Select date
-  const handleDateSelect = (date: Date) => {
-    if (!isDateDisabled(date)) {
-      onChange(date);
-    }
-  };
+  const handleDateSelect = useCallback(
+    (date: Date) => {
+      if (!isDateDisabled(date)) {
+        onChange(date);
+      }
+    },
+    [isDateDisabled, onChange]
+  );
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
@@ -223,7 +227,7 @@ export function CustomCalendar({
         }
       }
     },
-    [focusedDate, value, today, currentMonth, isDateDisabled, viewMode]
+    [focusedDate, value, today, currentMonth, isDateDisabled, viewMode, handleDateSelect]
   );
 
   // Focus management
@@ -235,37 +239,6 @@ export function CustomCalendar({
       focusedButton?.focus();
     }
   }, [focusedDate]);
-
-  // Chevron icon component for reuse
-  const ChevronLeft = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className="h-5 w-5 text-foreground"
-    >
-      <path
-        fillRule="evenodd"
-        d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-
-  const ChevronRight = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className="h-5 w-5 text-foreground"
-    >
-      <path
-        fillRule="evenodd"
-        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
 
   const displayedYear = currentMonth.getFullYear();
   const displayedMonthIndex = currentMonth.getMonth();
@@ -326,7 +299,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Previous month"
             >
-              <ChevronLeft />
+              <ChevronLeft className="h-5 w-5 text-foreground" />
             </button>
             <button
               type="button"
@@ -354,7 +327,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Next month"
             >
-              <ChevronRight />
+              <ChevronRight className="h-5 w-5 text-foreground" />
             </button>
           </div>
 
@@ -388,7 +361,7 @@ export function CustomCalendar({
                   disabled={isDisabled}
                   tabIndex={isFocused ? 0 : -1}
                   aria-label={format(day, "EEEE, MMMM d, yyyy")}
-                  aria-selected={isSelected || undefined}
+                  aria-current={isSelected ? "date" : undefined}
                   aria-disabled={isDisabled}
                   className={`flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors ${
                     !isCurrentMonth
@@ -446,7 +419,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Previous year"
             >
-              <ChevronLeft />
+              <ChevronLeft className="h-5 w-5 text-foreground" />
             </button>
             <button
               type="button"
@@ -474,7 +447,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Next year"
             >
-              <ChevronRight />
+              <ChevronRight className="h-5 w-5 text-foreground" />
             </button>
           </div>
 
@@ -517,7 +490,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Previous decade"
             >
-              <ChevronLeft />
+              <ChevronLeft className="h-5 w-5 text-foreground" />
             </button>
             <span className="font-heading text-sm font-semibold text-foreground">
               {decadeStart} – {decadeEnd}
@@ -528,7 +501,7 @@ export function CustomCalendar({
               className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
               aria-label="Next decade"
             >
-              <ChevronRight />
+              <ChevronRight className="h-5 w-5 text-foreground" />
             </button>
           </div>
 
