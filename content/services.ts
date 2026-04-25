@@ -37,6 +37,69 @@ export const servicesList = [
       "High quality laboratory investigations for diagnostic and therapeutic evaluations of our patients.",
     image: "/images/services/laboratory.jpg",
   },
+  {
+    id: "cardiology",
+    slug: "cardiology",
+    title: "Cardiology",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive cardiology services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "neurology",
+    slug: "neurology",
+    title: "Neurology",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive neurology services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "orthopedic",
+    slug: "orthopedic",
+    title: "Orthopedic",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive orthopedic services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "pediatrics",
+    slug: "pediatrics",
+    title: "Pediatrics",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive pediatrics services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "diagnostic-imaging",
+    slug: "diagnostic-imaging",
+    title: "Diagnostic Imaging",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive diagnostic imaging services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "microbiology-lab",
+    slug: "microbiology-lab",
+    title: "Microbiology Lab",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive microbiology lab services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
+  {
+    id: "gynaecology",
+    slug: "gynaecology",
+    title: "Gynaecology & Birth",
+    // TODO: Replace with real LMC description
+    shortDescription:
+      "[Placeholder] Comprehensive gynaecology and birth services. Full description coming soon — to be provided by LMC.",
+    image: "/images/services/placeholder.svg",
+  },
 ];
 
 export const servicesApproach = {
@@ -213,6 +276,76 @@ export const serviceDetails: Record<
         ],
       },
     ],
+  },
+  cardiology: {
+    title: "Cardiology",
+    tagline: "Heart health and cardiovascular care",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive cardiology services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  neurology: {
+    title: "Neurology",
+    tagline: "Brain and nervous system care",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive neurology services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  orthopedic: {
+    title: "Orthopedic",
+    tagline: "Bone, joint, and muscle care",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive orthopedic services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  pediatrics: {
+    title: "Pediatrics",
+    tagline: "Specialized care for children",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive pediatrics services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  "diagnostic-imaging": {
+    title: "Diagnostic Imaging",
+    tagline: "Advanced medical imaging services",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive diagnostic imaging services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  "microbiology-lab": {
+    title: "Microbiology Lab",
+    tagline: "Specialized microbial testing and analysis",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive microbiology lab services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
+  },
+  gynaecology: {
+    title: "Gynaecology & Birth",
+    tagline: "Women's health and maternity care",
+    image: "/images/services/placeholder.svg",
+    // TODO: Replace with real LMC description
+    intro:
+      "[Placeholder] Comprehensive gynaecology and birth services. Full description coming soon — to be provided by LMC.",
+    // TODO: Replace with real LMC content for this department
+    sections: [],
   },
 };
 
