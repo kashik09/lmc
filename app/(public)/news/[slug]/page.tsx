@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/blocks/page-header";
+import { sanitizeHtml } from "@/lib/utils/sanitize";
 import {
   SearchWidget,
   RecentPostsWidget,
@@ -80,7 +81,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
 
               {/* Post Content */}
               <div className="prose prose-neutral max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }} />
               </div>
             </article>
 
