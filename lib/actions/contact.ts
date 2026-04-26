@@ -3,6 +3,7 @@
 import { contactSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
+import { checkRateLimit, contactLimiter } from "@/lib/rate-limit";
 
 export type ContactResult =
   | { success: true; referenceNumber: string }
@@ -28,20 +29,9 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   const supabase = await createClient();
   const { email, fullName, phone, subject, message } = result.data;
 
-  // Rate limit check: max 3 submissions per phone in 10 minutes
-  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-  const { count, error: countError } = await supabase
-    .from("inquiries")
-    .select("*", { count: "exact", head: true })
-    .eq("phone", phone)
-    .gte("created_at", tenMinutesAgo);
-
-  if (countError) {
-    // Fail-open: if the abuse-check query errors (e.g., transient DB issue),
-    // we allow the submission to proceed rather than block legitimate users.
-    // Accepted tradeoff — revisit in Phase 6 hardening if threat model changes.
-    console.error("[contact] abuse-check query failed:", countError);
-  } else if (count !== null && count >= 3) {
+  // Rate limit check: max 3 submissions per phone in 10 minutes (Upstash Redis)
+  const rl = await checkRateLimit(contactLimiter, phone, "[contact]");
+  if (!rl.allowed) {
     return {
       success: false,
       error: "rate_limit",

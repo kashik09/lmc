@@ -3,6 +3,7 @@
 import { appointmentSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
+import { checkRateLimit, appointmentLimiter } from "@/lib/rate-limit";
 
 export type AppointmentResult =
   | { success: true; referenceNumber: string }
@@ -38,20 +39,9 @@ export async function submitAppointment(
   const supabase = await createClient();
   const { data } = result;
 
-  // Rate limit check: max 3 submissions per phone in 10 minutes
-  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-  const { count, error: countError } = await supabase
-    .from("appointments")
-    .select("*", { count: "exact", head: true })
-    .eq("phone", data.phone)
-    .gte("created_at", tenMinutesAgo);
-
-  if (countError) {
-    // Fail-open: if the abuse-check query errors (e.g., transient DB issue),
-    // we allow the submission to proceed rather than block legitimate users.
-    // Accepted tradeoff — revisit in Phase 6 hardening if threat model changes.
-    console.error("[appointment] abuse-check query failed:", countError);
-  } else if (count !== null && count >= 3) {
+  // Rate limit check: max 3 submissions per phone in 10 minutes (Upstash Redis)
+  const rl = await checkRateLimit(appointmentLimiter, data.phone, "[appointment]");
+  if (!rl.allowed) {
     return {
       success: false,
       error: "rate_limit",
