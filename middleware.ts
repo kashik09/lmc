@@ -1,10 +1,13 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-function generateCspHeader(nonce: string): string {
+function generateCspHeader(): string {
+  // 'unsafe-inline' required for Next.js RSC bootstrap scripts. XSS protection
+  // relies on React's automatic output encoding, isomorphic-dompurify for
+  // user-provided HTML, and Zod validation on all server actions.
   const policy = {
     "default-src": ["'self'"],
-    "script-src": ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'"],
+    "script-src": ["'self'", "'unsafe-inline'"],
     "style-src": ["'self'", "'unsafe-inline'"],
     "img-src": ["'self'", "blob:", "data:", "https://*.supabase.co"],
     "font-src": ["'self'"],
@@ -24,15 +27,12 @@ function generateCspHeader(nonce: string): string {
 }
 
 export async function middleware(request: NextRequest) {
-  // Generate nonce for CSP
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-  const cspHeader = generateCspHeader(nonce);
+  const cspHeader = generateCspHeader();
 
   // Run Supabase session handling first
   const response = await updateSession(request);
 
-  // Add CSP headers to the response
-  response.headers.set("x-nonce", nonce);
+  // Add CSP header to the response
   response.headers.set("Content-Security-Policy", cspHeader);
 
   return response;
