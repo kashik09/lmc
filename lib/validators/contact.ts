@@ -10,7 +10,10 @@ export const contactSchema = z.object({
   phone: z
     .string()
     .min(1, "Phone number is required")
-    .regex(phoneRegex, "Please enter a valid Ugandan phone number"),
+    .transform((val) => val.replace(/[\s\-()]/g, ""))
+    .refine((val) => phoneRegex.test(val), {
+      message: "Please enter a valid Ugandan phone number",
+    }),
   email: z
     .string()
     .email("Please enter a valid email address")
