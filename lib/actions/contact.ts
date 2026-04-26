@@ -1,5 +1,6 @@
 "use server";
 
+import * as Sentry from "@sentry/nextjs";
 import { contactSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
@@ -55,6 +56,11 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
 
   if (insertError) {
     console.error("[contact] inquiry insert failed:", insertError);
+    Sentry.captureException(insertError, {
+      
+      tags: { action: "contact_submit" },
+      // DO NOT include user PII (email, phone, name) — DPPA 2019 compliance
+    });
     return {
       success: false,
       error: "database",

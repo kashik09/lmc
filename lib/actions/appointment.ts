@@ -1,5 +1,6 @@
 "use server";
 
+import * as Sentry from "@sentry/nextjs";
 import { appointmentSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
@@ -71,6 +72,10 @@ export async function submitAppointment(
 
   if (insertError) {
     console.error("[appointment] appointment insert failed:", insertError);
+    Sentry.captureException(insertError, {
+      tags: { action: "appointment_submit" },
+      // DO NOT include user PII (email, phone, name) — DPPA 2019 compliance
+    });
     return {
       success: false,
       error: "database",
