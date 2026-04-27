@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { isAllowedRedirect } from "@/lib/utils/redirect";
 
@@ -47,10 +46,10 @@ export function LoginForm() {
     <div className="w-full max-w-sm space-y-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold font-heading text-foreground">
-          Sign in
+          Staff Login
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Access your job applications
+          Authorized personnel only
         </p>
       </div>
 
@@ -105,16 +104,6 @@ export function LoginForm() {
           {loading ? "Signing in..." : "Sign in"}
         </button>
       </form>
-
-      <p className="text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{" "}
-        <Link
-          href={`/signup${rawRedirect ? `?redirect=${rawRedirect}` : ""}`}
-          className="font-medium text-primary hover:underline"
-        >
-          Sign up
-        </Link>
-      </p>
     </div>
   );
 }

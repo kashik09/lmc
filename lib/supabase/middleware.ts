@@ -59,8 +59,7 @@ export async function updateSession(request: NextRequest) {
 
   // Check if this is a protected route
   const requiredRoles = getRequiredRoles(pathname);
-  const isAuthRoute =
-    pathname.startsWith("/login") || pathname.startsWith("/signup");
+  const isLoginRoute = pathname.startsWith("/login");
 
   // Protected route handling
   if (requiredRoles !== null) {
@@ -107,8 +106,8 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  // Redirect authenticated users away from auth pages
-  if (isAuthRoute && user) {
+  // Redirect authenticated users away from login page
+  if (isLoginRoute && user) {
     const redirectParam = request.nextUrl.searchParams.get("redirect");
 
     // Validate redirect URL (open redirect protection)
