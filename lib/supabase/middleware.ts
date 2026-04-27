@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isAllowedRedirect } from "@/lib/utils/redirect";
 
 // Route protection configuration
 // Routes not listed here are public
@@ -9,22 +10,6 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   "/jobs/dashboard": ["staff", "admin"],
   "/admin": ["admin"],
 };
-
-function isAllowedRedirect(url: string, requestHost: string): boolean {
-  try {
-    // Relative paths are always allowed
-    if (url.startsWith("/") && !url.startsWith("//")) {
-      return true;
-    }
-
-    const parsed = new URL(url);
-    // Only allow same-origin redirects
-    return parsed.host === requestHost;
-  } catch {
-    // Invalid URL, reject
-    return false;
-  }
-}
 
 function getRequiredRoles(pathname: string): string[] | null {
   // Check each protected route pattern
