@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { isAllowedRedirect } from "@/lib/utils/redirect";
 
 export function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/dashboard";
+  const rawRedirect = searchParams.get("redirect");
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +39,13 @@ export function SignupForm() {
       return;
     }
 
-    router.push(redirect);
+    // Validate redirect target (open redirect protection)
+    const safeRedirect =
+      rawRedirect && isAllowedRedirect(rawRedirect, window.location.host)
+        ? rawRedirect
+        : "/dashboard";
+
+    router.push(safeRedirect);
     router.refresh();
   }
 
@@ -127,7 +134,7 @@ export function SignupForm() {
       <p className="text-center text-sm text-muted-foreground">
         Already have an account?{" "}
         <Link
-          href={`/login${redirect !== "/dashboard" ? `?redirect=${redirect}` : ""}`}
+          href={`/login${rawRedirect ? `?redirect=${rawRedirect}` : ""}`}
           className="font-medium text-primary hover:underline"
         >
           Sign in
