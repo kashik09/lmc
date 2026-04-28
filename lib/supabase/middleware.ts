@@ -8,7 +8,6 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   // Pattern: role(s) that can access
   "/dashboard": ["patient", "staff", "admin"],
   "/jobs/dashboard": ["staff", "admin"],
-  "/admin": ["admin"],
 };
 
 function getRequiredRoles(pathname: string): string[] | null {
@@ -59,14 +58,14 @@ export async function updateSession(request: NextRequest) {
 
   // Check if this is a protected route
   const requiredRoles = getRequiredRoles(pathname);
-  const isLoginRoute = pathname.startsWith("/login");
+  const isAdminRoute = pathname.startsWith("/admin");
 
   // Protected route handling
   if (requiredRoles !== null) {
-    // Not authenticated -> redirect to login
+    // Not authenticated -> redirect to admin login
     if (!user) {
       const url = request.nextUrl.clone();
-      url.pathname = "/login";
+      url.pathname = "/admin";
       url.searchParams.set("redirect", pathname);
       return NextResponse.redirect(url);
     }
@@ -106,8 +105,8 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  // Redirect authenticated users away from login page
-  if (isLoginRoute && user) {
+  // Redirect authenticated users away from admin login page
+  if (isAdminRoute && user) {
     const redirectParam = request.nextUrl.searchParams.get("redirect");
 
     // Validate redirect URL (open redirect protection)

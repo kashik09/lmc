@@ -10,7 +10,7 @@ export default async function JobsDashboardPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login?redirect=/jobs/dashboard");
+    redirect("/admin?redirect=/jobs/dashboard");
   }
 
   // Fetch user's job applications
