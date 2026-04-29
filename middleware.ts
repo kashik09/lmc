@@ -7,11 +7,22 @@ function generateCspHeader(): string {
   // user-provided HTML, and Zod validation on all server actions.
   const policy = {
     "default-src": ["'self'"],
-    "script-src": ["'self'", "'unsafe-inline'"],
+    "script-src": [
+      "'self'",
+      "'unsafe-inline'",
+      "https://challenges.cloudflare.com",
+      "https://static.cloudflareinsights.com",
+    ],
     "style-src": ["'self'", "'unsafe-inline'"],
     "img-src": ["'self'", "blob:", "data:", "https://*.supabase.co"],
     "font-src": ["'self'"],
-    "connect-src": ["'self'", "https://*.supabase.co", "wss://*.supabase.co"],
+    "connect-src": [
+      "'self'",
+      "https://*.supabase.co",
+      "wss://*.supabase.co",
+      "https://cloudflareinsights.com",
+    ],
+    "frame-src": ["https://challenges.cloudflare.com"],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],
