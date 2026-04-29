@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { contactForm } from "@/content/contacts";
 import { submitContact } from "@/lib/actions/contact";
 
@@ -33,6 +34,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -65,7 +67,7 @@ export function ContactForm() {
 
     setIsSubmitting(true);
 
-    const result = await submitContact(formData);
+    const result = await submitContact({ ...formData, turnstileToken });
 
     if (result.success) {
       router.push(`/thank-you?ref=${result.referenceNumber}&type=inquiry`);
@@ -80,6 +82,10 @@ export function ContactForm() {
         serverErrors[key as keyof FormErrors] = messages[0];
       }
       setErrors(serverErrors);
+    } else if (result.error === "captcha_failed") {
+      setGlobalError(
+        "Captcha verification failed. Please refresh the page and try again."
+      );
     } else if (result.error === "rate_limit" || result.error === "database") {
       setGlobalError(result.message);
     }
@@ -225,13 +231,28 @@ export function ContactForm() {
         )}
       </div>
 
+      {/* Turnstile Captcha */}
+      <div className="flex justify-center">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onError={() => setTurnstileToken(null)}
+          onExpire={() => setTurnstileToken(null)}
+          options={{ theme: "light", size: "normal" }}
+        />
+      </div>
+
       {/* Submit */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !turnstileToken}
         className="w-full rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isSubmitting ? "Sending..." : contactForm.submitButton}
+        {isSubmitting
+          ? "Sending..."
+          : !turnstileToken
+            ? "Verifying..."
+            : contactForm.submitButton}
       </button>
     </form>
   );

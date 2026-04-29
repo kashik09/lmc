@@ -5,10 +5,12 @@ import { contactSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, contactLimiter } from "@/lib/rate-limit";
+import { verifyTurnstileToken } from "@/lib/utils/turnstile";
 
 export type ContactResult =
   | { success: true; referenceNumber: string }
   | { success: false; error: "validation"; errors: Record<string, string[]> }
+  | { success: false; error: "captcha_failed" }
   | { success: false; error: "rate_limit"; message: string }
   | { success: false; error: "database"; message: string };
 
@@ -28,7 +30,14 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   }
 
   const supabase = await createClient();
-  const { email, fullName, phone, subject, message } = result.data;
+  const { email, fullName, phone, subject, message, turnstileToken } =
+    result.data;
+
+  // Captcha verification (fail-closed: reject if verification fails)
+  const captchaValid = await verifyTurnstileToken(turnstileToken);
+  if (!captchaValid) {
+    return { success: false, error: "captcha_failed" };
+  }
 
   // Rate limit check: max 3 submissions per phone in 10 minutes (Upstash Redis)
   const rl = await checkRateLimit(contactLimiter, phone, "[contact]");

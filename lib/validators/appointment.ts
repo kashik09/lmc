@@ -44,6 +44,7 @@ export const appointmentSchema = z.object({
       return date >= today;
     }, "Appointment date cannot be in the past"),
   message: z.string().max(1000, "Message must be less than 1000 characters").optional(),
+  turnstileToken: z.string().min(1, "Captcha verification required").nullable(),
 }).superRefine((data, ctx) => {
   const age = calculateAge(data.dateOfBirth);
 

@@ -5,10 +5,12 @@ import { appointmentSchema } from "@/lib/validators";
 import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, appointmentLimiter } from "@/lib/rate-limit";
+import { verifyTurnstileToken } from "@/lib/utils/turnstile";
 
 export type AppointmentResult =
   | { success: true; referenceNumber: string }
   | { success: false; error: "validation"; errors: Record<string, string[]> }
+  | { success: false; error: "captcha_failed" }
   | { success: false; error: "rate_limit"; message: string }
   | { success: false; error: "database"; message: string };
 
@@ -39,6 +41,12 @@ export async function submitAppointment(
 
   const supabase = await createClient();
   const { data } = result;
+
+  // Captcha verification (fail-closed: reject if verification fails)
+  const captchaValid = await verifyTurnstileToken(data.turnstileToken);
+  if (!captchaValid) {
+    return { success: false, error: "captcha_failed" };
+  }
 
   // Rate limit check: max 3 submissions per phone in 10 minutes (Upstash Redis)
   const rl = await checkRateLimit(appointmentLimiter, data.phone, "[appointment]");

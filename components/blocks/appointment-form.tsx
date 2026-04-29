@@ -3,6 +3,7 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { Turnstile } from "@marsidev/react-turnstile";
 import {
   appointmentDepartments,
   sexOptions,
@@ -44,6 +45,7 @@ export function AppointmentForm() {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   // Filter doctors by selected department
   const filteredDoctors = useMemo(() => {
@@ -100,7 +102,7 @@ export function AppointmentForm() {
 
     setIsSubmitting(true);
 
-    const result = await submitAppointment(formData);
+    const result = await submitAppointment({ ...formData, turnstileToken });
 
     if (result.success) {
       router.push(`/thank-you?ref=${result.referenceNumber}&type=appointment`);
@@ -115,6 +117,10 @@ export function AppointmentForm() {
         serverErrors[key as keyof FormData] = messages[0];
       }
       setErrors(serverErrors);
+    } else if (result.error === "captcha_failed") {
+      setGlobalError(
+        "Captcha verification failed. Please refresh the page and try again."
+      );
     } else if (result.error === "rate_limit" || result.error === "database") {
       setGlobalError(result.message);
     }
@@ -367,13 +373,28 @@ export function AppointmentForm() {
         />
       </div>
 
+      {/* Turnstile Captcha */}
+      <div className="flex justify-center">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onError={() => setTurnstileToken(null)}
+          onExpire={() => setTurnstileToken(null)}
+          options={{ theme: "light", size: "normal" }}
+        />
+      </div>
+
       {/* Submit */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !turnstileToken}
         className="w-full rounded-md bg-primary px-4 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark disabled:opacity-50"
       >
-        {isSubmitting ? "Submitting..." : "Book Appointment"}
+        {isSubmitting
+          ? "Submitting..."
+          : !turnstileToken
+            ? "Verifying..."
+            : "Book Appointment"}
       </button>
     </form>
   );

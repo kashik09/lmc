@@ -23,6 +23,7 @@ export const contactSchema = z.object({
     .string()
     .min(10, "Message must be at least 10 characters")
     .max(2000, "Message must be less than 2000 characters"),
+  turnstileToken: z.string().min(1, "Captcha verification required").nullable(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
