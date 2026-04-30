@@ -132,7 +132,6 @@ export function Footer() {
           <p className="text-center text-sm text-muted-foreground">
             Copyright ©{new Date().getFullYear()} Lifeline Medical Centre ·
             Designed by{" "}
-            {/* TODO: Update URL when portfolio is ready */}
             <a
               href="https://kashikweyu.dev"
               target="_blank"
