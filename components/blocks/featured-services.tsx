@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
-  Smile,
-  Bone,
+  Cross,
+  Radiation,
   FlaskConical,
   ScanLine,
   type LucideIcon,
@@ -13,8 +13,8 @@ import {
 import { servicesList } from "@/content/services";
 
 const iconMap: Record<string, LucideIcon> = {
-  dental: Smile,
-  "x-ray": Bone,
+  dental: Cross,
+  "x-ray": Radiation,
   laboratory: FlaskConical,
   "diagnostic-imaging": ScanLine,
 };
