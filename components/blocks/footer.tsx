@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookiePreferencesButton } from "./cookie-consent";
 
 const contactInfo = {
   phones: ["(+256) 751 873 951", "(+256) 774 202 747"],
@@ -11,6 +12,7 @@ const quickLinks = [
   { href: "/appointments", label: "Book Appointment" },
   { href: "/contacts", label: "Contact Us" },
   { href: "/services", label: "Our Services" },
+  { href: "/pharmacy", label: "Pharmacy" },
   { href: "/news", label: "Latest News" },
 ];
 
@@ -141,6 +143,16 @@ export function Footer() {
               Kashi Kweyu
             </a>
           </p>
+          <div className="mt-2 flex items-center justify-center gap-4">
+            <Link
+              href="/privacy-policy"
+              className="text-sm text-muted-foreground hover:text-primary"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-muted-foreground/50">·</span>
+            <CookiePreferencesButton />
+          </div>
         </div>
       </div>
     </footer>
