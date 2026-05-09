@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Lato, Raleway } from "next/font/google";
-import Script from "next/script";
 import "@/styles/globals.css";
+import { CookieConsent } from "@/components/blocks/cookie-consent";
+import { AnalyticsScript } from "@/components/blocks/analytics";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -33,14 +34,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         {children}
-        {process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN && (
-          <Script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon={`{"token": "${process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN}"}`}
-            strategy="afterInteractive"
-          />
-        )}
+        <CookieConsent />
+        <AnalyticsScript />
       </body>
     </html>
   );
