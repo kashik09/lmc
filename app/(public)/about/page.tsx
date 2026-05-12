@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Target, Eye, Heart } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import {
@@ -8,73 +9,113 @@ import {
   aboutCta,
 } from "@/content/about";
 
+/**
+ * About Page — LMC story, mission/vision/values, facilities, CTA
+ *
+ * Preserves existing content from content/about.ts
+ */
+
+const missionVisionValues = [
+  {
+    icon: Target,
+    title: "Our Mission",
+    body: "To deliver compassionate, evidence-based healthcare that puts patients first and meets the real needs of our community in Gayaza and surrounding areas.",
+  },
+  {
+    icon: Eye,
+    title: "Our Vision",
+    body: aboutVision.content,
+  },
+  {
+    icon: Heart,
+    title: "Our Values",
+    body: "Respect, empathy, integrity, and community — the principles that guide every consultation, every diagnosis, every interaction at LMC.",
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
       <PageHeader title="About Us" subtitle="Lifeline Medical Centre" />
 
-      {/* Section 1 - Intro */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4">
-          <h2 className="mb-6 font-heading text-2xl font-bold text-foreground md:text-3xl">
-            {aboutIntro.heading}
-          </h2>
-          {aboutIntro.paragraphs.map((para, index) => (
-            <p
-              key={index}
-              className="mb-4 text-muted-foreground leading-relaxed"
-            >
-              {para}
-            </p>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 2 - Vision Card */}
-      <section className="bg-muted py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4">
-          <div className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-6 w-6"
-              >
-                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                <path
-                  fillRule="evenodd"
-                  d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+      {/* Section 1: Who We Are — image left, text right */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-container px-4">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
+              <Image
+                src={aboutFacilities.image}
+                alt="Lifeline Medical Centre staff and facilities"
+                fill
+                className="object-cover"
+              />
             </div>
-            <h3 className="mb-3 font-heading text-xl font-semibold text-card-foreground">
-              {aboutVision.heading}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              {aboutVision.content}
-            </p>
+            <div>
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+                Who We Are
+              </p>
+              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+                {aboutIntro.heading}
+              </h2>
+              <div className="prose prose-lg max-w-none font-body text-lmc-grayDark prose-headings:font-heading prose-headings:text-lmc-grayDark prose-a:text-lmc-green prose-strong:text-lmc-grayDark">
+                {aboutIntro.paragraphs.map((para, index) => (
+                  <p key={index}>{para}</p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 3 - Facilities */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+      {/* Section 2: Mission / Vision / Values */}
+      <section className="bg-lmc-offWhite py-16 md:py-20">
+        <div className="mx-auto max-w-container px-4">
+          <div className="mb-12 text-center">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+              What Drives Us
+            </p>
+            <h2 className="mb-4 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+              Our Mission, Vision & Values
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+            {missionVisionValues.map((item) => (
+              <div
+                key={item.title}
+                className="border-t-4 border-lmc-green bg-white p-8"
+              >
+                <item.icon className="mb-4 h-10 w-10 text-lmc-green" />
+                <h3 className="mb-3 font-heading text-xl font-semibold text-lmc-grayDark">
+                  {item.title}
+                </h3>
+                <p className="font-body text-sm leading-relaxed text-lmc-grayMedium">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Facilities */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-container px-4">
+          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
             <div>
-              <h2 className="mb-4 font-heading text-2xl font-bold text-foreground md:text-3xl">
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+                Our Facilities
+              </p>
+              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
                 {aboutFacilities.heading}
               </h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="font-body text-lg leading-relaxed text-lmc-grayMedium">
                 {aboutFacilities.description}
               </p>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-muted">
+            <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
               <Image
                 src={aboutFacilities.image}
-                alt="Lifeline Medical Centre facilities and staff team"
+                alt="Lifeline Medical Centre modern facilities"
                 fill
                 className="object-cover"
               />
@@ -83,18 +124,31 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 4 - CTA */}
-      <section className="bg-muted py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-3 font-heading text-2xl font-bold text-foreground md:text-3xl">
-            {aboutCta.heading}
-          </h2>
-          <p className="mb-6 text-muted-foreground">{aboutCta.description}</p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button asChild href={aboutCta.primaryButton.href} size="lg">
+      {/* Section 4: CTA Banner */}
+      <section className="bg-lmc-green py-12 text-white md:py-16">
+        <div className="mx-auto flex max-w-container flex-col gap-6 px-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="mb-2 font-heading text-2xl font-bold md:text-3xl">
+              {aboutCta.heading}
+            </h2>
+            <p className="font-body text-white/90">{aboutCta.description}</p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              href={aboutCta.primaryButton.href}
+              size="lg"
+              className="bg-white !text-lmc-green hover:bg-lmc-offWhite"
+            >
               {aboutCta.primaryButton.text}
             </Button>
-            <Button asChild href={aboutCta.secondaryButton.href} size="lg" variant="secondary">
+            <Button
+              asChild
+              href={aboutCta.secondaryButton.href}
+              size="lg"
+              variant="secondary"
+              className="border-white text-white hover:bg-white hover:!text-lmc-green"
+            >
               {aboutCta.secondaryButton.text}
             </Button>
           </div>
