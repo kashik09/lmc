@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import { contactInfo } from "@/content/contacts";
 
 export const metadata = {
@@ -109,12 +109,9 @@ export default function PharmacyPage() {
             <p className="mb-4 text-sm text-muted-foreground">
               Book an appointment with our medical team.
             </p>
-            <Link
-              href="/appointments"
-              className="inline-block rounded-md bg-primary px-6 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-            >
+            <Button asChild href="/appointments">
               Book Appointment
-            </Link>
+            </Button>
           </div>
         </div>
       </section>

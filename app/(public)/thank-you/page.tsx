@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { CircleCheck } from "lucide-react";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import {
   thankYouContent,
   thankYouFallback,
@@ -68,18 +68,12 @@ export default async function ThankYouPage({
 
             {/* CTAs */}
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Link
-                href={content.primaryCta.href}
-                className="rounded-md bg-primary px-6 py-3 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-              >
+              <Button asChild href={content.primaryCta.href}>
                 {content.primaryCta.label}
-              </Link>
-              <Link
-                href={content.secondaryCta.href}
-                className="rounded-md border border-primary px-6 py-3 text-center text-sm font-medium text-primary transition-colors hover:bg-primary/10"
-              >
+              </Button>
+              <Button asChild href={content.secondaryCta.href} variant="secondary">
                 {content.secondaryCta.label}
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

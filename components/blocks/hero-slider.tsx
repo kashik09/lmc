@@ -3,8 +3,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { heroSlides } from "@/content/home";
+import { Button } from "@/components/ui/Button";
 
 const SLIDE_INTERVAL = 8000; // 8 seconds
 
@@ -76,12 +76,9 @@ export function HeroSlider() {
                 <p className="mb-6 text-lg text-primary-foreground/90 md:text-xl">
                   {slide.description}
                 </p>
-                <Link
-                  href={slide.link}
-                  className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-                >
+                <Button asChild href={slide.link} size="lg">
                   {slide.linkText}
-                </Link>
+                </Button>
               </div>
             </div>
           </div>

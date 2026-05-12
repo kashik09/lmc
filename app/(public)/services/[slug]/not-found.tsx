@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 export default function ServiceNotFound() {
   return (
@@ -10,12 +10,9 @@ export default function ServiceNotFound() {
         <p className="mb-8 text-lg text-muted-foreground">
           The service you are looking for does not exist or has been moved.
         </p>
-        <Link
-          href="/services"
-          className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-        >
+        <Button asChild href="/services" size="lg">
           View All Services
-        </Link>
+        </Button>
       </div>
     </section>
   );

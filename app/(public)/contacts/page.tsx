@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ContactForm } from "@/components/blocks/contact-form";
+import { Button } from "@/components/ui/Button";
 import { contactInfo } from "@/content/contacts";
 
 export default function ContactsPage() {
@@ -122,12 +122,9 @@ export default function ContactsPage() {
               <p className="mb-4 text-sm text-muted-foreground">
                 {contactInfo.appointmentSection.text}
               </p>
-              <Link
-                href={contactInfo.appointmentSection.buttonLink}
-                className="inline-block rounded-md bg-primary px-6 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-              >
+              <Button asChild href={contactInfo.appointmentSection.buttonLink}>
                 {contactInfo.appointmentSection.buttonText}
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

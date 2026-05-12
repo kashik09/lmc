@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ctaSection } from "@/content/home";
+import { Button } from "@/components/ui/Button";
 
 export function CtaSection() {
   return (
@@ -26,12 +26,9 @@ export function CtaSection() {
         <p className="mx-auto mb-8 max-w-2xl text-lg text-primary-foreground/90">
           {ctaSection.description}
         </p>
-        <Link
-          href={ctaSection.buttonLink}
-          className="inline-block rounded-md bg-primary px-8 py-4 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-        >
+        <Button asChild href={ctaSection.buttonLink} size="lg">
           {ctaSection.buttonText}
-        </Link>
+        </Button>
       </div>
     </section>
   );

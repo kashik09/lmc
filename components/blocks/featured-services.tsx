@@ -11,6 +11,7 @@ import {
   featuredServicesSection,
 } from "@/content/home";
 import { servicesList } from "@/content/services";
+import { Button } from "@/components/ui/Button";
 
 const iconMap: Record<string, LucideIcon> = {
   dental: Cross,
@@ -73,12 +74,9 @@ export function FeaturedServices() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <Link
-            href={featuredServicesSection.ctaHref}
-            className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-          >
+          <Button asChild href={featuredServicesSection.ctaHref} size="lg">
             {featuredServicesSection.ctaLabel}
-          </Link>
+          </Button>
         </div>
       </div>
     </section>

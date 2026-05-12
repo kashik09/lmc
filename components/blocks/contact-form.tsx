@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { contactForm } from "@/content/contacts";
 import { submitContact } from "@/lib/actions/contact";
+import { Button } from "@/components/ui/Button";
 
 interface FormData {
   fullName: string;
@@ -243,17 +244,18 @@ export function ContactForm() {
       </div>
 
       {/* Submit */}
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting || !turnstileToken}
-        className="w-full rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
+        size="lg"
+        className="w-full"
       >
         {isSubmitting
           ? "Sending..."
           : !turnstileToken
             ? "Verifying..."
             : contactForm.submitButton}
-      </button>
+      </Button>
     </form>
   );
 }

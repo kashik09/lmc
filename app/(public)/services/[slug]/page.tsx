@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
 import {
   serviceDetails,
@@ -84,12 +85,9 @@ export default async function ServiceDetailPage({
                   <p className="mb-4 text-sm text-muted-foreground">
                     {serviceSidebar.appointmentBox.text}
                   </p>
-                  <Link
-                    href={serviceSidebar.appointmentBox.buttonLink}
-                    className="inline-block w-full rounded-md bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-                  >
+                  <Button asChild href={serviceSidebar.appointmentBox.buttonLink} size="sm" className="w-full">
                     {serviceSidebar.appointmentBox.buttonText}
-                  </Link>
+                  </Button>
                 </div>
 
                 {/* Emergency Box */}

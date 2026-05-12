@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { sidebarSearch } from "@/content/news";
+import { Button } from "@/components/ui/Button";
 
 export function SearchWidget() {
   const [query, setQuery] = useState("");
@@ -27,12 +28,9 @@ export function SearchWidget() {
             placeholder={sidebarSearch.placeholder}
             className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
-          <button
-            type="submit"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-          >
+          <Button type="submit" size="sm">
             {sidebarSearch.buttonText}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

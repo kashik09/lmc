@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import { ServicesAccordion } from "@/components/blocks/services-accordion";
 import {
   servicesIntro,
@@ -112,12 +112,9 @@ export default function ServicesPage() {
             {servicesCta.heading}
           </h2>
           <p className="mb-6 text-muted-foreground">{servicesCta.description}</p>
-          <Link
-            href={servicesCta.buttonLink}
-            className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-          >
+          <Button asChild href={servicesCta.buttonLink} size="lg">
             {servicesCta.buttonText}
-          </Link>
+          </Button>
         </div>
       </section>
     </>

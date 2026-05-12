@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import {
   aboutIntro,
   aboutVision,
@@ -91,18 +91,12 @@ export default function AboutPage() {
           </h2>
           <p className="mb-6 text-muted-foreground">{aboutCta.description}</p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href={aboutCta.primaryButton.href}
-              className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-            >
+            <Button asChild href={aboutCta.primaryButton.href} size="lg">
               {aboutCta.primaryButton.text}
-            </Link>
-            <Link
-              href={aboutCta.secondaryButton.href}
-              className="inline-block rounded-md border border-primary px-6 py-3 font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-            >
+            </Button>
+            <Button asChild href={aboutCta.secondaryButton.href} size="lg" variant="secondary">
               {aboutCta.secondaryButton.text}
-            </Link>
+            </Button>
           </div>
         </div>
       </section>

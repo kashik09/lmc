@@ -12,6 +12,7 @@ import {
 import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
 import { DatePickerField } from "@/components/ui/date-picker-field";
+import { Button } from "@/components/ui/Button";
 
 interface FormData {
   department: string;
@@ -385,17 +386,18 @@ export function AppointmentForm() {
       </div>
 
       {/* Submit */}
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting || !turnstileToken}
-        className="w-full rounded-md bg-primary px-4 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark disabled:opacity-50"
+        size="lg"
+        className="w-full"
       >
         {isSubmitting
           ? "Submitting..."
           : !turnstileToken
             ? "Verifying..."
             : "Book Appointment"}
-      </button>
+      </Button>
     </form>
   );
 }

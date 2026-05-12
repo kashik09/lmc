@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
 import { postDetailPage } from "@/content/news";
 
 export default function PostNotFound() {
@@ -12,12 +12,9 @@ export default function PostNotFound() {
           <p className="mb-6 text-muted-foreground">
             {postDetailPage.notFound.message}
           </p>
-          <Link
-            href="/news"
-            className="inline-block rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-dark"
-          >
+          <Button asChild href="/news" size="lg">
             Back to News
-          </Link>
+          </Button>
         </div>
       </section>
     </>
