@@ -9,13 +9,19 @@ import {
   Car,
   Navigation,
   Accessibility,
+  Users,
 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
-import {
-  infoCards,
-  gettingHere,
-  visitorsCta,
-} from "@/content/visitors";
+import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
+import { Button } from "@/components/ui/Button";
+import { servicesList } from "@/content/services";
+import { infoCards, gettingHere, visitorsCta } from "@/content/visitors";
+
+/**
+ * Visitors Page — 2-col layout with ServicesSidebar
+ *
+ * Preserves existing content from content/visitors.ts
+ */
 
 const iconMap = {
   MapPin,
@@ -32,103 +38,132 @@ const gettingHereIcons = {
   accessibility: Accessibility,
 };
 
+// Info strip items for quick visitor reference
+// TODO 7.2: confirm visiting hours and policies with client
+const infoStrip = [
+  { icon: Clock, label: "Opening Hours", value: "24 hours, 7 days a week" },
+  { icon: Users, label: "Per Patient", value: "Max 2 visitors at a time" },
+  {
+    icon: ShieldCheck,
+    label: "Health & Safety",
+    value: "Follow posted guidelines",
+  },
+];
+
 export default function VisitorsPage() {
   return (
     <>
       <PageHeader title="Visitors" subtitle="Information for visitors" />
 
-      {/* Section 1 - Info Cards Grid */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {infoCards.map((card) => {
-              const Icon = iconMap[card.icon as keyof typeof iconMap];
-              const isExternal = card.href.startsWith("tel:");
+      <section className="bg-white py-12 md:py-16">
+        <div className="mx-auto max-w-container px-4">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+            {/* Main Content — spans 2 cols */}
+            <article className="lg:col-span-2">
+              {/* Intro */}
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+                For Our Visitors
+              </p>
+              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+                Information for Visitors
+              </h2>
 
-              return (
-                <Link
-                  key={card.id}
-                  href={card.href}
-                  {...(isExternal ? {} : {})}
-                  className="group rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Icon className="h-6 w-6" />
+              {/* Info Strip */}
+              <div className="my-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {infoStrip.map((item) => (
+                  <div
+                    key={item.label}
+                    className="border-l-4 border-lmc-green bg-lmc-offWhite p-5"
+                  >
+                    <item.icon className="mb-2 h-7 w-7 text-lmc-green" />
+                    <p className="font-heading text-sm font-semibold uppercase tracking-wide text-lmc-grayDark">
+                      {item.label}
+                    </p>
+                    <p className="mt-1 font-body text-sm text-lmc-grayMedium">
+                      {item.value}
+                    </p>
                   </div>
-                  <h3 className="mb-1 font-heading text-lg font-semibold text-card-foreground">
-                    {card.heading}
-                  </h3>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    {card.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-                    {card.href === "#" ? "Coming soon" : "More"}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
+                ))}
+              </div>
+
+              {/* Info Cards Grid */}
+              <div className="mb-10 grid gap-4 sm:grid-cols-2">
+                {infoCards.map((card) => {
+                  const Icon = iconMap[card.icon as keyof typeof iconMap];
+                  const isDisabled = card.href === "#";
+
+                  return (
+                    <Link
+                      key={card.id}
+                      href={card.href}
+                      className={`group flex items-start gap-4 border border-lmc-grayLight bg-white p-5 transition-all hover:shadow-cardHover ${isDisabled ? "pointer-events-none opacity-60" : ""}`}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-lmc-green/10 text-lmc-green transition-colors group-hover:bg-lmc-green group-hover:text-white">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-heading text-base font-semibold text-lmc-grayDark group-hover:text-lmc-green">
+                          {card.heading}
+                        </h3>
+                        <p className="mt-1 font-body text-sm text-lmc-grayMedium">
+                          {card.description}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
 
-      {/* Section 2 - Getting Here */}
-      <section className="bg-muted py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <h2 className="mb-8 text-center font-heading text-2xl font-bold text-foreground md:text-3xl">
-            Getting Here
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {gettingHere.map((item) => {
-              const Icon =
-                gettingHereIcons[item.id as keyof typeof gettingHereIcons];
-              return (
-                <div
-                  key={item.id}
-                  className="rounded-lg border border-border bg-card p-6 text-center shadow-sm"
-                >
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 font-heading text-lg font-semibold text-card-foreground">
-                    {item.heading}
+              {/* Getting Here Section */}
+              <div className="mb-10">
+                <h3 className="mb-6 font-heading text-2xl font-bold text-lmc-grayDark">
+                  Getting Here
+                </h3>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {gettingHere.map((item) => {
+                    const Icon =
+                      gettingHereIcons[item.id as keyof typeof gettingHereIcons];
+                    return (
+                      <div
+                        key={item.id}
+                        className="border border-lmc-grayLight bg-lmc-offWhite p-5 text-center"
+                      >
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center bg-lmc-green/10 text-lmc-green">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <h4 className="font-heading text-base font-semibold text-lmc-grayDark">
+                          {item.heading}
+                        </h4>
+                        <p className="mt-1 font-body text-sm text-lmc-grayMedium">
+                          {item.description}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Bottom CTA */}
+              <div className="mt-10 flex flex-col items-start justify-between gap-4 border-l-4 border-lmc-green bg-lmc-offWhite p-6 sm:flex-row sm:items-center">
+                <div>
+                  <h3 className="font-heading text-lg font-semibold text-lmc-grayDark">
+                    {visitorsCta.heading}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
+                  <p className="font-body text-sm text-lmc-grayMedium">
+                    {visitorsCta.description}
                   </p>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+                <Button variant="primary" asChild href={visitorsCta.buttonHref}>
+                  {visitorsCta.buttonText}
+                </Button>
+              </div>
+            </article>
 
-      {/* Section 3 - CTA Band */}
-      <section className="bg-primary py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-3 font-heading text-2xl font-bold text-primary-foreground md:text-3xl">
-            {visitorsCta.heading}
-          </h2>
-          <p className="mb-6 text-primary-foreground/90">
-            {visitorsCta.description}
-          </p>
-          <Link
-            href={visitorsCta.buttonHref}
-            className="inline-block rounded-md bg-background px-6 py-3 font-medium text-foreground transition-colors hover:bg-muted"
-          >
-            {visitorsCta.buttonText}
-          </Link>
+            {/* Sidebar — "All Services" mode (no currentSlug) */}
+            <aside className="lg:col-span-1">
+              <ServicesSidebar services={servicesList} />
+            </aside>
+          </div>
         </div>
       </section>
     </>
