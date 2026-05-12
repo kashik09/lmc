@@ -48,10 +48,22 @@ const config: Config = {
         },
         success: "hsl(var(--color-success))",
         warning: "hsl(var(--color-warning))",
+        // LMC Design System Colors (from visual-rebuild spec)
+        lmc: {
+          green: "#1b7a12",
+          greenDark: "#107a02",
+          blue: "#45aaff",
+          offWhite: "#f5f5f5",
+          grayDark: "#333333",
+          grayMedium: "#666666",
+          grayLight: "#cccccc",
+          footerDark: "#1a1a1a",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
-        heading: ["var(--font-heading)"],
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-sans)", "sans-serif"],
         mono: ["var(--font-mono)"],
       },
       borderRadius: {
@@ -60,6 +72,7 @@ const config: Config = {
         lg: "var(--radius-lg)",
         xl: "var(--radius-xl)",
         full: "var(--radius-full)",
+        btn: "3px",
       },
       spacing: {
         xs: "var(--spacing-xs)",
@@ -74,6 +87,12 @@ const config: Config = {
         sm: "var(--shadow-sm)",
         md: "var(--shadow-md)",
         lg: "var(--shadow-lg)",
+        card: "0 2px 5px rgba(0,0,0,0.1)",
+        header: "0 2px 10px rgba(0,0,0,0.15)",
+        cardHover: "0 4px 15px rgba(0,0,0,0.2)",
+      },
+      maxWidth: {
+        container: "1170px",
       },
     },
   },

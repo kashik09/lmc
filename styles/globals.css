@@ -111,10 +111,10 @@
 /* Base Styles */
 body {
   background-color: hsl(var(--color-background));
-  color: hsl(var(--color-foreground));
-  font-family: var(--font-sans);
+  color: #333333; /* lmc-grayDark */
+  font-family: var(--font-sans); /* font-body: Lato */
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading); /* font-heading: Raleway */
 }
