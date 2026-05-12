@@ -4,6 +4,7 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { Loader2, AlertCircle } from "lucide-react";
 import {
   appointmentDepartments,
   sexOptions,
@@ -13,6 +14,15 @@ import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
 import { DatePickerField } from "@/components/ui/date-picker-field";
 import { Button } from "@/components/ui/Button";
+import {
+  inputClass,
+  selectClass,
+  textareaClass,
+  labelClass,
+  errorClass,
+  fieldWrapperClass,
+  globalErrorClass,
+} from "@/components/ui/FormField";
 
 interface FormData {
   department: string;
@@ -128,30 +138,29 @@ export function AppointmentForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-1" aria-label="Appointment booking form">
       {/* Global Error (rate limit / database) */}
       {globalError && (
-        <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">
-          {globalError}
+        <div className={globalErrorClass}>
+          <AlertCircle className="h-5 w-5 flex-shrink-0" />
+          <span>{globalError}</span>
         </div>
       )}
 
       {/* Department */}
-      <div>
-        <label
-          htmlFor="department"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Department <span className="text-destructive">*</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="department" className={labelClass}>
+          Department <span className="text-red-500">*</span>
         </label>
         <select
           id="department"
           name="department"
           value={formData.department}
           onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.department ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.department}
+          aria-describedby={errors.department ? "department-error" : undefined}
+          className={selectClass}
         >
           <option value="">Select department</option>
           {appointmentDepartments.map((dept) => (
@@ -161,25 +170,21 @@ export function AppointmentForm() {
           ))}
         </select>
         {errors.department && (
-          <p className="mt-1 text-sm text-destructive">{errors.department}</p>
+          <p id="department-error" className={errorClass}>{errors.department}</p>
         )}
       </div>
 
       {/* Preferred Doctor */}
-      <div>
-        <label
-          htmlFor="doctorSlug"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Preferred Doctor{" "}
-          <span className="text-muted-foreground">(optional)</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="doctorSlug" className={labelClass}>
+          Preferred Doctor <span className="text-lmc-grayMedium font-normal">(optional)</span>
         </label>
         <select
           id="doctorSlug"
           name="doctorSlug"
           value={formData.doctorSlug}
           onChange={handleChange}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className={selectClass}
         >
           <option value="">No preference</option>
           {filteredDoctors.map((doc) => (
@@ -191,12 +196,9 @@ export function AppointmentForm() {
       </div>
 
       {/* Full Name */}
-      <div>
-        <label
-          htmlFor="fullName"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Full Name <span className="text-destructive">*</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="fullName" className={labelClass}>
+          Full Name <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -204,38 +206,39 @@ export function AppointmentForm() {
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.fullName ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.fullName}
+          aria-describedby={errors.fullName ? "fullName-error" : undefined}
+          className={inputClass}
           placeholder="John Doe"
         />
         {errors.fullName && (
-          <p className="mt-1 text-sm text-destructive">{errors.fullName}</p>
+          <p id="fullName-error" className={errorClass}>{errors.fullName}</p>
         )}
       </div>
 
       {/* Patient Type */}
-      <fieldset>
-        <legend className="sr-only">
-          Patient Type (required)
+      <fieldset className={fieldWrapperClass}>
+        <legend className={labelClass}>
+          Patient Type <span className="text-red-500">*</span>
         </legend>
         <div className="flex gap-4">
           {patientTypeOptions.map((opt) => (
-            <label key={opt.value} className="flex items-center gap-2">
+            <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="patientType"
                 value={opt.value}
                 checked={formData.patientType === opt.value}
                 onChange={handleChange}
-                className="h-4 w-4 border-input text-primary focus:ring-primary"
+                className="h-4 w-4 border-lmc-grayLight text-lmc-green focus:ring-lmc-green"
               />
-              <span className="text-sm text-foreground">{opt.label}</span>
+              <span className="text-sm text-lmc-grayDark">{opt.label}</span>
             </label>
           ))}
         </div>
         {errors.patientType && (
-          <p className="mt-1 text-sm text-destructive">{errors.patientType}</p>
+          <p id="patientType-error" className={errorClass}>{errors.patientType}</p>
         )}
       </fieldset>
 
@@ -260,21 +263,19 @@ export function AppointmentForm() {
       />
 
       {/* Sex */}
-      <div>
-        <label
-          htmlFor="sex"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Sex <span className="text-destructive">*</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="sex" className={labelClass}>
+          Sex <span className="text-red-500">*</span>
         </label>
         <select
           id="sex"
           name="sex"
           value={formData.sex}
           onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.sex ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.sex}
+          aria-describedby={errors.sex ? "sex-error" : undefined}
+          className={selectClass}
         >
           <option value="">Select</option>
           {sexOptions.map((opt) => (
@@ -284,17 +285,14 @@ export function AppointmentForm() {
           ))}
         </select>
         {errors.sex && (
-          <p className="mt-1 text-sm text-destructive">{errors.sex}</p>
+          <p id="sex-error" className={errorClass}>{errors.sex}</p>
         )}
       </div>
 
       {/* Phone */}
-      <div>
-        <label
-          htmlFor="phone"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Phone Number <span className="text-destructive">*</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="phone" className={labelClass}>
+          Phone Number <span className="text-red-500">*</span>
         </label>
         <input
           type="tel"
@@ -302,23 +300,21 @@ export function AppointmentForm() {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.phone ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? "phone-error" : undefined}
+          className={inputClass}
           placeholder="+256 7XX XXX XXX"
         />
         {errors.phone && (
-          <p className="mt-1 text-sm text-destructive">{errors.phone}</p>
+          <p id="phone-error" className={errorClass}>{errors.phone}</p>
         )}
       </div>
 
       {/* Email */}
-      <div>
-        <label
-          htmlFor="email"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Email <span className="text-muted-foreground">(optional)</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="email" className={labelClass}>
+          Email <span className="text-lmc-grayMedium font-normal">(optional)</span>
         </label>
         <input
           type="email"
@@ -326,13 +322,13 @@ export function AppointmentForm() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.email ? "border-destructive" : "border-input"
-          }`}
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
+          className={inputClass}
           placeholder="you@example.com"
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-destructive">{errors.email}</p>
+          <p id="email-error" className={errorClass}>{errors.email}</p>
         )}
       </div>
 
@@ -356,12 +352,9 @@ export function AppointmentForm() {
       />
 
       {/* Message */}
-      <div>
-        <label
-          htmlFor="message"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
-          Message <span className="text-muted-foreground">(optional)</span>
+      <div className={fieldWrapperClass}>
+        <label htmlFor="message" className={labelClass}>
+          Message <span className="text-lmc-grayMedium font-normal">(optional)</span>
         </label>
         <textarea
           id="message"
@@ -369,13 +362,13 @@ export function AppointmentForm() {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className={textareaClass}
           placeholder="Any additional information..."
         />
       </div>
 
       {/* Turnstile Captcha */}
-      <div className="flex justify-center">
+      <div className="flex justify-center py-2">
         <Turnstile
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
           onSuccess={(token) => setTurnstileToken(token)}
@@ -392,11 +385,16 @@ export function AppointmentForm() {
         size="lg"
         className="w-full"
       >
-        {isSubmitting
-          ? "Submitting..."
-          : !turnstileToken
-            ? "Verifying..."
-            : "Book Appointment"}
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Submitting...
+          </>
+        ) : !turnstileToken ? (
+          "Verifying..."
+        ) : (
+          "Book Appointment"
+        )}
       </Button>
     </form>
   );

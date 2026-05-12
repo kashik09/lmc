@@ -4,9 +4,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { Loader2, Send, AlertCircle } from "lucide-react";
 import { contactForm } from "@/content/contacts";
 import { submitContact } from "@/lib/actions/contact";
 import { Button } from "@/components/ui/Button";
+import {
+  inputClass,
+  textareaClass,
+  labelClass,
+  errorClass,
+  fieldWrapperClass,
+  globalErrorClass,
+} from "@/components/ui/FormField";
 
 interface FormData {
   fullName: string;
@@ -106,22 +115,20 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-1" aria-label="Contact form">
       {/* Global Error (rate limit / database) */}
       {globalError && (
-        <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">
-          {globalError}
+        <div className={globalErrorClass}>
+          <AlertCircle className="h-5 w-5 flex-shrink-0" />
+          <span>{globalError}</span>
         </div>
       )}
 
       {/* Full Name */}
-      <div>
-        <label
-          htmlFor="fullName"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
+      <div className={fieldWrapperClass}>
+        <label htmlFor="fullName" className={labelClass}>
           {contactForm.fields.fullName.label}
-          <span className="text-destructive"> *</span>
+          <span className="text-red-500"> *</span>
         </label>
         <input
           type="text"
@@ -130,23 +137,21 @@ export function ContactForm() {
           value={formData.fullName}
           onChange={handleChange}
           placeholder={contactForm.fields.fullName.placeholder}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.fullName ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.fullName}
+          aria-describedby={errors.fullName ? "fullName-error" : undefined}
+          className={inputClass}
         />
         {errors.fullName && (
-          <p className="mt-1 text-sm text-destructive">{errors.fullName}</p>
+          <p id="fullName-error" className={errorClass}>{errors.fullName}</p>
         )}
       </div>
 
       {/* Phone */}
-      <div>
-        <label
-          htmlFor="phone"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
+      <div className={fieldWrapperClass}>
+        <label htmlFor="phone" className={labelClass}>
           {contactForm.fields.phone.label}
-          <span className="text-destructive"> *</span>
+          <span className="text-red-500"> *</span>
         </label>
         <input
           type="tel"
@@ -155,21 +160,19 @@ export function ContactForm() {
           value={formData.phone}
           onChange={handleChange}
           placeholder={contactForm.fields.phone.placeholder}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.phone ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? "phone-error" : undefined}
+          className={inputClass}
         />
         {errors.phone && (
-          <p className="mt-1 text-sm text-destructive">{errors.phone}</p>
+          <p id="phone-error" className={errorClass}>{errors.phone}</p>
         )}
       </div>
 
       {/* Email */}
-      <div>
-        <label
-          htmlFor="email"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
+      <div className={fieldWrapperClass}>
+        <label htmlFor="email" className={labelClass}>
           {contactForm.fields.email.label}
         </label>
         <input
@@ -179,21 +182,18 @@ export function ContactForm() {
           value={formData.email}
           onChange={handleChange}
           placeholder={contactForm.fields.email.placeholder}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.email ? "border-destructive" : "border-input"
-          }`}
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
+          className={inputClass}
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-destructive">{errors.email}</p>
+          <p id="email-error" className={errorClass}>{errors.email}</p>
         )}
       </div>
 
       {/* Subject */}
-      <div>
-        <label
-          htmlFor="subject"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
+      <div className={fieldWrapperClass}>
+        <label htmlFor="subject" className={labelClass}>
           {contactForm.fields.subject.label}
         </label>
         <input
@@ -203,18 +203,15 @@ export function ContactForm() {
           value={formData.subject}
           onChange={handleChange}
           placeholder={contactForm.fields.subject.placeholder}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className={inputClass}
         />
       </div>
 
       {/* Message */}
-      <div>
-        <label
-          htmlFor="message"
-          className="mb-1 block text-sm font-medium text-foreground"
-        >
+      <div className={fieldWrapperClass}>
+        <label htmlFor="message" className={labelClass}>
           {contactForm.fields.message.label}
-          <span className="text-destructive"> *</span>
+          <span className="text-red-500"> *</span>
         </label>
         <textarea
           id="message"
@@ -223,17 +220,18 @@ export function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           placeholder={contactForm.fields.message.placeholder}
-          className={`w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-            errors.message ? "border-destructive" : "border-input"
-          }`}
+          aria-required="true"
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : undefined}
+          className={textareaClass}
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-destructive">{errors.message}</p>
+          <p id="message-error" className={errorClass}>{errors.message}</p>
         )}
       </div>
 
       {/* Turnstile Captcha */}
-      <div className="flex justify-center">
+      <div className="flex justify-center py-2">
         <Turnstile
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
           onSuccess={(token) => setTurnstileToken(token)}
@@ -250,11 +248,19 @@ export function ContactForm() {
         size="lg"
         className="w-full"
       >
-        {isSubmitting
-          ? "Sending..."
-          : !turnstileToken
-            ? "Verifying..."
-            : contactForm.submitButton}
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Sending...
+          </>
+        ) : !turnstileToken ? (
+          "Verifying..."
+        ) : (
+          <>
+            {contactForm.submitButton}
+            <Send className="h-4 w-4" />
+          </>
+        )}
       </Button>
     </form>
   );

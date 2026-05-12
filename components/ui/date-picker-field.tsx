@@ -4,6 +4,7 @@
 import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { CustomCalendar, type CustomCalendarProps } from "./custom-calendar";
+import { labelClass, errorClass, fieldWrapperClass } from "./FormField";
 
 type DatePickerFieldProps = {
   label: string;
@@ -76,28 +77,36 @@ export function DatePickerField({
     }
   }, [isOpen]);
 
+  const fieldId = label.toLowerCase().replace(/\s+/g, "-");
+  const errorId = `${fieldId}-error`;
+
   return (
-    <div ref={containerRef} className="relative">
-      <label className="mb-1 block text-sm font-medium text-foreground">
-        {label} {required && <span className="text-destructive">*</span>}
+    <div ref={containerRef} className={`relative ${fieldWrapperClass}`}>
+      <label htmlFor={fieldId} className={labelClass}>
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
 
       {/* Trigger button */}
       <button
         type="button"
+        id={fieldId}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-left text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary ${
-          error ? "border-destructive" : "border-input"
+        aria-required={required}
+        aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
+        className={`flex w-full items-center justify-between rounded-btn border bg-white px-4 py-2.5 text-left text-lmc-grayDark transition-colors duration-200 focus:border-lmc-green focus:outline-none focus:ring-1 focus:ring-lmc-green ${
+          error ? "border-red-500" : "border-lmc-grayLight"
         }`}
       >
-        <span className={dateValue ? "text-foreground" : "text-muted-foreground"}>
+        <span className={dateValue ? "text-lmc-grayDark" : "text-lmc-grayMedium"}>
           {dateValue ? format(dateValue, "dd MMM yyyy") : placeholder}
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-5 w-5 text-muted-foreground"
+          className="h-5 w-5 text-lmc-grayMedium"
+          aria-hidden="true"
         >
           <path
             fillRule="evenodd"
@@ -107,7 +116,7 @@ export function DatePickerField({
         </svg>
       </button>
 
-      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
+      {error && <p id={errorId} className={errorClass}>{error}</p>}
 
       {/* Calendar popover */}
       {isOpen && (
