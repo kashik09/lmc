@@ -1,8 +1,8 @@
 import { HomeHero } from "@/components/home/HomeHero";
+import { FeaturedServices } from "@/components/home/FeaturedServices";
 import { TeaserBoxes } from "@/components/blocks/teaser-boxes";
 import { WelcomeSection } from "@/components/blocks/welcome-section";
-// Featured Services goes after intro, before the full departments grid
-import { FeaturedServices } from "@/components/blocks/featured-services";
+import { FeaturedServices as FeaturedServicesList } from "@/components/blocks/featured-services";
 import { ServiceCards } from "@/components/blocks/service-cards";
 import { CtaSection } from "@/components/blocks/cta-section";
 
@@ -18,9 +18,10 @@ export default function Home() {
         ctaLabel="Book an Appointment"
         ctaHref="/appointments"
       />
+      <FeaturedServices />
       <TeaserBoxes />
       <WelcomeSection />
-      <FeaturedServices />
+      <FeaturedServicesList />
       <ServiceCards />
       <CtaSection />
     </>
