@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Calendar, Tag } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
+import SearchWidget from "@/components/news/SearchWidget";
+import RecentPosts from "@/components/news/RecentPosts";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeHtml } from "@/lib/utils/sanitize";
 
@@ -159,27 +161,8 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
             {/* Sidebar */}
             <aside className="lg:col-span-1">
               <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-                {/* Search Widget Placeholder */}
-                <div className="border border-lmc-grayLight bg-white p-5">
-                  <h3 className="mb-3 font-heading text-base font-semibold uppercase tracking-wide text-lmc-grayDark">
-                    Search
-                  </h3>
-                  <p className="text-sm italic text-lmc-grayMedium">
-                    {/* TODO 6.3: Search widget */}
-                    Coming soon.
-                  </p>
-                </div>
-
-                {/* Recent Posts Widget Placeholder */}
-                <div className="border border-lmc-grayLight bg-white p-5">
-                  <h3 className="mb-3 font-heading text-base font-semibold uppercase tracking-wide text-lmc-grayDark">
-                    Recent Posts
-                  </h3>
-                  <p className="text-sm italic text-lmc-grayMedium">
-                    {/* TODO 6.3: Recent posts widget */}
-                    Coming soon.
-                  </p>
-                </div>
+                <SearchWidget />
+                <RecentPosts excludeSlug={post.slug} limit={5} />
 
                 {/* Appointment Teaser */}
                 <div className="bg-lmc-green p-6 text-white">
