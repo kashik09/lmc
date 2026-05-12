@@ -1,15 +1,12 @@
 import Link from "next/link";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { ContactForm } from "@/components/blocks/contact-form";
-import { contactsPage, contactInfo } from "@/content/contacts";
+import { contactInfo } from "@/content/contacts";
 
 export default function ContactsPage() {
   return (
     <>
-      <PageHeader
-        title={contactsPage.title}
-        subtitle={contactsPage.subtitle}
-      />
+      <PageHeader title="Contact Us" subtitle="Get in touch with Lifeline" />
 
       <section className="py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4">

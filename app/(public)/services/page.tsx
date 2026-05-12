@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { ServicesAccordion } from "@/components/blocks/services-accordion";
 import {
-  servicesPage,
   servicesIntro,
   servicesApproach,
   servicesCta,
@@ -63,7 +62,7 @@ const iconMap: Record<string, () => ReactNode> = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHeader title={servicesPage.title} subtitle={servicesPage.subtitle} />
+      <PageHeader title="Our Services" subtitle="Comprehensive medical care" />
 
       {/* Section 1 - Intro */}
       <section className="py-12 md:py-16">

@@ -8,11 +8,10 @@ import {
   Wallet,
   BadgeCheck,
 } from "lucide-react";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { AppointmentForm } from "@/components/blocks/appointment-form";
 import { DoctorTimeTable } from "@/components/blocks/doctor-time-table";
 import {
-  appointmentsPage,
   appointmentInfoPanel,
   appointmentsWhyChooseUs,
   doctorAvailabilitySection,
@@ -27,10 +26,7 @@ const iconMap: Record<string, ReactNode> = {
 export default function AppointmentsPage() {
   return (
     <>
-      <PageHeader
-        title={appointmentsPage.title}
-        subtitle={appointmentsPage.subtitle}
-      />
+      <PageHeader title="Appointments" subtitle="Book your visit" />
 
       {/* Why Choose Us */}
       <section className="bg-muted py-10">

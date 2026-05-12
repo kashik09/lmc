@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { sanitizeHtml } from "@/lib/utils/sanitize";
 import {
   SearchWidget,
@@ -51,7 +51,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
 
   return (
     <>
-      <PageHeader title={post.title} />
+      <PageHeader title={post.title} subtitle="Medical Articles & News" />
 
       <section className="py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4">

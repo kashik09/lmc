@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import {
-  aboutPage,
   aboutIntro,
   aboutVision,
   aboutFacilities,
@@ -12,7 +11,7 @@ import {
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title={aboutPage.title} subtitle={aboutPage.subtitle} />
+      <PageHeader title="About Us" subtitle="Lifeline Medical Centre" />
 
       {/* Section 1 - Intro */}
       <section className="py-12 md:py-16">

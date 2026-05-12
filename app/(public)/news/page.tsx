@@ -1,11 +1,11 @@
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import {
   SearchWidget,
   RecentPostsWidget,
   CategoriesWidget,
   VisitorGuideWidget,
 } from "@/components/blocks/sidebar";
-import { newsPage, newsEmptyState } from "@/content/news";
+import { newsEmptyState } from "@/content/news";
 
 // TODO: Wire to Supabase posts table in Phase 5
 async function getPosts() {
@@ -22,7 +22,7 @@ export default async function NewsPage() {
 
   return (
     <>
-      <PageHeader title={newsPage.title} subtitle={newsPage.subtitle} />
+      <PageHeader title="The Blog" subtitle="Medical Articles & News" />
 
       <section className="py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4">

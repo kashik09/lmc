@@ -10,9 +10,8 @@ import {
   Navigation,
   Accessibility,
 } from "lucide-react";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import {
-  visitorsPage,
   infoCards,
   gettingHere,
   visitorsCta,
@@ -36,7 +35,7 @@ const gettingHereIcons = {
 export default function VisitorsPage() {
   return (
     <>
-      <PageHeader title={visitorsPage.title} subtitle={visitorsPage.subtitle} />
+      <PageHeader title="Visitors" subtitle="Information for visitors" />
 
       {/* Section 1 - Info Cards Grid */}
       <section className="py-12 md:py-16">

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
 import {
   serviceDetails,
@@ -29,7 +29,7 @@ export default async function ServiceDetailPage({
 
   return (
     <>
-      <PageHeader title={service.title} subtitle={service.tagline} />
+      <PageHeader title={service.title} subtitle="Our Services" />
 
       <section className="py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4">

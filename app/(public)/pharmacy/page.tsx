@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { contactInfo } from "@/content/contacts";
 
 export const metadata = {
@@ -11,10 +11,7 @@ export const metadata = {
 export default function PharmacyPage() {
   return (
     <>
-      <PageHeader
-        title="Pharmacy"
-        subtitle="Strict scrutiny to ensure efficacious but affordable drugs"
-      />
+      <PageHeader title="Pharmacy" subtitle="Our pharmacy services" />
 
       {/* Intro Section */}
       <section className="py-12 md:py-16">
