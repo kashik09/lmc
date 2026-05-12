@@ -1,10 +1,7 @@
 import { HomeHero } from "@/components/home/HomeHero";
 import { FeaturedServices } from "@/components/home/FeaturedServices";
-import { TeaserBoxes } from "@/components/blocks/teaser-boxes";
-import { WelcomeSection } from "@/components/blocks/welcome-section";
-import { FeaturedServices as FeaturedServicesList } from "@/components/blocks/featured-services";
-import { ServiceCards } from "@/components/blocks/service-cards";
-import { CtaSection } from "@/components/blocks/cta-section";
+import { HomeCTABanner } from "@/components/home/HomeCTABanner";
+import { LatestNews } from "@/components/home/LatestNews";
 
 export default function Home() {
   return (
@@ -19,11 +16,8 @@ export default function Home() {
         ctaHref="/appointments"
       />
       <FeaturedServices />
-      <TeaserBoxes />
-      <WelcomeSection />
-      <FeaturedServicesList />
-      <ServiceCards />
-      <CtaSection />
+      <HomeCTABanner />
+      <LatestNews />
     </>
   );
 }
