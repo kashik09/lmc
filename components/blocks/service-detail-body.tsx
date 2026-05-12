@@ -14,7 +14,7 @@ export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
   return (
     <div>
       {/* Intro */}
-      <p className="mb-6 text-muted-foreground leading-relaxed">
+      <p className="mb-6 font-body text-lg leading-relaxed text-lmc-grayDark">
         {service.intro}
       </p>
 
@@ -24,10 +24,10 @@ export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
           {service.sections.map((section, index) => (
             <details
               key={section.title}
-              className="group rounded-lg border border-border bg-card"
+              className="group border border-lmc-grayLight bg-white"
               open={index === 0}
             >
-              <summary className="flex cursor-pointer items-center justify-between p-4 font-heading font-semibold text-card-foreground hover:bg-muted/50">
+              <summary className="flex cursor-pointer items-center justify-between p-4 font-heading font-semibold text-lmc-grayDark hover:bg-lmc-offWhite">
                 {section.title}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -42,15 +42,15 @@ export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
                   />
                 </svg>
               </summary>
-              <div className="border-t border-border p-4">
+              <div className="border-t border-lmc-grayLight p-4">
                 {slug === "dental" ? (
-                  <ol className="list-decimal space-y-2 pl-6 text-muted-foreground">
+                  <ol className="list-decimal space-y-2 pl-6 font-body text-lmc-grayMedium">
                     {section.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ol>
                 ) : (
-                  <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+                  <ul className="list-disc space-y-2 pl-6 font-body text-lmc-grayMedium">
                     {section.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -61,8 +61,8 @@ export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-lg border border-border bg-muted/50 p-6 text-center">
-          <p className="text-muted-foreground">
+        <div className="border border-lmc-grayLight bg-lmc-offWhite p-6 text-center">
+          <p className="font-body text-lmc-grayMedium">
             Detailed information coming soon — to be provided by LMC.
           </p>
         </div>
