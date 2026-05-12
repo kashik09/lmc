@@ -3,6 +3,7 @@ import { Lato, Raleway } from "next/font/google";
 import "@/styles/globals.css";
 import { CookieConsent } from "@/components/blocks/cookie-consent";
 import { AnalyticsScript } from "@/components/blocks/analytics";
+import { Topbar } from "@/components/layout/Topbar";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -33,6 +34,7 @@ export default function RootLayout({
       className={`${lato.variable} ${raleway.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <Topbar />
         {children}
         <CookieConsent />
         <AnalyticsScript />
