@@ -31,36 +31,36 @@ export default async function ThankYouPage({
 
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-2xl px-4">
-          <div className="rounded-2xl border border-border bg-card p-8 text-center md:p-12">
+          <div className="rounded-2xl border border-lmc-grayLight bg-white p-8 text-center md:p-12">
             {/* Check icon */}
             <div className="mb-6 flex justify-center">
               <CircleCheck
-                className="h-16 w-16 text-primary"
+                className="h-16 w-16 text-lmc-green"
                 strokeWidth={1.5}
                 aria-hidden
               />
             </div>
 
             {/* Heading */}
-            <h2 className="mb-3 font-heading text-3xl font-bold text-foreground md:text-4xl">
+            <h2 className="mb-3 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
               {content.heading}
             </h2>
 
             {/* Body text */}
-            <p className="mb-8 text-base text-muted-foreground md:text-lg">
+            <p className="mb-8 text-base text-lmc-grayMedium md:text-lg">
               {content.body}
             </p>
 
             {/* Reference number panel - only if ref present */}
             {ref && (
-              <div className="mb-8 rounded-lg border border-border bg-muted/50 p-6">
-                <p className="mb-2 text-sm font-medium text-muted-foreground">
+              <div className="mb-8 rounded-lg border border-lmc-grayLight bg-lmc-offWhite/50 p-6">
+                <p className="mb-2 text-sm font-medium text-lmc-grayMedium">
                   {referenceNumberSection.heading}
                 </p>
-                <p className="mb-3 font-mono text-2xl font-bold text-primary md:text-3xl">
+                <p className="mb-3 font-mono text-2xl font-bold text-lmc-green md:text-3xl">
                   {ref}
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-lmc-grayMedium">
                   {referenceNumberSection.note}
                 </p>
               </div>

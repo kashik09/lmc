@@ -9,7 +9,7 @@ export default function ContactsPage() {
       <PageHeader title="Contact Us" subtitle="Get in touch with Lifeline" />
 
       <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-container px-4">
           <div className="grid gap-8 md:grid-cols-2">
             {/* Left - Contact Form */}
             <div>
@@ -17,11 +17,11 @@ export default function ContactsPage() {
             </div>
 
             {/* Right - Contact Info Panel */}
-            <div className="rounded-lg border border-border bg-muted p-6 md:p-8">
-              <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+            <div className="rounded-lg border border-lmc-grayLight bg-lmc-offWhite p-6 md:p-8">
+              <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
                 {contactInfo.heading}
               </h2>
-              <p className="mb-6 text-muted-foreground">
+              <p className="mb-6 text-lmc-grayMedium">
                 {contactInfo.description}
               </p>
 
@@ -33,7 +33,7 @@ export default function ContactsPage() {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
                     >
                       <path
                         fillRule="evenodd"
@@ -43,7 +43,7 @@ export default function ContactsPage() {
                     </svg>
                     <a
                       href={`tel:${phone.replace(/\D/g, "")}`}
-                      className="text-foreground hover:text-primary"
+                      className="text-lmc-grayDark hover:text-lmc-green"
                     >
                       {phone}
                     </a>
@@ -56,14 +56,14 @@ export default function ContactsPage() {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
                   >
                     <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
                     <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                   </svg>
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="text-foreground hover:text-primary"
+                    className="text-lmc-grayDark hover:text-lmc-green"
                   >
                     {contactInfo.email}
                   </a>
@@ -75,7 +75,7 @@ export default function ContactsPage() {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
                   >
                     <path
                       fillRule="evenodd"
@@ -87,7 +87,7 @@ export default function ContactsPage() {
                     href={contactInfo.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-foreground hover:text-primary"
+                    className="text-lmc-grayDark hover:text-lmc-green"
                   >
                     {contactInfo.address}
                   </a>
@@ -95,8 +95,8 @@ export default function ContactsPage() {
               </ul>
 
               {/* Open Hours */}
-              <div className="mb-6 rounded-md bg-primary/10 px-4 py-3">
-                <p className="flex items-center gap-2 font-medium text-primary">
+              <div className="mb-6 rounded-md bg-lmc-green/10 px-4 py-3">
+                <p className="flex items-center gap-2 font-medium text-lmc-green">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -113,13 +113,13 @@ export default function ContactsPage() {
                 </p>
               </div>
 
-              <hr className="mb-6 border-border" />
+              <hr className="mb-6 border-lmc-grayLight" />
 
               {/* Appointment Section */}
-              <h3 className="mb-2 font-heading font-semibold text-foreground">
+              <h3 className="mb-2 font-heading font-semibold text-lmc-grayDark">
                 {contactInfo.appointmentSection.heading}
               </h3>
-              <p className="mb-4 text-sm text-muted-foreground">
+              <p className="mb-4 text-sm text-lmc-grayMedium">
                 {contactInfo.appointmentSection.text}
               </p>
               <Button asChild href={contactInfo.appointmentSection.buttonLink}>

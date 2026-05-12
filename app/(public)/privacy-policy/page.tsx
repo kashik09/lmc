@@ -1,4 +1,4 @@
-import { PageHeader } from "@/components/blocks/page-header";
+import { PageHeader } from "@/components/layout/PageHeader";
 import Link from "next/link";
 
 export const metadata = {
@@ -29,10 +29,10 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* 1. Introduction */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             1. Introduction
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             Lifeline Medical Centre (&quot;LMC,&quot; &quot;we,&quot;
             &quot;us,&quot; or &quot;our&quot;) operates the website at
             lmc.co.ug. We respect your privacy and are committed to protecting
@@ -42,13 +42,13 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 2. Information We Collect */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             2. Information We Collect
           </h2>
-          <p className="mb-3 text-muted-foreground">
+          <p className="mb-3 text-lmc-grayMedium">
             We collect the following types of information:
           </p>
-          <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-lmc-grayMedium">
             <li>
               <strong>Inquiry forms:</strong> name, phone number, email,
               subject, message
@@ -71,24 +71,24 @@ export default function PrivacyPolicyPage() {
               when errors occur (no personal data is sent to error monitoring)
             </li>
           </ul>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             <strong>We do NOT collect:</strong> payment information, medical
             history (this site is informational only), national ID numbers, or
             any sensitive health data via the public forms.
           </p>
 
           {/* 3. How We Use Your Information */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             3. How We Use Your Information
           </h2>
-          <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-lmc-grayMedium">
             <li>To respond to your inquiries</li>
             <li>To confirm and manage appointment bookings</li>
             <li>To detect and prevent fraud, spam, or abuse of the website</li>
             <li>To monitor website performance and fix errors</li>
             <li>To comply with legal obligations under Ugandan law</li>
           </ul>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             <strong>
               We do NOT use your information for marketing, advertising, or
               selling to third parties.
@@ -96,13 +96,13 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 4. How We Share Your Information */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             4. How We Share Your Information
           </h2>
-          <p className="mb-3 text-muted-foreground">
+          <p className="mb-3 text-lmc-grayMedium">
             We share data with the following third-party service providers:
           </p>
-          <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-lmc-grayMedium">
             <li>
               <strong>Supabase (database hosting):</strong> stores form
               submissions. Servers may be located in the EU or US. Cross-border
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
               counters of submission attempts (does not retain personal data).
             </li>
           </ul>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             <strong>
               We do NOT sell, rent, or share your personal data with
               advertisers, marketers, or unrelated third parties.
@@ -131,10 +131,10 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 5. Data Retention */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             5. Data Retention
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             We retain inquiry and appointment form data for twelve (12) months
             from the date of submission, after which it is deleted. This period
             allows us to respond to follow-up questions, manage rescheduled
@@ -146,14 +146,14 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 6. Your Rights Under DPPA 2019 */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             6. Your Rights Under DPPA 2019
           </h2>
-          <p className="mb-3 text-muted-foreground">
+          <p className="mb-3 text-lmc-grayMedium">
             Under Uganda&apos;s Data Protection and Privacy Act, you have the
             following rights:
           </p>
-          <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-lmc-grayMedium">
             <li>
               <strong>Right of access:</strong> you can request a copy of the
               personal data we hold about you
@@ -181,18 +181,18 @@ export default function PrivacyPolicyPage() {
                 href="https://pdpo.go.ug"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline"
+                className="text-lmc-green hover:underline"
               >
                 pdpo.go.ug
               </a>
               )
             </li>
           </ul>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             To exercise any of these rights, contact us at{" "}
             <a
               href="mailto:info@lmc.co.ug"
-              className="text-primary hover:underline"
+              className="text-lmc-green hover:underline"
             >
               info@lmc.co.ug
             </a>
@@ -200,10 +200,10 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 7. Cookies and Tracking Technologies */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             7. Cookies and Tracking Technologies
           </h2>
-          <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-lmc-grayMedium">
             <li>
               <strong>Essential cookies:</strong> required for the site to
               function (e.g., session and security cookies). Cannot be disabled.
@@ -218,17 +218,17 @@ export default function PrivacyPolicyPage() {
               tokens for bot protection. These are essential for form security.
             </li>
           </ul>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             You can manage your preferences through the cookie banner shown on
             first visit, or by clicking &quot;Cookie Preferences&quot; in the
             footer.
           </p>
 
           {/* 8. Security */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             8. Security
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             We use industry-standard security measures including HTTPS
             encryption, server-side input validation, rate limiting, captcha
             protection, secure database access controls, and regular security
@@ -237,64 +237,64 @@ export default function PrivacyPolicyPage() {
           </p>
 
           {/* 9. Children's Privacy */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             9. Children&apos;s Privacy
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             This website is not directed at children under 13. For appointments
             involving minors, parental or guardian consent is required and must
             be provided by the booking adult.
           </p>
 
           {/* 10. Changes to This Policy */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             10. Changes to This Policy
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             We may update this Privacy Policy. The &quot;Last Updated&quot; date
             at the bottom reflects when changes were made. Significant changes
             will be highlighted on the homepage.
           </p>
 
           {/* 11. Contact Us */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             11. Contact Us
           </h2>
-          <address className="mb-6 not-italic text-muted-foreground leading-relaxed">
+          <address className="mb-6 not-italic text-lmc-grayMedium leading-relaxed">
             <strong>Lifeline Medical Centre</strong>
             <br />
             Address: 30 metres from Mirembe stage along Namavundu road, plot
             1052 – block 187 Gayaza, Kyadondo
             <br />
             Phone:{" "}
-            <a href="tel:+256751873951" className="text-primary hover:underline">
+            <a href="tel:+256751873951" className="text-lmc-green hover:underline">
               (+256) 751 873 951
             </a>{" "}
             /{" "}
-            <a href="tel:+256774202747" className="text-primary hover:underline">
+            <a href="tel:+256774202747" className="text-lmc-green hover:underline">
               (+256) 774 202 747
             </a>
             <br />
             Email:{" "}
             <a
               href="mailto:info@lmc.co.ug"
-              className="text-primary hover:underline"
+              className="text-lmc-green hover:underline"
             >
               info@lmc.co.ug
             </a>
           </address>
 
           {/* 12. Effective Date */}
-          <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
             12. Effective Date
           </h2>
-          <p className="mb-6 text-muted-foreground leading-relaxed">
+          <p className="mb-6 text-lmc-grayMedium leading-relaxed">
             Last updated: May 7, 2026
           </p>
 
           {/* Back Link */}
-          <div className="mt-8 border-t border-border pt-6">
-            <Link href="/" className="text-primary hover:underline">
+          <div className="mt-8 border-t border-lmc-grayLight pt-6">
+            <Link href="/" className="text-lmc-green hover:underline">
               ← Back to Home
             </Link>
           </div>
