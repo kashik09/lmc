@@ -1,6 +1,15 @@
+import { Pill, Stethoscope, ShieldCheck, Clock, Phone } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { Button } from "@/components/ui/Button";
+import { servicesList } from "@/content/services";
 import { contactInfo } from "@/content/contacts";
+
+/**
+ * Pharmacy Page — 2-col layout with ServicesSidebar
+ *
+ * Preserves existing intro content, adds feature cards and contact block.
+ */
 
 export const metadata = {
   title: "Pharmacy | Lifeline Medical Centre",
@@ -8,110 +17,131 @@ export const metadata = {
     "In-house pharmacy at Lifeline Medical Centre, Gayaza. Strict scrutiny to ensure efficacious but affordable drugs.",
 };
 
+// Pharmacy feature cards
+// TODO 7.3: confirm pharmacy feature copy with client
+const pharmacyFeatures = [
+  {
+    icon: Pill,
+    title: "Prescription Filling",
+    body: "Accurate, fast dispensing for prescriptions issued in-clinic or from outside providers.",
+  },
+  {
+    icon: Stethoscope,
+    title: "Pharmacist Consultation",
+    body: "Talk to a qualified pharmacist about medication, dosage, and side effects.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Quality Assured",
+    body: "All stock sourced from licensed suppliers, stored to recommended standards.",
+  },
+  {
+    icon: Clock,
+    title: "Convenient Hours",
+    body: "Open during clinic hours — available when you need us.",
+  },
+];
+
 export default function PharmacyPage() {
   return (
     <>
       <PageHeader title="Pharmacy" subtitle="Our pharmacy services" />
 
-      {/* Intro Section */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4">
-          <p className="mb-6 text-muted-foreground leading-relaxed">
-            Lifeline Medical Centre operates an in-house pharmacy serving our
-            patients during clinic hours. Visit our reception to fill
-            prescriptions or speak with our team about your medication needs.
-          </p>
-        </div>
-      </section>
+      <section className="bg-white py-12 md:py-16">
+        <div className="mx-auto max-w-container px-4">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+            {/* Main Content — spans 2 cols */}
+            <article className="lg:col-span-2">
+              {/* Intro */}
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+                Lifeline Pharmacy
+              </p>
+              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+                Trusted medication, dispensed with care
+              </h2>
 
-      {/* Contact CTA Section */}
-      <section className="bg-muted py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4">
-          <div className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
-            <h2 className="mb-4 font-heading text-xl font-bold text-card-foreground">
-              Get in Touch
-            </h2>
-            <ul className="mb-6 space-y-4">
-              {/* Phones */}
-              {contactInfo.phones.map((phone) => (
-                <li key={phone} className="flex items-start gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
+              {/* Body — preserved existing content */}
+              <div className="prose prose-lg max-w-none font-body text-lmc-grayDark prose-headings:font-heading prose-headings:text-lmc-grayDark prose-a:text-lmc-green prose-strong:text-lmc-grayDark prose-ul:my-4 prose-li:my-1">
+                <p>
+                  Lifeline Medical Centre operates an in-house pharmacy serving
+                  our patients during clinic hours. Visit our reception to fill
+                  prescriptions or speak with our team about your medication
+                  needs.
+                </p>
+                <p>
+                  We maintain strict scrutiny to ensure all medications are
+                  efficacious yet affordable, sourced only from licensed and
+                  trusted suppliers.
+                </p>
+              </div>
+
+              {/* Feature Cards Grid */}
+              <div className="my-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {pharmacyFeatures.map((item) => (
+                  <div
+                    key={item.title}
+                    className="border-l-4 border-lmc-green bg-lmc-offWhite p-5"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <a
-                    href={`tel:${phone.replace(/\D/g, "")}`}
-                    className="text-card-foreground hover:text-primary"
-                  >
-                    {phone}
-                  </a>
-                </li>
-              ))}
+                    <item.icon className="mb-3 h-7 w-7 text-lmc-green" />
+                    <h3 className="mb-1 font-heading text-base font-semibold text-lmc-grayDark">
+                      {item.title}
+                    </h3>
+                    <p className="font-body text-sm text-lmc-grayMedium">
+                      {item.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-              {/* Email */}
-              <li className="flex items-start gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
-                >
-                  <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-                  <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
-                </svg>
-                <a
-                  href={`mailto:${contactInfo.email}`}
-                  className="text-card-foreground hover:text-primary"
-                >
-                  {contactInfo.email}
-                </a>
-              </li>
+              {/* Contact / Phone Block */}
+              <div className="my-10 bg-lmc-green p-6 text-white">
+                <div className="flex items-start gap-4">
+                  <Phone className="h-8 w-8 shrink-0 text-white/90" />
+                  <div>
+                    <h3 className="mb-2 font-heading text-xl font-semibold">
+                      Need a refill or have a question?
+                    </h3>
+                    <p className="mb-4 font-body text-sm text-white/90">
+                      Call us during pharmacy hours and our team will be happy
+                      to help.
+                    </p>
+                    <div className="space-y-1">
+                      {contactInfo.phones.map((phone) => (
+                        <p key={phone} className="font-body text-base font-semibold">
+                          <a
+                            href={`tel:${phone.replace(/\D/g, "")}`}
+                            className="hover:underline"
+                          >
+                            {phone}
+                          </a>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              {/* Address */}
-              <li className="flex items-start gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <a
-                  href={contactInfo.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-card-foreground hover:text-primary"
-                >
-                  {contactInfo.address}
-                </a>
-              </li>
-            </ul>
+              {/* Bottom CTA */}
+              <div className="mt-10 flex flex-col items-start justify-between gap-4 border-l-4 border-lmc-green bg-lmc-offWhite p-6 sm:flex-row sm:items-center">
+                <div>
+                  <h3 className="font-heading text-lg font-semibold text-lmc-grayDark">
+                    Need a consultation first?
+                  </h3>
+                  <p className="font-body text-sm text-lmc-grayMedium">
+                    Book an appointment with one of our doctors before your
+                    pharmacy visit.
+                  </p>
+                </div>
+                <Button variant="primary" asChild href="/appointments">
+                  Book Appointment
+                </Button>
+              </div>
+            </article>
 
-            <hr className="mb-6 border-border" />
-
-            {/* Appointment CTA */}
-            <h3 className="mb-2 font-heading font-semibold text-card-foreground">
-              Need to See a Doctor?
-            </h3>
-            <p className="mb-4 text-sm text-muted-foreground">
-              Book an appointment with our medical team.
-            </p>
-            <Button asChild href="/appointments">
-              Book Appointment
-            </Button>
+            {/* Sidebar — "All Services" mode (no currentSlug) */}
+            <aside className="lg:col-span-1">
+              <ServicesSidebar services={servicesList} />
+            </aside>
           </div>
         </div>
       </section>
