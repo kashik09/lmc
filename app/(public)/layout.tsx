@@ -1,4 +1,4 @@
-import { Topbar } from "@/components/blocks/topbar";
+import { Topbar } from "@/components/layout/Topbar";
 import { Navbar } from "@/components/blocks/navbar";
 import { Footer } from "@/components/blocks/footer";
 

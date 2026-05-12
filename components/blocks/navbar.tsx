@@ -1,10 +1,22 @@
 "use client";
 // CLIENT: Mobile menu toggle, sticky scroll detection
 
+/**
+ * Main Header / Mainbar
+ * - bg-lmc-green (#1b7a12), 80px height, sticky
+ * - Logo left, horizontal uppercase nav right
+ * - Shadow appears after scrolling 100px
+ * - Active link: underline style (chosen over pill bg for simplicity)
+ *
+ * NOTE: Reference site has dropdown menus for "Our Services" and "Patients"
+ * Dropdowns will be added in a later ticket if needed.
+ */
+
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,17 +24,18 @@ const navLinks = [
   { href: "/pharmacy", label: "Pharmacy" },
   { href: "/news", label: "News" },
   { href: "/contacts", label: "Contacts" },
+  { href: "/about", label: "About Us" },
 ];
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const pathname = usePathname();
   const prevPathnameRef = useRef<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 40);
+      setHasScrolled(window.scrollY > 100);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -36,13 +49,18 @@ export function Navbar() {
     prevPathnameRef.current = pathname;
   }, [pathname]);
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   return (
     <header
-      className={`bg-background transition-shadow ${
-        isSticky ? "sticky top-0 z-50 shadow-md" : ""
+      className={`bg-lmc-green sticky top-0 z-50 transition-shadow ${
+        hasScrolled ? "shadow-header" : ""
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+      <nav className="mx-auto flex max-w-container items-center justify-between px-4 h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -61,14 +79,8 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`font-medium transition-colors hover:text-primary ${
-                  link.href === "/"
-                    ? pathname === "/"
-                      ? "text-primary"
-                      : "text-foreground"
-                    : pathname.startsWith(link.href)
-                      ? "text-primary"
-                      : "text-foreground"
+                className={`text-sm font-bold uppercase text-white transition-colors hover:text-white/80 ${
+                  isActive(link.href) ? "underline underline-offset-4" : ""
                 }`}
               >
                 {link.label}
@@ -77,66 +89,44 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger - white on green */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-muted lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md text-white hover:bg-white/10 lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <X className="h-6 w-6" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <Menu className="h-6 w-6" />
           )}
         </button>
       </nav>
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="border-t border-border bg-background px-4 pb-4 lg:hidden">
+        <div className="border-t border-white/20 bg-lmc-green px-4 pb-4 lg:hidden">
           {/* Emergency line in mobile drawer */}
-          <div className="flex items-center gap-2 border-b border-border py-3 text-sm">
+          <div className="flex items-center gap-2 border-b border-white/20 py-3 text-sm text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="h-5 w-5 text-primary"
+              className="h-5 w-5"
               aria-hidden="true"
             >
               <path d="M8.5 3a4.5 4.5 0 00-4.5 4.5v1a.5.5 0 01-.5.5H2a1 1 0 00-1 1v6a1 1 0 001 1h1.5a.5.5 0 01.5.5v1A4.5 4.5 0 008.5 22h7a4.5 4.5 0 004.5-4.5v-1a.5.5 0 01.5-.5H22a1 1 0 001-1v-6a1 1 0 00-1-1h-1.5a.5.5 0 01-.5-.5v-1A4.5 4.5 0 0015.5 3h-7zm3.5 5a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H9a1 1 0 110-2h2V9a1 1 0 011-1z" />
             </svg>
             <span className="font-medium">Emergency:</span>
-            <a href="tel:+256774202747" className="text-primary hover:underline">
+            <a href="tel:+256774202747" className="hover:underline">
               (+256) 774-202-747
             </a>
           </div>
 
           <Link
             href="/appointments"
-            className="block border-b border-border py-3 font-medium text-primary"
+            className="block border-b border-white/20 py-3 font-medium text-white"
           >
             Request an Appointment
           </Link>
@@ -146,14 +136,8 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`block py-2 font-medium ${
-                    link.href === "/"
-                      ? pathname === "/"
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                      : pathname.startsWith(link.href)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                  className={`block py-2 font-medium text-white ${
+                    isActive(link.href) ? "underline underline-offset-4" : "hover:text-white/80"
                   }`}
                 >
                   {link.label}
