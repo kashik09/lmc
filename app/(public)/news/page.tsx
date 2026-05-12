@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Newspaper } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
+import Reveal from "@/components/ui/Reveal";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -106,7 +107,7 @@ export default async function NewsPage() {
     <>
       <PageHeader title="The Blog" subtitle="Medical Articles & News" />
 
-      <section className="bg-lmc-offWhite py-16 md:py-20">
+      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           {/* Section Header */}
           <div className="mb-12 text-center">
@@ -137,7 +138,7 @@ export default async function NewsPage() {
             </div>
           )}
         </div>
-      </section>
+      </Reveal>
     </>
   );
 }

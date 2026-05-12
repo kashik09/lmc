@@ -2,6 +2,7 @@ import { HomeHero } from "@/components/home/HomeHero";
 import { FeaturedServices } from "@/components/home/FeaturedServices";
 import { HomeCTABanner } from "@/components/home/HomeCTABanner";
 import { LatestNews } from "@/components/home/LatestNews";
+import Reveal from "@/components/ui/Reveal";
 
 export default function Home() {
   return (
@@ -15,9 +16,15 @@ export default function Home() {
         ctaLabel="Book an Appointment"
         ctaHref="/appointments"
       />
-      <FeaturedServices />
-      <HomeCTABanner />
-      <LatestNews />
+      <Reveal>
+        <FeaturedServices />
+      </Reveal>
+      <Reveal>
+        <HomeCTABanner />
+      </Reveal>
+      <Reveal>
+        <LatestNews />
+      </Reveal>
     </>
   );
 }

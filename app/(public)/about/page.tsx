@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Target, Eye, Heart } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
+import Reveal from "@/components/ui/Reveal";
 import {
   aboutIntro,
   aboutVision,
@@ -39,7 +40,7 @@ export default function AboutPage() {
       <PageHeader title="About Us" subtitle="Lifeline Medical Centre" />
 
       {/* Section 1: Who We Are — image left, text right */}
-      <section className="bg-white py-16 md:py-20">
+      <Reveal as="section" className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
@@ -65,10 +66,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* Section 2: Mission / Vision / Values */}
-      <section className="bg-lmc-offWhite py-16 md:py-20">
+      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           <div className="mb-12 text-center">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
@@ -95,10 +96,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* Section 3: Facilities */}
-      <section className="bg-white py-16 md:py-20">
+      <Reveal as="section" className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
             <div>
@@ -122,10 +123,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* Section 4: CTA Banner */}
-      <section className="bg-lmc-green py-12 text-white md:py-16">
+      <Reveal as="section" className="bg-lmc-green py-12 text-white md:py-16">
         <div className="mx-auto flex max-w-container flex-col gap-6 px-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="mb-2 font-heading text-2xl font-bold md:text-3xl">
@@ -153,7 +154,7 @@ export default function AboutPage() {
             </Button>
           </div>
         </div>
-      </section>
+      </Reveal>
     </>
   );
 }

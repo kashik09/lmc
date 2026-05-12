@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
+import Reveal from "@/components/ui/Reveal";
 import { servicesList } from "@/content/services";
 
 /**
@@ -74,7 +75,7 @@ export default function ServicesPage() {
     <>
       <PageHeader title="Our Services" subtitle="Comprehensive medical care" />
 
-      <section className="bg-lmc-offWhite py-16 md:py-20">
+      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           {/* Section Header */}
           <div className="mb-12 text-center">
@@ -98,7 +99,7 @@ export default function ServicesPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
     </>
   );
 }
