@@ -38,6 +38,15 @@ export const servicesList = [
     image: "/images/services/laboratory.jpg",
   },
   {
+    id: "pharmacy",
+    slug: "pharmacy",
+    title: "Pharmacy",
+    shortDescription:
+      "A full range of medicines in all forms provided through strict scrutiny to ensure efficacious but affordable drugs.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
+  {
     id: "cardiology",
     slug: "cardiology",
     title: "Cardiology",
@@ -94,11 +103,11 @@ export const servicesList = [
   {
     id: "gynaecology",
     slug: "gynaecology",
-    title: "Gynaecology & Birth",
-    // TODO: Replace with real LMC description
+    title: "Gynaecology & Antenatal Care",
     shortDescription:
-      "[Placeholder] Comprehensive gynaecology and birth services. Full description coming soon — to be provided by LMC.",
+      "Our maternity and gynaecological services help prepare and support mothers throughout delivery, while providing the highest level of care.",
     image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
   },
 ];
 
@@ -277,6 +286,15 @@ export const serviceDetails: Record<
       },
     ],
   },
+  pharmacy: {
+    title: "Pharmacy",
+    tagline: "Quality medications for your health needs",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "The Pharmacy Department is responsible for the dispensing of drugs and advice on their use, procurement, supply, storage and conforming to the standards of pharmacy practice by Pharmaceutical Society of Uganda. A full range of medicines in all forms is provided through strict scrutiny to ensure efficacious but affordable drugs.",
+    sections: [],
+  },
   cardiology: {
     title: "Cardiology",
     tagline: "Heart health and cardiovascular care",
@@ -338,14 +356,25 @@ export const serviceDetails: Record<
     sections: [],
   },
   gynaecology: {
-    title: "Gynaecology & Birth",
+    title: "Gynaecology & Antenatal Care",
     tagline: "Women's health and maternity care",
     image: "/images/services/placeholder.svg",
-    // TODO: Replace with real LMC description
+    // TODO: Request real service image from client
     intro:
-      "[Placeholder] Comprehensive gynaecology and birth services. Full description coming soon — to be provided by LMC.",
-    // TODO: Replace with real LMC content for this department
-    sections: [],
+      "Whether this is your first child or the latest in your growing family, we're here to ensure that his or her arrival is as special and comfortable as possible. Our maternity and pediatric suite of services helps prepare and support you throughout your exciting journey, while providing the highest level of care. We have a wide range of Gynaecological Procedures including Laparoscopic Procedures also known as Keyhole Surgery which allows for faster recovery and shorter Hospital stay.",
+    sections: [
+      {
+        title: "Areas of Care",
+        items: [
+          "Urinary tract infections",
+          "Adolescent gynaecological issues",
+          "Cancer (including cervical cancer, uterine cancer and ovarian cancer)",
+          "Cervical polyps and abnormalities",
+          "Endometriosis",
+          "Polycystic ovarian syndrome (PCOS)",
+        ],
+      },
+    ],
   },
 };
 
