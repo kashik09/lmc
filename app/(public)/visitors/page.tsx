@@ -39,7 +39,8 @@ const gettingHereIcons = {
 };
 
 // Info strip items for quick visitor reference
-// TODO 7.2: confirm visiting hours and policies with client
+// Note: visitor count (2 per patient) confirmed from backup.lmc.co.ug
+// TODO 7.2: confirm opening hours with client (backup did not specify)
 const infoStrip = [
   { icon: Clock, label: "Opening Hours", value: "24 hours, 7 days a week" },
   { icon: Users, label: "Per Patient", value: "Max 2 visitors at a time" },
@@ -67,6 +68,43 @@ export default function VisitorsPage() {
               <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
                 Information for Visitors
               </h2>
+
+              {/* Prose content from backup */}
+              <div className="prose prose-lg max-w-none font-body text-lmc-grayDark prose-headings:font-heading prose-headings:text-lmc-grayDark prose-a:text-lmc-green prose-strong:text-lmc-grayDark prose-li:text-lmc-grayMedium">
+                <p>
+                  We welcome visitors and care givers. However, we are required
+                  to observe certain restrictions for the comfort of our
+                  patients, infection control and to allow the medical team to
+                  carry out their rounds and procedures.
+                </p>
+
+                <h3>Visitor Guidelines</h3>
+                <p>
+                  For the comfort and safety of our patients, we ask all
+                  visitors to observe these guidelines:
+                </p>
+                <ul>
+                  <li>The ward allows only 2 visitors at a time per patient.</li>
+                  <li>
+                    To reduce the risk of infection, children under the age of
+                    16 years are not allowed in the wards. We also encourage all
+                    visitors to apply hand gel/alcohol rub prior to and on
+                    leaving the ward. These are located at the entrance to the
+                    ward.
+                  </li>
+                  <li>
+                    Smoking, use of illicit drugs and alcohol are not permitted
+                    in the Hospital premises.
+                  </li>
+                  <li>
+                    Filming and photography are not permitted on the ward.
+                  </li>
+                  <li>
+                    The Hospital will not tolerate any form of verbal or
+                    physical abuse to staff or damage to hospital property.
+                  </li>
+                </ul>
+              </div>
 
               {/* Info Strip */}
               <div className="my-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
