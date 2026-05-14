@@ -136,6 +136,24 @@ export const servicesList = [
     image: "/images/services/placeholder.svg",
     // TODO: Request real service image from client
   },
+  {
+    id: "general-medicine",
+    slug: "general-medicine",
+    title: "General Medicine",
+    shortDescription:
+      "First contact healthcare for illness and emergencies, with qualified staff applying scientific knowledge and clinical expertise to compassionate patient care.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
+  {
+    id: "immunisation",
+    slug: "immunisation",
+    title: "Immunisation",
+    shortDescription:
+      "Protecting children and adults against infectious diseases including Tuberculosis, Diphtheria, Tetanus, Polio, Hepatitis B, Measles and more.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
 ];
 
 export const servicesApproach = {
@@ -485,6 +503,15 @@ export const serviceDetails: Record<
           "Prostatectomy",
           "Hydrocelectomy",
           "Thyroidectomy",
+          "Major excisions",
+          "Fissure in Ano",
+          "Haemorrhoidectomy",
+          "Fistula in Ano",
+          "Orchidectomy",
+          "Laparotomy for ectopic pregnancy",
+          "Cervical cerclage",
+          "Hydrotubation for blocked tubes",
+          "Bartholin's cyst marsupialisation",
         ],
       },
     ],
@@ -503,6 +530,39 @@ export const serviceDetails: Record<
           "Hospital to Home transfers",
           "Home to Hospital emergency transport",
           "Hospital to Hospital inter-facility transfers",
+        ],
+      },
+    ],
+  },
+  "general-medicine": {
+    title: "General Medicine",
+    tagline: "First contact healthcare for illness and emergencies",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "We have a team of qualified and licensed staff ready to give first contact healthcare for illness and emergencies. Our team is continuously trained and engaged in emergency drills and workshops to ensure we are well equipped with current practices. Our specialists apply scientific knowledge and clinical expertise to the diagnosis, treatment, and compassionate care of patients across the spectrum from health to complex illness.",
+    sections: [],
+  },
+  immunisation: {
+    title: "Immunisation",
+    tagline: "Protecting against infectious diseases",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "Immunisation helps protect children and adults against infectious diseases that can cause illness or death. These include: Tuberculosis, Diphtheria, Whooping cough, Tetanus, Polio, Hepatitis B, Haemophilus influenza, Pneumonia, Measles and Rotavirus. These diseases are caused by germs which attack the body and most of them can be spread from one infected person to another.",
+    sections: [
+      {
+        title: "Benefits of Immunisation",
+        items: [
+          "Strengthens a child's ability to fight diseases",
+          "Reduces the chances of children suffering from childhood immunisable diseases",
+          "Protects children from liver disease and cancer of the cervix in girls, in later years of life",
+          "Prevents complications such as lameness and blindness in children",
+          "Reduces the burden and costs on parents/caregivers and communities in terms of time and money spent on treatment",
+          "Contributes to a child's proper growth and development",
+          "Protects the entire community from childhood vaccine preventable diseases",
+          "Protects the mother and her unborn baby from Tetanus",
+          "Once immunized, a child is protected against vaccine preventable diseases for life",
         ],
       },
     ],

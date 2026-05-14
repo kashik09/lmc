@@ -1,6 +1,7 @@
 # LMC Rebuild — New Backup Delta Audit
 
 Generated after Ticket 9.3 completed (commit 498239e)
+Updated after Ticket 9.5 completed
 New backup folder: `~/Downloads/lmc/new-updated/backup/`
 Old backup folder: `~/Downloads/lmc/old/backup/`
 
@@ -12,8 +13,8 @@ Old backup folder: `~/Downloads/lmc/old/backup/`
 | Files in old only (renamed/lost) | 2 |
 | Files in both (shared) | 16 |
 | Significant content updates in shared files | 0 |
-| Service pages now available to port | 2 |
-| Sections potentially missed by 9.1-9.3 | 1 minor |
+| Service pages now available to port | ~~2~~ ✅ 0 (done in 9.5) |
+| Sections potentially missed by 9.1-9.3 | ~~1 minor~~ ✅ 0 (done in 9.5) |
 
 ---
 
@@ -169,22 +170,25 @@ Sample-checked 3 files (Visitors, Home, Contacts):
 
 Ranked by impact:
 
-| # | Action | Why | Effort |
-|---|--------|-----|--------|
-| 1 | Add General Medicine service page | New service with real content available | Small |
-| 2 | Add Immunisation service page | New service with detailed benefits list | Small |
-| 3 | Consider Theatre service list completeness | 7 procedures in backup not in port | Small |
-| 4 | Client decision: Inpatient/Outpatient pages | Content available but needs scope confirmation | Medium |
-| 5 | Client decision: Insurance Partners page | Needs actual partner list from client | Medium |
+| # | Action | Why | Effort | Status |
+|---|--------|-----|--------|--------|
+| 1 | Add General Medicine service page | New service with real content available | Small | ✅ Done in 9.5 |
+| 2 | Add Immunisation service page | New service with detailed benefits list | Small | ✅ Done in 9.5 |
+| 3 | Consider Theatre service list completeness | 7 procedures in backup not in port | Small | ✅ Done in 9.5 (9 procedures added) |
+| 4 | Client decision: Inpatient/Outpatient pages | Content available but needs scope confirmation | Medium | Pending |
+| 5 | Client decision: Insurance Partners page | Needs actual partner list from client | Medium | Pending |
 
 ---
 
 ## Verdict
 
-**9.1-9.3 ports are clean.** Minor completeness issue with Theatre (7 procedures potentially missed), but the core content is accurate.
+**9.1-9.5 ports are complete.** All identified gaps resolved:
+- Theatre procedure list now complete (9 procedures added in 9.5)
+- General Medicine service added
+- Immunisation service added with benefits list
 
-**2 new service pages now available**: General Medicine and Immunisation — these weren't in the old backup and should be ported in a follow-up ticket.
+**/services now shows 16 cards** (was 14 after 9.3, now +2).
 
 ---
 
-*End of delta audit*
+*End of delta audit — updated after Ticket 9.5*

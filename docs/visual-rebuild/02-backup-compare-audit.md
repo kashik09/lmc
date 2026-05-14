@@ -229,7 +229,7 @@ Ranked by user-facing impact:
 
 | # | Page | Element | Reference description | Suggested action |
 |---|------|---------|----------------------|------------------|
-| 1 | /services/* | Radiology, Theatre, Ambulance | Full service pages with descriptions | ✅ RESOLVED — Added in Ticket 9.3 |
+| 1 | /services/* | Radiology, Theatre, Ambulance | Full service pages with descriptions | ✅ RESOLVED in 9.3+9.5 (Theatre completed) |
 | 2 | /visitors | Visitor rules | 5-point bulleted list of ward policies | Add rules section to visitors page content |
 | 3 | /services/* | Service placeholder content | 7 services have "[Placeholder]" text | Request real descriptions from client |
 | 4 | Reference nav | Inpatient, Outpatient pages | Full pages describing patient types | Decide: add pages or consolidate into /visitors |
