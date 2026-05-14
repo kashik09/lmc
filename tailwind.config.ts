@@ -48,16 +48,46 @@ const config: Config = {
         },
         success: "hsl(var(--color-success))",
         warning: "hsl(var(--color-warning))",
-        // LMC Design System Colors (from visual-rebuild spec)
+        // LMC Design System Colors — Reference-accurate light theme
+        // Source: backup.lmc.co.ug screenshots
         lmc: {
-          green: "#1b7a12",
-          greenDark: "#107a02",
+          // PAGE BACKGROUNDS — light theme
+          pageBg: "#f0f0f0", // main page background (light gray)
+          sectionBg: "#ffffff", // white sections inside the page
+          cardBg: "#ffffff", // cards
+
+          // FOOTER — dark navy, NOT gray
+          footerBg: "#2c3e50", // navy blue footer
+          footerDark: "#1a2530", // copyright strip bottom
+
+          // TEXT — dark on light
+          textPrimary: "#1a1a1a", // body text, headings on light bg
+          textSecondary: "#666666", // muted text, captions
+          textOnDark: "#ffffff", // text on footer / hero overlays
+          textOnDarkMuted: "#bbbbbb", // muted text on footer
+
+          // GREEN — primary accent (buttons, CTAs)
+          green: "#1b7a12", // primary green accent
+          greenDark: "#107a02", // hover state
+          greenLight: "#2a9c1f", // hover variant
+
+          // BLUE — secondary accent
           blue: "#45aaff",
-          offWhite: "#f5f5f5",
-          grayDark: "#333333",
-          grayMedium: "#666666",
-          grayLight: "#cccccc",
-          footerDark: "#1a1a1a",
+          blueDark: "#2196f3",
+
+          // BORDERS / DIVIDERS
+          borderLight: "#e0e0e0",
+          borderMedium: "#cccccc",
+
+          // OVERLAYS (for hero caption boxes)
+          overlayDark: "rgba(0, 0, 0, 0.55)",
+          overlayDarker: "rgba(0, 0, 0, 0.70)",
+
+          // BACKWARDS-COMPAT ALIASES (to be migrated away in later tickets)
+          grayDark: "#1a1a1a", // alias to textPrimary
+          grayMedium: "#666666", // alias to textSecondary
+          grayLight: "#e0e0e0", // alias to borderLight
+          offWhite: "#f0f0f0", // alias to pageBg
         },
       },
       fontFamily: {
