@@ -109,6 +109,33 @@ export const servicesList = [
     image: "/images/services/placeholder.svg",
     // TODO: Request real service image from client
   },
+  {
+    id: "radiology",
+    slug: "radiology",
+    title: "Radiology",
+    shortDescription:
+      "High quality ultrasound and x-ray services using state-of-the-art radiologic equipment with Evidence-Based Practice.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
+  {
+    id: "theatre",
+    slug: "theatre",
+    title: "Theatre",
+    shortDescription:
+      "Skilled surgical team performing minor and major operations with comprehensive patient care and a human touch.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
+  {
+    id: "ambulance",
+    slug: "ambulance",
+    title: "Ambulance",
+    shortDescription:
+      "Critical care ambulance fully fitted to safely transport critically ill patients to and from hospitals or accident scenes.",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+  },
 ];
 
 export const servicesApproach = {
@@ -372,6 +399,110 @@ export const serviceDetails: Record<
           "Cervical polyps and abnormalities",
           "Endometriosis",
           "Polycystic ovarian syndrome (PCOS)",
+        ],
+      },
+    ],
+  },
+  radiology: {
+    title: "Radiology",
+    tagline: "Advanced diagnostic imaging services",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "Radiology is a branch of medicine that uses imaging technology to diagnose and treat disease. Radiology may be divided into two different areas, diagnostic radiology and interventional radiology. Doctors who specialize in radiology are called radiologists. LMC uses state-of-the-art radiologic equipment, and we are committed to Evidence-Based Practice. We provide high quality ultrasound and x-ray services that assist in making accurate diagnoses.",
+    sections: [
+      {
+        title: "Ultrasound Services",
+        items: [
+          "Abdominal Scan (Upper & Lower Abdomen)",
+          "Pelvic Scan (Trans Abdominal & Trans Vaginal)",
+          "Obstetric Scan (Pregnancy Dating & Fetal Anomaly)",
+          "Doppler Ultrasound (Arterial & Venous)",
+          "Renal Doppler",
+          "Carotid Doppler",
+          "Thyroid Ultrasound",
+          "Breast Ultrasound",
+          "Scrotal Ultrasound",
+          "Musculoskeletal Ultrasound",
+        ],
+      },
+      {
+        title: "X-ray Services — Plain X-rays",
+        items: [
+          "Skull X-ray",
+          "Spine X-ray (Cervical, Thoracic, Lumbar, Sacral)",
+          "Chest X-ray",
+          "Abdominal X-ray",
+          "Pelvic X-ray",
+          "Extremity X-rays (Upper & Lower Limbs)",
+        ],
+      },
+      {
+        title: "X-ray Services — Special Investigations",
+        items: [
+          "Barium Swallow",
+          "Barium Meal",
+          "Barium Enema",
+          "Hysterosalpingography (HSG)",
+          "Intravenous Pyelography (IVP)",
+        ],
+      },
+    ],
+  },
+  theatre: {
+    title: "Theatre",
+    tagline: "Skilled surgical care with a human touch",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "We have a team of skilled and experienced Doctors and Nurses who perform minor and major operations in a well-equipped theatre. Our team is committed to providing comprehensive patient care before, during and after surgery, with a human touch that ensures your comfort and well-being.",
+    sections: [
+      {
+        title: "Minor Operations",
+        items: [
+          "Circumcision",
+          "Minor excisions (lumps, cysts, lipomas)",
+          "Dilatation & Curettage (D&C)",
+          "Manual Vacuum Aspiration (MVA)",
+        ],
+      },
+      {
+        title: "Major Operations",
+        items: [
+          "Herniorrhaphy (Inguinal, Umbilical, Incisional)",
+          "Appendicectomy",
+          "Caesarean Section (C/S)",
+          "Myomectomy",
+          "Total Abdominal Hysterectomy (TAH)",
+          "Vaginal Hysterectomy",
+          "Ovarian Cystectomy",
+          "Oophorectomy",
+          "Salpingectomy",
+          "Bilateral Tubal Ligation (BTL)",
+          "Cholecystectomy",
+          "Exploratory Laparotomy",
+          "Intestinal Resection & Anastomosis",
+          "Prostatectomy",
+          "Hydrocelectomy",
+          "Thyroidectomy",
+        ],
+      },
+    ],
+  },
+  ambulance: {
+    title: "Ambulance",
+    tagline: "Critical care transport when you need it most",
+    image: "/images/services/placeholder.svg",
+    // TODO: Request real service image from client
+    intro:
+      "Lifeline Medical Centre operates a critical care ambulance that is fully fitted to safely transport critically ill patients to and from hospitals or accident scenes. Our ambulance team is trained to provide emergency medical care during transport, ensuring patient stability and safety.",
+    sections: [
+      {
+        title: "Services Offered",
+        items: [
+          "Hospital to Home transfers",
+          "Home to Hospital emergency transport",
+          "Hospital to Hospital inter-facility transfers",
         ],
       },
     ],

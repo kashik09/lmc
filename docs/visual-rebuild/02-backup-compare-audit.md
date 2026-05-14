@@ -11,8 +11,8 @@ Rebuild: `app/(public)/` on main branch (commit f3ea5d7 + Round 8 polish)
 | Reference pages audited | 15 |
 | Rebuild pages audited | 11 |
 | 🟢 Intentional divergences | 12 |
-| 🟡 Worth confirming | 8 |
-| 🔴 Accidental gaps | 5 |
+| 🟡 Worth confirming | 7 |
+| 🔴 Accidental gaps | 4 |
 | ⚫ Rebuild-only additions | 3 |
 
 ## Methodology
@@ -229,7 +229,7 @@ Ranked by user-facing impact:
 
 | # | Page | Element | Reference description | Suggested action |
 |---|------|---------|----------------------|------------------|
-| 1 | /services/* | Radiology, Theatre, Ambulance | Full service pages with descriptions | Add these 3 service pages using reference content |
+| 1 | /services/* | Radiology, Theatre, Ambulance | Full service pages with descriptions | ✅ RESOLVED — Added in Ticket 9.3 |
 | 2 | /visitors | Visitor rules | 5-point bulleted list of ward policies | Add rules section to visitors page content |
 | 3 | /services/* | Service placeholder content | 7 services have "[Placeholder]" text | Request real descriptions from client |
 | 4 | Reference nav | Inpatient, Outpatient pages | Full pages describing patient types | Decide: add pages or consolidate into /visitors |
@@ -241,7 +241,7 @@ Ranked by user-facing impact:
 
 | # | Question | Why it matters | Default if no response |
 |---|----------|----------------|------------------------|
-| 1 | Do you need Radiology, Theatre, Ambulance service pages? | These existed in old site | Add them with reference content |
+| 1 | ~~Do you need Radiology, Theatre, Ambulance service pages?~~ | ~~These existed in old site~~ | ✅ Added in Ticket 9.3 |
 | 2 | Should we add a Newsletter signup form? | Present on old home page | Skip — low value without backend |
 | 3 | Do you want a Google Map embed on Contacts? | Broken in reference but was present | Skip — add Maps link instead |
 | 4 | Should Pharmacy have its own detailed service page? | Currently minimal standalone page | Keep current /pharmacy |
