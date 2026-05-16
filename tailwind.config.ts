@@ -49,7 +49,7 @@ const config: Config = {
         success: "hsl(var(--color-success))",
         warning: "hsl(var(--color-warning))",
         // LMC Design System Colors — Reference-accurate light theme
-        // Source: backup.lmc.co.ug screenshots
+        // Based on backup.lmc.co.ug screenshots
         lmc: {
           // PAGE BACKGROUNDS — light theme
           pageBg: "#f0f0f0", // main page background (light gray)
@@ -71,7 +71,7 @@ const config: Config = {
           greenDark: "#107a02", // hover state
           greenLight: "#2a9c1f", // hover variant
 
-          // BLUE — secondary accent
+          // BLUE — secondary accent (the "FIND A DOCTOR" trapezoid)
           blue: "#45aaff",
           blueDark: "#2196f3",
 

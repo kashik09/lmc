@@ -60,8 +60,7 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
-/* Dark mode — DISABLED for now (forcing light theme per reference)
-   Kept for potential future use, but body styles override this.
+/* Dark mode (optional - medical sites typically light) */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: 222 47% 11%;
@@ -74,7 +73,6 @@
     --color-input: 217 33% 17%;
   }
 }
-*/
 
 /* Tailwind v4 theme integration */
 @theme inline {
@@ -112,8 +110,8 @@
 
 /* Base Styles — Light theme (reference-accurate) */
 body {
-  background-color: #f0f0f0; /* lmc-pageBg */
-  color: #1a1a1a; /* lmc-textPrimary */
+  background-color: #f0f0f0; /* lmc-pageBg — light gray */
+  color: #1a1a1a; /* lmc-textPrimary — dark on light */
   font-family: var(--font-sans); /* font-body: Lato */
 }
 
