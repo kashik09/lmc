@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Services — Lifeline Medical Centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .services-acc { padding: 64px 0 80px; background: var(--bg); }
+  .acc-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 36px; align-items: start; }
+  .acc-row > .left p { color: #555; margin: 0 0 14px; font-size: 14.5px; line-height: 1.7; }
+  .acc-row > .left ul { margin: 14px 0; padding-left: 22px; color: #555; font-size: 14.5px; }
+  .acc-row > .left ul li { margin-bottom: 6px; }
+  .acc-row > .right { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .acc-head .lead-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: #f5f5f5; color: var(--green);
+    font-family: var(--serif); font-size: 16px; font-weight: 700;
+    margin-right: 14px; transition: background 0.2s ease, color 0.2s ease;
+  }
+  .acc-item.open .acc-head .lead-num { background: var(--green); color: #fff; }
+</style>
+</head>
+<body>
+
+<div data-partial="header" data-active="services"></div>
+
+<section class="page-banner" data-screen-label="01 Banner">
+  <div class="container">
+    <div class="crumbs">Home / Our Services</div>
+    <h1>Services</h1>
+    <div class="subtitle">Comprehensive medical care under one roof</div>
+  </div>
+</section>
+
+<section class="services-acc" data-screen-label="02 Services accordion">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Departments</div>
+      <h2>What we offer</h2>
+      <p class="lede">Click any department below to see what's included, meet a consultant, and book directly.</p>
+    </div>
+
+    <div class="accordion" data-single="true">
+
+      <!-- Neurology -->
+      <div class="acc-item open">
+        <button class="acc-head">
+          <span><span class="lead-num">01</span>Neurology</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>Our neurology service evaluates and treats disorders of the brain, spinal cord, nerves and muscles. From migraines and seizures to stroke recovery and movement disorders, our consultants combine clinical assessment with on-site imaging and EEG to reach a confident diagnosis fast.</p>
+              <p>We work closely with primary-care physicians and offer follow-up programs that prioritise quality of life for patients with long-term neurological conditions.</p>
+              <p><strong>Common conditions we manage:</strong></p>
+              <ul>
+                <li>Migraine and chronic headache</li>
+                <li>Epilepsy and seizure disorders</li>
+                <li>Stroke rehabilitation</li>
+                <li>Parkinson's disease and tremor</li>
+                <li>Peripheral neuropathy</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-3 3 3 3 0 0 0 1.5 2.6A3 3 0 0 0 3 14a3 3 0 0 0 3 3v1a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 3 3 3 3 0 0 1-1.5 2.6A3 3 0 0 1 21 14a3 3 0 0 1-3 3v1a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z"/></svg>
+                </div>
+                <h4>Neurology</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Department of clinical &amp; interventional neurology</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Amelia Nankya" data-role="Senior Neurologist · Lifeline" data-bio='<p>Dr. Amelia Nankya has practised neurology for over fifteen years, with particular interest in stroke prevention and the long-term management of epilepsy. <span class="hover3d">hover here for 3d effect</span></p><p>She trained at Makerere University and completed a fellowship in cerebrovascular medicine in the UK. She runs the centre''s weekly neurology clinic and rehabilitation rounds. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">AN</div>
+                <div class="info">
+                  <div class="name">Dr. Amelia Nankya</div>
+                  <div class="title">Senior Neurologist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pediatrics -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">02</span>Pediatrics</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>From newborn check-ups to adolescent care, our paediatric team provides comprehensive medical support for children of every age. Routine immunisations, growth monitoring, asthma management and acute illness — all delivered in a child-friendly environment.</p>
+              <p>We partner with families to make sure every child reaches their healthiest possible start in life.</p>
+              <ul>
+                <li>Newborn and infant care</li>
+                <li>Vaccination schedule and travel jabs</li>
+                <li>Asthma, allergy and eczema management</li>
+                <li>Developmental assessments</li>
+                <li>Adolescent health and mental wellness</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3"/><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="9" cy="7" r=".5" fill="currentColor"/><circle cx="15" cy="7" r=".5" fill="currentColor"/></svg>
+                </div>
+                <h4>Pediatrics</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Department of children's medicine</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Samuel Kibirige" data-role="Consultant Paediatrician" data-bio='<p>Dr. Samuel Kibirige leads our paediatric department with a focus on early-childhood respiratory health and developmental screening. <span class="hover3d">hover here for 3d effect</span></p><p>He is a Fellow of the Uganda Paediatric Association and an advocate for accessible childhood immunisation programs across the region. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">SK</div>
+                <div class="info">
+                  <div class="name">Dr. Samuel Kibirige</div>
+                  <div class="title">Consultant Paediatrician</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagnostic Imaging -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">03</span>Diagnostic Imaging</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>Our imaging department combines digital X-ray, ultrasound, and CT services with rapid reporting from on-site radiologists. Whether for a routine antenatal scan or an emergency trauma series, results are returned to your consultant within hours, not days.</p>
+              <p>All equipment is upgraded on a five-year cycle to keep dose levels low and image quality high.</p>
+              <ul>
+                <li>Digital X-ray (chest, abdomen, ortho, dental)</li>
+                <li>Obstetric and abdominal ultrasound</li>
+                <li>Doppler studies</li>
+                <li>Contrast-enhanced CT</li>
+                <li>Image-guided biopsy</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8"/></svg>
+                </div>
+                <h4>Imaging</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Radiology &amp; diagnostic imaging</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Ruth Lwanga" data-role="Lead Radiologist" data-bio='<p>Dr. Ruth Lwanga heads diagnostic imaging at Lifeline, specialising in obstetric and abdominal ultrasound. <span class="hover3d">hover here for 3d effect</span></p><p>She trained at Mulago National Referral Hospital and has read over fifty thousand studies in her career. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">RL</div>
+                <div class="info">
+                  <div class="name">Dr. Ruth Lwanga</div>
+                  <div class="title">Lead Radiologist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cardiology -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">04</span>Cardiology</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>Our cardiology service offers preventive screening, comprehensive evaluation and ongoing management of heart and vascular conditions. The unit performs in-house ECG, echocardiography and stress testing, with referral pathways for interventional procedures.</p>
+              <p>Lifestyle counselling and structured rehabilitation are an integral part of every care plan.</p>
+              <ul>
+                <li>Resting and exercise ECG</li>
+                <li>Transthoracic echocardiography</li>
+                <li>Ambulatory blood-pressure monitoring</li>
+                <li>Hypertension and lipid clinic</li>
+                <li>Cardiac rehabilitation</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                </div>
+                <h4>Cardiology</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Heart &amp; vascular care</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Patrick Ouma" data-role="Senior Cardiologist" data-bio='<p>Dr. Patrick Ouma has led Lifeline''s cardiology programme since 2019, with sub-specialty interests in hypertensive heart disease and adult congenital follow-up. <span class="hover3d">hover here for 3d effect</span></p><p>He sits on the East African Cardiac Society and lectures part-time at Makerere College of Health Sciences. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">PO</div>
+                <div class="info">
+                  <div class="name">Dr. Patrick Ouma</div>
+                  <div class="title">Senior Cardiologist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cosmetic Surgery -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">05</span>Cosmetic Surgery</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>From reconstructive procedures following injury or illness to elective aesthetic work, our surgical team brings precision and discretion to every consultation. All procedures are performed in our fully accredited theatre with overnight inpatient care available on-site.</p>
+              <p>Every patient receives a private pre-operative consultation, written quote and a structured recovery plan.</p>
+              <ul>
+                <li>Reconstructive surgery</li>
+                <li>Scar revision and skin procedures</li>
+                <li>Liposuction and body contouring</li>
+                <li>Aesthetic and dermatological treatments</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3l4 12 5-9 4 6"/><circle cx="6" cy="20" r="2"/></svg>
+                </div>
+                <h4>Cosmetic Surgery</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Reconstructive &amp; aesthetic surgery</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Maria Achieng" data-role="Consultant Surgeon" data-bio='<p>Dr. Maria Achieng is a board-certified plastic and reconstructive surgeon with twelve years'' experience across burns, trauma reconstruction and aesthetic procedures. <span class="hover3d">hover here for 3d effect</span></p><p>She trained in Nairobi and Cape Town and is published in the East African Medical Journal. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">MA</div>
+                <div class="info">
+                  <div class="name">Dr. Maria Achieng</div>
+                  <div class="title">Consultant Surgeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Microbiology Lab -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">06</span>Microbiology Lab</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>Our microbiology lab supports diagnosis and treatment of infectious disease across the centre and partner clinics in the region. From throat swabs to blood cultures, all assays are processed on-site with rapid antimicrobial sensitivity reporting.</p>
+              <p>The lab is ISO 15189 aligned and participates in regional quality-assurance schemes.</p>
+              <ul>
+                <li>Bacterial culture &amp; sensitivity</li>
+                <li>Malaria, HIV and viral hepatitis panels</li>
+                <li>Tuberculosis screening</li>
+                <li>Parasitology</li>
+                <li>Urine and stool analysis</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6v6l4 9a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-9V3Z"/><path d="M7 14h10"/></svg>
+                </div>
+                <h4>Microbiology</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Pathology &amp; clinical microbiology</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Hassan Mubiru" data-role="Clinical Microbiologist" data-bio='<p>Dr. Hassan Mubiru oversees laboratory operations at Lifeline, with a particular interest in antimicrobial stewardship. <span class="hover3d">hover here for 3d effect</span></p><p>He has led national-level training in laboratory accreditation and is co-author of the Uganda Microbiology Practice Guidelines. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">HM</div>
+                <div class="info">
+                  <div class="name">Dr. Hassan Mubiru</div>
+                  <div class="title">Clinical Microbiologist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gynaecology & Birth -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <span><span class="lead-num">07</span>Gynaecology &amp; Birth</span>
+          <span class="acc-chev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content acc-row">
+            <div class="left">
+              <p>From routine cervical screening to full antenatal care and supported birth, our gynaecology and maternity team walks alongside women at every stage. The centre has a fully equipped maternity ward with 24-hour midwifery cover and emergency caesarean capability.</p>
+              <p>We work in partnership with paediatrics so newborn assessments happen in the same building, minutes from delivery.</p>
+              <ul>
+                <li>Antenatal care and ultrasound</li>
+                <li>Vaginal and caesarean birth</li>
+                <li>Family planning consultations</li>
+                <li>Cervical &amp; breast screening</li>
+                <li>Postnatal recovery &amp; lactation support</li>
+              </ul>
+            </div>
+            <div class="right">
+              <div class="dept-callout">
+                <div class="ic">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 19h6"/></svg>
+                </div>
+                <h4>Gynaecology</h4>
+                <p style="font-size:12.5px;letter-spacing:.05em;margin:0;opacity:.85">Maternity &amp; women's health</p>
+                <div class="phone-line">(+256) 774-202-747</div>
+              </div>
+              <div class="doctor-card">
+                <a class="more-btn" href="#" data-doctor="Dr. Jane Akello" data-role="Consultant Obstetrician" data-bio='<p>Dr. Jane Akello is a consultant obstetrician and gynaecologist with eighteen years of clinical experience and a special interest in high-risk pregnancies. <span class="hover3d">hover here for 3d effect</span></p><p>She has delivered over four thousand babies at Lifeline and leads the centre''s maternal-health quality initiative. <span class="hover3d">hover here for 3d effect</span></p>'>More</a>
+                <div class="photo">JA</div>
+                <div class="info">
+                  <div class="name">Dr. Jane Akello</div>
+                  <div class="title">Consultant Obstetrician</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div data-partial="doctor-modal"></div>
+<div data-partial="footer"></div>
+
+<script src="assets/partials.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
