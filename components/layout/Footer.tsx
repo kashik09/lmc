@@ -1,75 +1,146 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { CookiePreferencesButton } from "@/components/blocks/cookie-consent";
+import LogoMark from "./LogoMark";
+import BackToTop from "./BackToTop";
 
 /**
- * Footer — 4-column dark layout
+ * Footer — navy blue 3-column layout matching mockup
  *
- * Columns: About LMC / Quick Links / Latest News / Contact
- * Background: bg-lmc-grayDark with green accent underlines
- * Copyright bar: bg-lmc-footerDark
- *
- * NOTE: Reference site has social media icons in footer.
- * Social icons may be added in a later round.
+ * Mockup styling (.site-footer):
+ * - bg: #2D4A6F (--blue), color: rgba(255,255,255,0.85)
+ * - padding: 88px 0 0, margin-top: 80px
+ * - 3-col grid: 1.3fr 1fr 1.4fr, gap 56px
+ * - h4: 13px, uppercase, 0.16em tracking, green underline
+ * - Bottom bar: bg #233a58, border-top rgba(255,255,255,0.1)
  */
 
 const quickLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
-  { href: "/services", label: "Services" },
-  { href: "/news", label: "News" },
+  { href: "/services", label: "Our Services" },
+  { href: "/news", label: "News & Articles" },
   { href: "/contacts", label: "Contact Us" },
-  { href: "/appointments", label: "Book Appointment" },
-  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/visitors", label: "Patient Guide" },
+  // TODO: Careers route doesn't exist yet
 ];
 
-{/* TODO: wire up to Supabase latest news in a follow-up ticket */}
+// TODO: wire up to Supabase latest news in a follow-up ticket
 const latestNewsDummy = [
-  { title: "New Laboratory Equipment Installed", date: "May 5, 2026" },
-  { title: "Extended Weekend Hours Now Available", date: "April 28, 2026" },
-  { title: "Community Health Outreach Program", date: "April 15, 2026" },
+  {
+    title: "New paediatric ward opens with expanded capacity",
+    date: "May 12, 2026",
+  },
+  {
+    title: "Free community health screening this Saturday",
+    date: "April 28, 2026",
+  },
+  {
+    title: "Three new specialists join our cardiology team",
+    date: "April 14, 2026",
+  },
 ];
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-4">
-      <h3 className="font-heading text-lg font-semibold text-white">
-        {children}
-      </h3>
-      <div className="mt-2 h-0.5 w-10 bg-lmc-green" />
-    </div>
+    <h4 className="relative mb-[22px] pb-[14px] font-sans text-[13px] font-bold uppercase tracking-[0.16em] text-white">
+      {children}
+      <span className="absolute bottom-0 left-0 h-[2px] w-[44px] bg-lmc-green" />
+    </h4>
   );
 }
 
 export function Footer() {
   return (
-    <footer>
-      {/* Main Footer */}
-      <div className="bg-lmc-grayDark text-white">
-        <div className="mx-auto max-w-container px-4 py-12">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* Column 1 — About LMC */}
+    <>
+      <footer className="relative mt-20 bg-lmc-footerBg pt-[88px] text-white/85">
+        {/* Angled top edge */}
+        <div
+          className="absolute -top-[38px] left-0 right-0 h-10"
+          style={{
+            background:
+              "linear-gradient(to right bottom, transparent 49.6%, #2D4A6F 50%)",
+          }}
+        />
+
+        <div className="mx-auto max-w-container px-7 pb-14">
+          <div className="grid grid-cols-1 gap-14 md:grid-cols-3">
+            {/* Column 1: About + contact */}
             <div>
-              <ColumnHeading>About LMC</ColumnHeading>
-              <p className="text-sm leading-relaxed text-gray-300">
-                {/* TODO: confirm About copy with client */}
-                Lifeline Medical Centre provides comprehensive healthcare
-                services in Gayaza, Kampala, dedicated to patient-centered care
-                and medical excellence. We are committed to accessible,
-                compassionate medical care for our community.
+              <Link href="/" className="mb-[18px] flex items-center gap-3">
+                <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-white bg-transparent">
+                  <LogoMark className="h-7 w-7" />
+                </div>
+                <span className="font-sans text-[11.5px] font-extrabold uppercase leading-tight tracking-[0.04em] text-white">
+                  Lifeline Medical
+                  <br />
+                  Centre · <span className="text-lmc-green">Gayaza</span>
+                </span>
+              </Link>
+
+              <p className="mb-[14px] text-sm leading-[1.7]">
+                A trusted community medical centre providing 24-hour primary
+                care, diagnostics, and specialist services to Gayaza and the
+                surrounding region.
               </p>
+
+              {/* Contact rows */}
+              <div className="mt-[18px] flex flex-col gap-[14px] text-[13.5px]">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-lmc-green">
+                    <Phone className="h-[14px] w-[14px]" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                      Emergency Line
+                    </div>
+                    <strong className="text-white">(+256) 774-202-747</strong>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-lmc-green">
+                    <Mail className="h-[14px] w-[14px]" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                      Email Us
+                    </div>
+                    <a href="mailto:info@lmc.co.ug" className="text-white">
+                      info@lmc.co.ug
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-lmc-green">
+                    <MapPin className="h-[14px] w-[14px]" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                      Location
+                    </div>
+                    <span>
+                      Gayaza-Zirobwe Road,
+                      <br />
+                      Gayaza, Uganda
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Column 2 — Quick Links */}
+            {/* Column 2: Quick Links */}
             <div>
               <ColumnHeading>Quick Links</ColumnHeading>
-              <ul className="space-y-2">
+              <ul className="m-0 list-none p-0">
                 {quickLinks.map((link) => (
-                  <li key={link.href}>
+                  <li
+                    key={link.href}
+                    className="border-b border-white/10 py-[10px] text-[13.5px]"
+                  >
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-300 transition-colors hover:text-lmc-green"
+                      className="inline-flex items-center gap-[10px] transition-colors hover:text-white"
                     >
+                      <span className="font-bold text-lmc-green">›</span>
                       {link.label}
                     </Link>
                   </li>
@@ -77,85 +148,59 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Column 3 — Latest News */}
+            {/* Column 3: Latest News */}
             <div>
               <ColumnHeading>Latest News</ColumnHeading>
-              {/* TODO: wire up to Supabase latest news in a follow-up ticket */}
-              <ul className="space-y-4">
+              {/* TODO: wire to Supabase getLatestPosts(3) */}
+              <div className="space-y-[18px]">
                 {latestNewsDummy.map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      href="/news"
-                      className="text-sm font-medium text-gray-300 transition-colors hover:text-lmc-green"
-                    >
-                      {item.title}
-                    </Link>
-                    <p className="mt-1 text-xs text-gray-400">{item.date}</p>
-                  </li>
+                  <Link
+                    key={index}
+                    href="/news"
+                    className="flex gap-[14px] group"
+                  >
+                    <div className="flex h-[70px] w-[70px] shrink-0 items-center justify-center bg-gradient-to-br from-lmc-green to-lmc-blueAccent font-heading text-[22px] font-bold text-white">
+                      N{index + 1}
+                    </div>
+                    <div>
+                      <div className="mb-1 text-[11.5px] uppercase tracking-[0.1em] text-lmc-green">
+                        {item.date}
+                      </div>
+                      <h5 className="m-0 text-[13.5px] font-semibold leading-[1.4] text-white group-hover:text-lmc-green transition-colors">
+                        {item.title}
+                      </h5>
+                    </div>
+                  </Link>
                 ))}
-              </ul>
-            </div>
-
-            {/* Column 4 — Contact */}
-            <div>
-              <ColumnHeading>Contact</ColumnHeading>
-              <ul className="space-y-3 text-sm text-gray-300">
-                <li className="flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-lmc-green" />
-                  {/* TODO: confirm exact address with client */}
-                  <span>Namavundu Rd, Gayaza, Kampala, Uganda</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 flex-shrink-0 text-lmc-green" />
-                  {/* TODO: confirm primary phone with client */}
-                  <a
-                    href="tel:+256774202747"
-                    className="transition-colors hover:text-lmc-green"
-                  >
-                    (+256) 774-202-747
-                  </a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 flex-shrink-0 text-lmc-green" />
-                  {/* TODO: confirm email with client */}
-                  <a
-                    href="mailto:info@lmc.co.ug"
-                    className="transition-colors hover:text-lmc-green"
-                  >
-                    info@lmc.co.ug
-                  </a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 flex-shrink-0 text-lmc-green" />
-                  {/* TODO: confirm hours with client */}
-                  <span>Mon–Sat 8am–6pm</span>
-                </li>
-              </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Copyright Bar */}
-      <div className="bg-lmc-footerDark py-4">
-        <div className="mx-auto max-w-container px-4">
-          <p className="text-center text-xs text-gray-400">
-            © {new Date().getFullYear()} Lifeline Medical Centre. All rights
-            reserved.
-          </p>
-          <div className="mt-2 flex items-center justify-center gap-4">
-            <Link
-              href="/privacy-policy"
-              className="text-xs text-gray-400 transition-colors hover:text-lmc-green"
-            >
-              Privacy Policy
-            </Link>
-            <span className="text-gray-500">·</span>
-            <CookiePreferencesButton />
+        {/* Bottom strip */}
+        <div className="border-t border-white/10 bg-lmc-footerDark py-[22px]">
+          <div className="mx-auto flex max-w-container flex-col items-center justify-between gap-3 px-7 text-[12.5px] md:flex-row">
+            <span>
+              © {new Date().getFullYear()} Lifeline Medical Centre — Gayaza.
+              All rights reserved.
+            </span>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/privacy-policy"
+                className="transition-colors hover:text-lmc-green"
+              >
+                Privacy Policy
+              </Link>
+              <span className="text-white/40">·</span>
+              <CookiePreferencesButton />
+            </div>
+            {/* TODO: designer attribution removed per client preference */}
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      <BackToTop />
+    </>
   );
 }
 
