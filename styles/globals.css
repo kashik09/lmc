@@ -60,7 +60,8 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
-/* Dark mode (optional - medical sites typically light) */
+/* Dark mode DISABLED — medical sites stay light-themed
+   Removing to prevent unintended color changes on dark-mode systems
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: 222 47% 11%;
@@ -73,6 +74,7 @@
     --color-input: 217 33% 17%;
   }
 }
+*/
 
 /* Tailwind v4 theme integration */
 @theme inline {
@@ -108,14 +110,18 @@
   --radius-full: var(--radius-full);
 }
 
-/* Base Styles — Light theme (reference-accurate) */
+/* Base Styles — synced to mockup-reference/styles.css */
 body {
-  background-color: #f0f0f0; /* lmc-pageBg — light gray */
-  color: #1a1a1a; /* lmc-textPrimary — dark on light */
-  font-family: var(--font-sans); /* font-body: Lato */
+  background-color: #ffffff;      /* mockup body bg is --white */
+  color: #2a2a2a;                 /* mockup --ink (textPrimary) */
+  font-family: var(--font-sans);  /* Lato — DON'T CHANGE */
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading); /* font-heading: Raleway */
-  color: #1a1a1a; /* lmc-textPrimary */
+  font-family: var(--font-heading); /* Raleway — DON'T CHANGE */
+  color: #2a2a2a;                   /* mockup --ink */
 }

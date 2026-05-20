@@ -48,46 +48,49 @@ const config: Config = {
         },
         success: "hsl(var(--color-success))",
         warning: "hsl(var(--color-warning))",
-        // LMC Design System Colors — Reference-accurate light theme
-        // Based on backup.lmc.co.ug screenshots
+        // LMC Design System Colors — synced from mockup-reference/styles.css
+        // GREEN values are BRAND OVERRIDES (LMC #1b7a12, not mockup #0E8A6D)
         lmc: {
-          // PAGE BACKGROUNDS — light theme
-          pageBg: "#f0f0f0", // main page background (light gray)
-          sectionBg: "#ffffff", // white sections inside the page
-          cardBg: "#ffffff", // cards
+          // Page surfaces — from mockup
+          pageBg: "#f5f5f5",        // mockup --bg
+          sectionBg: "#ffffff",     // mockup --white
+          cardBg: "#ffffff",        // mockup --white
+          topbarBg: "#efefef",      // mockup topbar background
 
-          // FOOTER — dark navy, NOT gray
-          footerBg: "#2c3e50", // navy blue footer
-          footerDark: "#1a2530", // copyright strip bottom
+          // Footer — from mockup (navy blue)
+          footerBg: "#2D4A6F",      // mockup --blue
+          footerDark: "#233a58",    // mockup --blue-dark
 
-          // TEXT — dark on light
-          textPrimary: "#1a1a1a", // body text, headings on light bg
-          textSecondary: "#666666", // muted text, captions
-          textOnDark: "#ffffff", // text on footer / hero overlays
-          textOnDarkMuted: "#bbbbbb", // muted text on footer
+          // Text colors — from mockup
+          textPrimary: "#2a2a2a",   // mockup --ink
+          textSecondary: "#6b7280", // mockup --muted
+          textOnDark: "#ffffff",
+          textOnDarkMuted: "rgba(255,255,255,0.85)",
 
-          // GREEN — primary accent (buttons, CTAs)
-          green: "#1b7a12", // primary green accent
-          greenDark: "#107a02", // hover state
-          greenLight: "#2a9c1f", // hover variant
+          // GREEN — BRAND OVERRIDE: LMC #1b7a12, NOT mockup's #0E8A6D
+          green: "#1b7a12",
+          greenDark: "#107a02",
+          greenLight: "#2a9c1f",
 
-          // BLUE — secondary accent (the "FIND A DOCTOR" trapezoid)
-          blue: "#45aaff",
-          blueDark: "#2196f3",
+          // BLUE — from mockup
+          blue: "#2D4A6F",          // mockup --blue (navy)
+          blueDark: "#233a58",      // mockup --blue-dark
+          blueAccent: "#4A90D9",    // mockup --accent
 
-          // BORDERS / DIVIDERS
-          borderLight: "#e0e0e0",
-          borderMedium: "#cccccc",
+          // Borders/dividers — from mockup
+          borderLight: "#e5e7eb",   // mockup --line
+          borderMedium: "#e3e3e3",  // mockup topbar border
+          borderDark: "#d1d5db",
 
-          // OVERLAYS (for hero caption boxes)
-          overlayDark: "rgba(0, 0, 0, 0.55)",
-          overlayDarker: "rgba(0, 0, 0, 0.70)",
+          // Overlays — from mockup hero
+          overlayDark: "rgba(20,30,50,0.62)",
+          overlayDarker: "rgba(20,30,50,0.78)",
 
-          // BACKWARDS-COMPAT ALIASES (to be migrated away in later tickets)
-          grayDark: "#1a1a1a", // alias to textPrimary
-          grayMedium: "#666666", // alias to textSecondary
-          grayLight: "#e0e0e0", // alias to borderLight
-          offWhite: "#f0f0f0", // alias to pageBg
+          // BACKWARDS-COMPAT aliases (keep so existing components don't break)
+          grayDark: "#2a2a2a",      // same as textPrimary
+          grayMedium: "#6b7280",    // same as textSecondary
+          grayLight: "#e5e7eb",     // same as borderLight
+          offWhite: "#f5f5f5",      // same as pageBg
         },
       },
       fontFamily: {
@@ -117,9 +120,11 @@ const config: Config = {
         sm: "var(--shadow-sm)",
         md: "var(--shadow-md)",
         lg: "var(--shadow-lg)",
-        card: "0 2px 5px rgba(0,0,0,0.1)",
-        header: "0 2px 10px rgba(0,0,0,0.15)",
-        cardHover: "0 4px 15px rgba(0,0,0,0.2)",
+        // Mockup-synced shadows
+        card: "0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08)",      // mockup --shadow-sm
+        cardHover: "0 6px 18px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)", // mockup --shadow-md
+        header: "0 6px 18px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)",    // mockup --shadow-md
+        hero: "0 20px 50px rgba(0,0,0,0.18)",                                  // mockup --shadow-lg
       },
       maxWidth: {
         container: "1170px",
