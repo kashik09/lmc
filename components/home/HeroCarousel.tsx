@@ -5,13 +5,13 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 /**
- * HeroCarousel — T2.1 per mockup design
+ * HeroCarousel — T2.1 per mockup design (T2.1-fix polish applied)
  *
  * Refs: docs/visual-rebuild/mockup-reference/{index.html,styles.css,site.js}
  *
  * Features:
- * - 3 slides with placeholder gradients (pending real LMC photos)
- * - Caption box on RIGHT side per mockup
+ * - 3 slides with layered gradient placeholders (pending real LMC photos)
+ * - Caption box on RIGHT side per mockup, near-opaque bg + left green border
  * - 6s auto-advance, pauses on hover
  * - Respects prefers-reduced-motion
  * - Prev/Next arrows + dots navigation
@@ -32,9 +32,9 @@ const SLIDES: HeroSlide[] = [
   {
     eyebrow: "Welcome to Lifeline",
     title: "QUALITY CARE",
-    subtitle: "Your Health is our priority",
+    subtitle: "Compassionate medical excellence",
     description:
-      "From preventive care and check-ups, to immunizations and exams, our primary care physicians and providers work to keep you and your whole family healthy and strong each and every day.",
+      "Comprehensive primary care, diagnostics, and specialist services delivered with warmth and clinical rigour — for every family in Gayaza and beyond.",
     ctaLabel: "Learn More",
     ctaHref: "/about",
     gradientFrom: "#1b7a12",
@@ -42,10 +42,10 @@ const SLIDES: HeroSlide[] = [
   },
   {
     eyebrow: "Surgical Excellence",
-    title: "MODERN THEATRE",
-    subtitle: "Equipped for major procedures",
+    title: "THEATRE",
+    subtitle: "Modern surgical suites, expert teams",
     description:
-      "Our fully-equipped operating theatre supports a wide range of surgical procedures, staffed by an experienced multidisciplinary team committed to safe, world-class outcomes.",
+      "Our theatre complex offers elective and emergency surgical care across general, orthopaedic, and gynaecological specialties — supported by a 24-hour anaesthetic team.",
     ctaLabel: "Explore Theatre",
     ctaHref: "/services/theatre",
     gradientFrom: "#2D4A6F",
@@ -53,10 +53,10 @@ const SLIDES: HeroSlide[] = [
   },
   {
     eyebrow: "Diagnostic Precision",
-    title: "ADVANCED LAB",
-    subtitle: "Accurate, fast diagnostics",
+    title: "LABORATORY",
+    subtitle: "On-site testing, same-day results",
     description:
-      "Our modern laboratory delivers comprehensive diagnostic testing — from routine blood work to specialised microbiology — with rapid turnaround that helps clinicians act fast.",
+      "Our accredited clinical laboratory delivers haematology, biochemistry, microbiology and parasitology testing with rapid turnaround — most routine results within four hours.",
     ctaLabel: "View Lab Services",
     ctaHref: "/services/laboratory",
     gradientFrom: "#1b7a12",
@@ -104,43 +104,67 @@ export default function HeroCarousel() {
       {SLIDES.map((slide, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 flex items-center transition-opacity duration-700 ${
-            idx === activeIdx ? "z-[1] opacity-100" : "opacity-0"
+          className={`absolute inset-0 transition-opacity duration-700 ${
+            idx === activeIdx
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
           }`}
-          style={{
-            background: `linear-gradient(135deg, ${slide.gradientFrom}, ${slide.gradientTo})`,
-          }}
           aria-hidden={idx !== activeIdx}
         >
-          {/* Dark overlay gradient — matches mockup .hero-slide .bg::after */}
+          {/* Layer 1: Base gradient */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(135deg, ${slide.gradientFrom} 0%, ${slide.gradientTo} 100%)`,
+            }}
+          />
+
+          {/* Layer 2: Radial highlight from top-left for depth */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%)",
+                "radial-gradient(circle at 25% 30%, rgba(255,255,255,0.15) 0%, transparent 50%)",
             }}
           />
 
+          {/* Layer 3: Subtle noise/grain via SVG for texture */}
+          <div
+            className="absolute inset-0 opacity-30 mix-blend-overlay"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
+            }}
+          />
+
+          {/* Layer 4: Bottom-right vignette to ground the caption box */}
+          <div className="absolute inset-0 bg-gradient-to-bl from-black/40 via-transparent to-transparent" />
+
           {/* Caption box — right-aligned per mockup .hero-overlay */}
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
-            <div className="ml-auto max-w-[540px] bg-lmc-overlayDarker p-10 text-white backdrop-blur-[2px]">
-              <h2 className="mb-[6px] font-heading text-[52px] font-bold uppercase leading-[1.1] tracking-[0.01em]">
-                {slide.title}
-              </h2>
-              <div className="mb-[18px] text-[19px] font-light opacity-90">
-                {slide.subtitle}
+            <div className="ml-auto max-w-[540px]">
+              {/* Solid bg, no backdrop-blur — gives type a real foundation */}
+              <div className="border-l-4 border-lmc-green bg-[rgba(15,25,40,0.92)] p-10 shadow-2xl">
+                <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
+                  {slide.eyebrow}
+                </div>
+                <h1 className="mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight text-white">
+                  {slide.title}
+                </h1>
+                <div className="mb-5 h-[3px] w-12 bg-lmc-green" />
+                <div className="mb-4 text-[16px] font-semibold text-white">
+                  {slide.subtitle}
+                </div>
+                <p className="mb-7 text-[14px] leading-[1.75] text-white/85">
+                  {slide.description}
+                </p>
+                <Link
+                  href={slide.ctaHref}
+                  className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-white transition-all hover:gap-3 hover:bg-lmc-greenDark"
+                >
+                  {slide.ctaLabel}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
-              <div className="mb-[18px] h-[2px] w-[220px] bg-lmc-green" />
-              <p className="mb-6 text-[14.5px] leading-[1.65] opacity-90">
-                {slide.description}
-              </p>
-              <Link
-                href={slide.ctaHref}
-                className="inline-flex items-center gap-[10px] bg-lmc-green px-[22px] py-[14px] text-[12.5px] font-extrabold uppercase tracking-[0.12em] text-white transition-colors hover:bg-lmc-greenDark"
-              >
-                {slide.ctaLabel}
-                <ArrowRight className="h-[14px] w-[14px]" />
-              </Link>
             </div>
           </div>
         </div>
