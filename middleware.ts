@@ -5,11 +5,15 @@ function generateCspHeader(): string {
   // 'unsafe-inline' required for Next.js RSC bootstrap scripts. XSS protection
   // relies on React's automatic output encoding, isomorphic-dompurify for
   // user-provided HTML, and Zod validation on all server actions.
+  const isDev = process.env.NODE_ENV === "development";
+
   const policy = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
       "'unsafe-inline'",
+      // 'unsafe-eval' only in dev mode for React devtools/HMR
+      ...(isDev ? ["'unsafe-eval'"] : []),
       "https://challenges.cloudflare.com",
       "https://static.cloudflareinsights.com",
     ],
