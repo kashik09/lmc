@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 supabase/.temp/
 cybersec-intake-worksheet.md
+
+# AEGIS engagement files (separate project, not for LMC repo)
+public/docx/
