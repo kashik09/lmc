@@ -205,3 +205,101 @@ Based on this inventory:
 | Screenshots (not deliverables) | ~70 |
 | WP theme junk | ~800 |
 | AEGIS docs (gitignored) | 33 |
+
+---
+
+## Re-assessment 2026-05-23 (in-use/ deep dive)
+
+Scope: ~/Downloads/lmc/in-use/ only (excluding healthflex/, old/, and images/).
+
+### Tweaks files (~/Downloads/lmc/in-use/claude-design/lmc/assets/)
+
+These are **design exploration tools**, not production code. Used during prototyping to toggle between color palettes and typography options.
+
+#### tweaks-app.jsx (95 lines)
+**Purpose:** LMC-specific React app that toggles brand mood, type personality, and hero layout.
+
+```jsx
+// Tweaks app — applies brand mood, type personality, hero treatment
+// Loaded by index.html via Babel.
+
+const { useEffect } = React;
+
+function MoodSwatches({ value, onChange, options }) {
+  return (
+    <div className="twk-row">
+```
+
+Sets `data-mood`, `data-type`, `data-hero` attributes on `<body>` to switch themes. Options include:
+- Mood: lifeline (green/blue), clinical (all-blue), editorial (terracotta/black)
+- Type: match, editorial (serif), modern (sans)
+- Hero: overlay, centered, split
+
+#### tweaks-panel.jsx (569 lines)
+**Purpose:** Reusable React component library for building tweaks panels.
+
+```jsx
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+```
+
+Exports: `useTweaks`, `TweaksPanel`, `TweakSection`, `TweakRow`, `TweakSlider`, `TweakToggle`, `TweakRadio`, `TweakSelect`, `TweakText`, `TweakNumber`, `TweakColor`, `TweakButton`
+
+Not LMC-specific — this is a generic design-tooling framework.
+
+#### tweak-themes.css (134 lines)
+**Purpose:** CSS overrides for mood variants (clinical, editorial) and typography personalities.
+
+```css
+/* ---------- Tweak themes ---------- */
+
+/* Mood: Clinical (cool, all-blue, more clinical/corporate) */
+body[data-mood="clinical"] {
+  --green: #1d70b8;
+```
+
+Defines alternate color palettes via CSS custom properties when body has `data-mood` or `data-type` attributes.
+
+### Duplicate files
+
+| File | Location | Duplicate of | Verdict |
+|------|----------|--------------|---------|
+| partials.js | claude-design/lmc/assets/ | docs/visual-rebuild/mockup-reference/partials.js | EXACT duplicate (byte-for-byte) |
+| site.js | claude-design/lmc/assets/ | docs/visual-rebuild/mockup-reference/site.js | EXACT duplicate |
+| styles.css | claude-design/lmc/assets/ | docs/visual-rebuild/mockup-reference/styles.css | EXACT duplicate |
+| entire folder | claude-design/docs/visual-rebuild/mockup-reference/ | repo's docs/visual-rebuild/mockup-reference/ | EXACT duplicate (nested copy) |
+| index.html | claude-design/ (root) | mockup-reference/index.html | Same file |
+| services.html | claude-design/ (root) | mockup-reference/services.html | Same file |
+| service-detail.html | claude-design/ (root) | mockup-reference/service-detail.html | Same file |
+| news.html | claude-design/ (root) | mockup-reference/news.html | Same file |
+| contacts.html | claude-design/ (root) | mockup-reference/contacts.html | Same file |
+
+**Conclusion:** The claude-design folder contains multiple redundant copies of mockup files. The only unique files are the three tweaks-*.jsx/css files, which are design exploration tools.
+
+### WP backup HTML files (confirmed breakdown)
+
+**Location:** ~/Downloads/lmc/in-use/new-updated/backup/
+
+| Category | Files | Status |
+|----------|-------|--------|
+| Service pages | 12 | Real content: Theatre, Laboratory, Dental, X-ray, Radiology, Antenatal, Inpatient, Outpatient, General Medicine, Immunisation, Ambulance, Pharmacy |
+| Info pages | 6 | Real content: Home, Contacts, Visitors, Insurance Partners, LMC Profile, News |
+| Blog posts | 4 | Lower priority: Monkeypox, Preventive Checkups, Covid-19 vaccination, Heart failure study |
+| Archive indexes | 6 | Skip: February 2024, May 2025, November 2015, Blogs Archives, Events Archives, Updates Archives |
+| Error page | 1 | Skip: Page not found |
+| **Total** | **29** | **18 with real content, 11 noise** |
+
+### Summary
+
+| Item | Finding |
+|------|---------|
+| tweaks-app.jsx | Design prototyping tool (mood/type switcher) — not for production |
+| tweaks-panel.jsx | Generic React panel framework — not LMC-specific |
+| tweak-themes.css | CSS mood variants — design exploration only |
+| partials.js / site.js / styles.css | Exact duplicates of mockup-reference — safe to ignore |
+| claude-design/docs/ folder | Redundant nested copy of repo's mockup-reference |
+| WP backup real content | 18 files (12 services + 6 info pages) |
+| WP backup noise | 11 files (archives, 404, blog posts) |
