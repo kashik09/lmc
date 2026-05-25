@@ -3,7 +3,7 @@ import type { ServicePage } from '../types';
 export const dental: ServicePage = {
   slug: 'dental',
   title: 'Dental',
-  lede: 'Comprehensive dental care services for the whole family, from routine checkups to specialized treatments.',
+  lede: 'At LMC, we provide comprehensive and fine dental services to our dear clients. Our team is comprised of highly skilled dental specialists who are committed in their practice.',
   sections: [
     {
       heading: 'Services Offered',

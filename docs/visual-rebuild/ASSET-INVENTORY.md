@@ -303,3 +303,24 @@ Defines alternate color palettes via CSS custom properties when body has `data-m
 | claude-design/docs/ folder | Redundant nested copy of repo's mockup-reference |
 | WP backup real content | 18 files (12 services + 6 info pages) |
 | WP backup noise | 11 files (archives, 404, blog posts) |
+
+---
+
+## Thin content verification (2026-05-25)
+
+| File | WP source word count (body) | .ts file blocks | Verdict |
+|------|------------------------------|-----------------|---------|
+| dental.ts | ~40 words | 1 list (6 items) | ⚠️ Partial — lede was generic, replaced with real WP intro |
+| general-medicine.ts | ~60 words | 1 paragraph | ⚠️ Partial — missing first WP paragraph about training/drills |
+| outpatient.ts | ~15 words | 1 list (2 items) | ⚠️ Partial — missing intro + "General Medical Consultations" item |
+| pharmacy.ts | ~50 words | 1 paragraph | ⚠️ Partial — had only 2nd paragraph, added 1st paragraph about PSU standards |
+| home.ts | ~180 words | 1 paragraph | ⚠️ Partial — much more welcome content existed in WP |
+| news.ts | N/A (listing page) | 1 paragraph | 🟡 Genuinely sparse — it's a blog index, not content page |
+
+### Files re-extracted
+
+- **dental.ts** — replaced generic lede with real WP intro about "highly skilled dental specialists"
+- **general-medicine.ts** — added first paragraph about "qualified and licensed staff ready to give first contact healthcare"
+- **outpatient.ts** — added real intro "managed by our general doctors and nurses" + missing service item
+- **pharmacy.ts** — restructured to use full WP content (PSU standards paragraph as lede)
+- **home.ts** — expanded from 1 paragraph to 4 paragraphs across 2 sections (Welcome + Quality Healthcare)

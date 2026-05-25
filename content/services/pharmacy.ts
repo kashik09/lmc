@@ -3,14 +3,14 @@ import type { ServicePage } from '../types';
 export const pharmacy: ServicePage = {
   slug: 'pharmacy',
   title: 'Pharmacy',
-  lede: 'A full range of medicines in all forms is provided through strict scrutiny to ensure efficacious but affordable drugs.',
+  lede: 'The Pharmacy Department is responsible for the dispensing of drugs and advice on their use, procurement, supply, storage and conforming to the standards of pharmacy practice by Pharmaceutical Society of Uganda.',
   sections: [
     {
       heading: 'Overview',
       blocks: [
         {
           type: 'paragraph',
-          text: 'Our pharmacy stocks a comprehensive range of medications and medical supplies. Our qualified pharmacists provide professional dispensing services and medication counselling to ensure patients understand their treatments.',
+          text: 'A full range of medicines in all forms is provided through strict scrutiny to ensure efficacious but affordable drugs.',
         },
       ],
     },
