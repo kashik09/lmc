@@ -1,50 +1,38 @@
 import Link from "next/link";
-import { HeartPulse, ScanLine, Baby, ArrowRight, type LucideIcon } from "lucide-react";
+import { Activity, Radiation, Baby, ArrowRight, type LucideIcon } from "lucide-react";
+import { services } from "@/content/services";
 
 /**
  * FeaturedServices — 3-column teaser row for home page
  *
  * Alternating colored backgrounds: green / greenDark / blue
  * Hover effect: lift + shadow
- * Hardcoded service data (Supabase wiring is a follow-up)
+ * Derives data from typed content/services system
  */
 
-type ServiceItem = {
+const FEATURED_SLUGS = ["theatre", "radiology", "antenatal"] as const;
+
+const iconMap: Record<string, LucideIcon> = {
+  theatre: Activity,
+  radiology: Radiation,
+  antenatal: Baby,
+};
+
+const bgClasses: Record<string, string> = {
+  theatre: "bg-lmc-green",
+  radiology: "bg-lmc-greenDark",
+  antenatal: "bg-lmc-blue",
+};
+
+interface TeaserCardProps {
+  slug: string;
   title: string;
   description: string;
   icon: LucideIcon;
-  href: string;
   bgClass: string;
-};
+}
 
-const featured: ServiceItem[] = [
-  {
-    title: "Cardiology",
-    description:
-      "Expert heart care with modern diagnostic tools and experienced specialists.",
-    icon: HeartPulse,
-    href: "/services/cardiology",
-    bgClass: "bg-lmc-green",
-  },
-  {
-    title: "Diagnostic Imaging",
-    description:
-      "X-Ray, ultrasound and advanced imaging services with rapid turnaround.",
-    icon: ScanLine,
-    href: "/services/diagnostic-imaging",
-    bgClass: "bg-lmc-greenDark",
-  },
-  {
-    title: "Pediatrics",
-    description:
-      "Compassionate care for infants, children and adolescents from our specialist team.",
-    icon: Baby,
-    href: "/services/pediatrics",
-    bgClass: "bg-lmc-blue",
-  },
-];
-
-function TeaserCard({ title, description, icon: Icon, href, bgClass }: ServiceItem) {
+function TeaserCard({ slug, title, description, icon: Icon, bgClass }: TeaserCardProps) {
   return (
     <div
       className={`group flex flex-col items-start gap-4 p-8 text-white transition-transform hover:-translate-y-1 hover:shadow-cardHover ${bgClass}`}
@@ -55,7 +43,7 @@ function TeaserCard({ title, description, icon: Icon, href, bgClass }: ServiceIt
         {description}
       </p>
       <Link
-        href={href}
+        href={`/services/${slug}`}
         className="mt-2 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-all group-hover:gap-3"
       >
         Learn More <ArrowRight className="h-4 w-4" />
@@ -84,9 +72,19 @@ export function FeaturedServices() {
 
         {/* Teaser Cards Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
-          {featured.map((service) => (
-            <TeaserCard key={service.href} {...service} />
-          ))}
+          {FEATURED_SLUGS.map((slug) => {
+            const service = services[slug];
+            return (
+              <TeaserCard
+                key={slug}
+                slug={slug}
+                title={service.title}
+                description={service.lede ?? "Quality healthcare services."}
+                icon={iconMap[slug]}
+                bgClass={bgClasses[slug]}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
