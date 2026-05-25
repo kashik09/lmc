@@ -4,10 +4,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { Button } from "@/components/ui/Button";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
-import { serviceDetails, servicesList } from "@/content/services";
+import { services, serviceSlugs } from "@/content/services";
 
 export function generateStaticParams() {
-  return servicesList.map((s) => ({ slug: s.slug }));
+  return serviceSlugs.map((slug) => ({ slug }));
 }
 
 interface ServiceDetailPageProps {
@@ -18,15 +18,21 @@ export default async function ServiceDetailPage({
   params,
 }: ServiceDetailPageProps) {
   const { slug } = await params;
-  const service = serviceDetails[slug];
+  const page = services[slug];
 
-  if (!service) {
+  if (!page) {
     notFound();
   }
 
+  // Derive sidebar list from services Record
+  const sidebarList = Object.values(services).map((s) => ({
+    slug: s.slug,
+    title: s.title,
+  }));
+
   return (
     <>
-      <PageHeader title={service.title} subtitle="Our Services" />
+      <PageHeader title={page.title} subtitle="Our Services" />
 
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-container px-4">
@@ -34,11 +40,11 @@ export default async function ServiceDetailPage({
             {/* Main Content — spans 2 cols */}
             <article className="lg:col-span-2">
               {/* Featured Image */}
-              {service.image && (
+              {page.heroImage && (
                 <div className="relative mb-8 aspect-[16/9] overflow-hidden bg-lmc-offWhite">
                   <Image
-                    src={service.image}
-                    alt={`${service.title} services at Lifeline Medical Centre`}
+                    src={page.heroImage.src}
+                    alt={page.heroImage.alt}
                     fill
                     className="object-cover"
                     priority
@@ -47,7 +53,7 @@ export default async function ServiceDetailPage({
               )}
 
               {/* Body Content */}
-              <ServiceDetailBody slug={slug} />
+              <ServiceDetailBody page={page} />
 
               {/* Bottom CTA */}
               <div className="mt-10 flex flex-col items-start justify-between gap-4 border-l-4 border-lmc-green bg-lmc-offWhite p-6 sm:flex-row sm:items-center">
@@ -67,7 +73,7 @@ export default async function ServiceDetailPage({
 
             {/* Sidebar */}
             <aside className="lg:col-span-1">
-              <ServicesSidebar services={servicesList} currentSlug={slug} />
+              <ServicesSidebar services={sidebarList} currentSlug={slug} />
             </aside>
           </div>
         </div>

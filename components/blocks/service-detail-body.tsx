@@ -1,34 +1,47 @@
-import { serviceDetails } from "@/content/services";
+import type { ServicePage, ContentBlock } from "@/content/types";
 
 interface ServiceDetailBodyProps {
-  slug: string;
+  page: ServicePage;
 }
 
-export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
-  const service = serviceDetails[slug];
+/** Extract list items from a block if it's a list block */
+function getListItems(block: ContentBlock): string[] {
+  return block.type === "list" ? block.items : [];
+}
 
-  if (!service) {
-    return null;
-  }
+export function ServiceDetailBody({ page }: ServiceDetailBodyProps) {
+  // Sections that have list blocks become accordions
+  const accordionSections = page.sections
+    .map((section) => ({
+      heading: section.heading ?? "Details",
+      items: section.blocks.flatMap(getListItems),
+      // Also gather paragraph text for sections without lists
+      paragraphs: section.blocks
+        .filter((b): b is Extract<ContentBlock, { type: "paragraph" }> => b.type === "paragraph")
+        .map((b) => b.text),
+    }))
+    .filter((s) => s.items.length > 0 || s.paragraphs.length > 0);
 
   return (
     <div>
-      {/* Intro */}
-      <p className="mb-6 font-body text-lg leading-relaxed text-lmc-grayDark">
-        {service.intro}
-      </p>
+      {/* Intro (lede) */}
+      {page.lede && (
+        <p className="mb-6 font-body text-lg leading-relaxed text-lmc-grayDark">
+          {page.lede}
+        </p>
+      )}
 
       {/* Accordion Sections */}
-      {service.sections.length > 0 ? (
+      {accordionSections.length > 0 ? (
         <div className="space-y-3">
-          {service.sections.map((section, index) => (
+          {accordionSections.map((section, index) => (
             <details
-              key={section.title}
+              key={section.heading}
               className="group border border-lmc-grayLight bg-white"
               open={index === 0}
             >
               <summary className="flex cursor-pointer items-center justify-between p-4 font-heading font-semibold text-lmc-grayDark hover:bg-lmc-offWhite">
-                {section.title}
+                {section.heading}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -43,13 +56,14 @@ export function ServiceDetailBody({ slug }: ServiceDetailBodyProps) {
                 </svg>
               </summary>
               <div className="border-t border-lmc-grayLight p-4">
-                {slug === "dental" ? (
-                  <ol className="list-decimal space-y-2 pl-6 font-body text-lmc-grayMedium">
-                    {section.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ol>
-                ) : (
+                {/* Paragraphs first */}
+                {section.paragraphs.map((text, i) => (
+                  <p key={i} className="mb-4 font-body text-lmc-grayMedium last:mb-0">
+                    {text}
+                  </p>
+                ))}
+                {/* Then list items */}
+                {section.items.length > 0 && (
                   <ul className="list-disc space-y-2 pl-6 font-body text-lmc-grayMedium">
                     {section.items.map((item) => (
                       <li key={item}>{item}</li>

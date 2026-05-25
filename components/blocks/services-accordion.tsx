@@ -1,13 +1,15 @@
-import { servicesList } from "@/content/services";
+import { services } from "@/content/services";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
 
 export function ServicesAccordion() {
+  const servicePages = Object.values(services);
+
   return (
     <div className="divide-y divide-border border-y border-border">
-      {servicesList.map((service) => (
+      {servicePages.map((page) => (
         <details
-          key={service.slug}
-          id={service.slug}
+          key={page.slug}
+          id={page.slug}
           className="group bg-card"
         >
           <summary className="flex cursor-pointer items-center gap-3 px-6 py-4 font-heading text-lg font-semibold uppercase text-foreground transition-colors hover:bg-muted/30">
@@ -23,10 +25,10 @@ export function ServicesAccordion() {
                 clipRule="evenodd"
               />
             </svg>
-            {service.title}
+            {page.title}
           </summary>
           <div className="border-t border-border bg-muted/20 px-6 py-6">
-            <ServiceDetailBody slug={service.slug} />
+            <ServiceDetailBody page={page} />
           </div>
         </details>
       ))}

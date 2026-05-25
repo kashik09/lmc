@@ -43,3 +43,15 @@ export const services: Record<string, ServicePage> = {
 };
 
 export const serviceSlugs = Object.keys(services);
+
+/**
+ * Backward-compatible list shape for components that consume the old format.
+ * Maps ServicePage to { id, slug, title, shortDescription, image }.
+ */
+export const servicesList = Object.values(services).map((s) => ({
+  id: s.slug,
+  slug: s.slug,
+  title: s.title,
+  shortDescription: s.lede ?? 'Quality healthcare services.',
+  image: s.heroImage?.src ?? '/images/services/placeholder.svg',
+}));

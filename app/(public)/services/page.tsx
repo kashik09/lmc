@@ -3,43 +3,50 @@ import {
   Smile,
   ScanLine,
   FlaskConical,
-  HeartPulse,
-  Brain,
-  Bone,
-  Baby,
-  Scan,
-  Microscope,
   Stethoscope,
+  Syringe,
+  BedDouble,
+  Activity,
+  Radiation,
+  Ambulance,
+  Pill,
+  Baby,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import Reveal from "@/components/ui/Reveal";
-import { servicesList } from "@/content/services";
+import { services } from "@/content/services";
 
 /**
- * Services Listing Page — 10-card grid with light card style
+ * Services Listing Page — 12-card grid with light card style
  *
- * Uses servicesList from content/services.ts
- * Light cards (white bg) to avoid visual overload with 10 items
+ * Uses typed services from content/services/index.ts
+ * Light cards (white bg) to avoid visual overload
  */
 
-type Service = (typeof servicesList)[number];
+interface ServiceCardData {
+  slug: string;
+  title: string;
+  shortDescription: string;
+}
 
 const iconMap: Record<string, LucideIcon> = {
   dental: Smile,
   "x-ray": ScanLine,
   laboratory: FlaskConical,
-  cardiology: HeartPulse,
-  neurology: Brain,
-  orthopedic: Bone,
-  pediatrics: Baby,
-  "diagnostic-imaging": Scan,
-  "microbiology-lab": Microscope,
-  gynaecology: Stethoscope,
+  theatre: Activity,
+  radiology: Radiation,
+  antenatal: Baby,
+  inpatient: BedDouble,
+  outpatient: Stethoscope,
+  "general-medicine": Stethoscope,
+  immunisation: Syringe,
+  ambulance: Ambulance,
+  pharmacy: Pill,
 };
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ service }: { service: ServiceCardData }) {
   const Icon = iconMap[service.slug] ?? Stethoscope;
 
   return (
@@ -71,6 +78,13 @@ function ServiceCard({ service }: { service: Service }) {
 }
 
 export default function ServicesPage() {
+  // Map ServicePage to card display shape
+  const serviceCards: ServiceCardData[] = Object.values(services).map((s) => ({
+    slug: s.slug,
+    title: s.title,
+    shortDescription: s.lede ?? "Quality healthcare services.",
+  }));
+
   return (
     <>
       <PageHeader title="Our Services" subtitle="Comprehensive medical care" />
@@ -94,7 +108,7 @@ export default function ServicesPage() {
 
           {/* Service Cards Grid */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {servicesList.map((service) => (
+            {serviceCards.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
           </div>
