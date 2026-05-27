@@ -1,4 +1,5 @@
 import HeroCarousel from "@/components/home/HeroCarousel";
+import TrapezoidCTAStrip from "@/components/home/TrapezoidCTAStrip";
 import { FeaturedServices } from "@/components/home/FeaturedServices";
 import { HomeCTABanner } from "@/components/home/HomeCTABanner";
 import { LatestNews } from "@/components/home/LatestNews";
@@ -9,6 +10,7 @@ export default function Home() {
     <>
       {/* Replaces old Round 4.1 HomeHero — T2.1 carousel per mockup */}
       <HeroCarousel />
+      <TrapezoidCTAStrip />
       <Reveal>
         <FeaturedServices />
       </Reveal>
