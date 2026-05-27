@@ -1,5 +1,5 @@
 import { Pill, Stethoscope, ShieldCheck, Clock, Phone } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageBanner from "@/components/layout/PageBanner";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { Button } from "@/components/ui/Button";
 import { servicesList } from "@/content/services";
@@ -45,7 +45,15 @@ const pharmacyFeatures = [
 export default function PharmacyPage() {
   return (
     <>
-      <PageHeader title="Pharmacy" subtitle="Our pharmacy services" />
+      <PageBanner
+        title="Pharmacy"
+        subtitle="In-house dispensary with quality-assured medications"
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services" },
+          { label: "Pharmacy" },
+        ]}
+      />
 
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-container px-4">
