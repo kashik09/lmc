@@ -1,6 +1,7 @@
 import HeroCarousel from "@/components/home/HeroCarousel";
 import TrapezoidCTAStrip from "@/components/home/TrapezoidCTAStrip";
 import WelcomeSection from "@/components/home/WelcomeSection";
+import MedicalDepartments from "@/components/home/MedicalDepartments";
 import { FeaturedServices } from "@/components/home/FeaturedServices";
 import { HomeCTABanner } from "@/components/home/HomeCTABanner";
 import { LatestNews } from "@/components/home/LatestNews";
@@ -14,6 +15,9 @@ export default function Home() {
       <TrapezoidCTAStrip />
       <Reveal>
         <WelcomeSection />
+      </Reveal>
+      <Reveal>
+        <MedicalDepartments />
       </Reveal>
       <Reveal>
         <FeaturedServices />
