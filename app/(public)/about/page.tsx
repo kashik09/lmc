@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Target, Eye, Heart } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageBanner from "@/components/layout/PageBanner";
 import { Button } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import {
@@ -37,7 +37,11 @@ const missionVisionValues = [
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="About Us" subtitle="Lifeline Medical Centre" />
+      <PageBanner
+        title="About Us"
+        subtitle="Lifeline Medical Centre — Quality healthcare since 2009"
+        crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+      />
 
       {/* Section 1: Who We Are — image left, text right */}
       <Reveal as="section" className="bg-white py-16 md:py-20">
