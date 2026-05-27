@@ -1,5 +1,5 @@
-import { PageHeader } from '@/components/layout/PageHeader';
-import { ServicesSidebar } from '@/components/layout/ServicesSidebar';
+import PageBanner from "@/components/layout/PageBanner";
+import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { servicesList } from '@/content/services';
 import { insurancePartners } from '@/content/info/insurance-partners';
 
@@ -9,7 +9,15 @@ import { insurancePartners } from '@/content/info/insurance-partners';
 export default function InsurancePage() {
   return (
     <>
-      <PageHeader title="Insurance Partners" subtitle="For Patients" />
+      <PageBanner
+        title="Insurance Partners"
+        subtitle="Accepted insurance providers at Lifeline Medical Centre"
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Patients" },
+          { label: "Insurance" },
+        ]}
+      />
 
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-container px-4">
