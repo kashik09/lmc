@@ -11,7 +11,7 @@ import {
   Accessibility,
   Users,
 } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageBanner from "@/components/layout/PageBanner";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { Button } from "@/components/ui/Button";
 import { servicesList } from "@/content/services";
@@ -54,7 +54,15 @@ const infoStrip = [
 export default function VisitorsPage() {
   return (
     <>
-      <PageHeader title="Visitors" subtitle="Information for visitors" />
+      <PageBanner
+        title="Visitors"
+        subtitle="Information for patients and visitors"
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Patients" },
+          { label: "Visitors" },
+        ]}
+      />
 
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-container px-4">
