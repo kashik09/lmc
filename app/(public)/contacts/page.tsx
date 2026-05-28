@@ -46,7 +46,7 @@ export default function ContactsPage() {
 
         <div className="relative z-10 mx-auto max-w-container px-7">
           {/* Contacts Head */}
-          <div className="mb-10 pt-3">
+          <div className="mb-24 pt-3">
             <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-[#75d69c]">
               Get in touch
             </p>
