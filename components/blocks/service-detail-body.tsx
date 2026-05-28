@@ -8,7 +8,6 @@ import type { ServicePage, ContentBlock } from "@/content/types";
  * ServiceDetailBody — Mockup-style service detail content
  *
  * - 38px uppercase heading + 70px green rule
- * - Green drop-cap on lede paragraph
  * - Accordion sections with green left-border, rotating green chevron
  * - Green › markers on list items
  *
@@ -68,9 +67,9 @@ export function ServiceDetailBody({ page }: ServiceDetailBodyProps) {
         {/* 70px green rule */}
         <div className="mb-5 h-[3px] w-[70px] bg-lmc-green" />
 
-        {/* Lede with drop-cap */}
+        {/* Lede */}
         {page.lede && (
-          <p className="service-lede mb-4 text-[15.5px] leading-[1.75] text-[#555]">
+          <p className="mb-4 text-[15.5px] leading-[1.75] text-[#555]">
             {page.lede}
           </p>
         )}
@@ -163,19 +162,6 @@ export function ServiceDetailBody({ page }: ServiceDetailBodyProps) {
           </p>
         </div>
       )}
-
-      {/* Drop-cap CSS */}
-      <style jsx>{`
-        .service-lede::first-letter {
-          font-family: var(--font-heading), Raleway, sans-serif;
-          font-size: 56px;
-          font-weight: 700;
-          float: left;
-          line-height: 0.9;
-          padding: 6px 12px 0 0;
-          color: #1b7a12;
-        }
-      `}</style>
     </div>
   );
 }
