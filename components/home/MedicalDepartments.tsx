@@ -27,7 +27,7 @@ export default function MedicalDepartments() {
       <div className="mx-auto max-w-container px-7">
         {/* Section Header — centered, on-dark styling */}
         <div className="mb-12 text-center">
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-greenLight">
             Medical Departments
           </div>
           <h2 className="font-heading text-[32px] font-bold leading-tight tracking-tight md:text-[36px]">
@@ -85,7 +85,7 @@ export default function MedicalDepartments() {
                   </p>
                   <Link
                     href={`/services/${slug}`}
-                    className="inline-flex items-center gap-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-lmc-green transition-all group-hover:gap-3"
+                    className="inline-flex items-center gap-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-lmc-greenLight transition-all hover:text-white group-hover:gap-3"
                   >
                     Read More
                     <ArrowRight className="h-3.5 w-3.5" />
