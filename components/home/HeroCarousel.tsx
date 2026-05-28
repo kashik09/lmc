@@ -147,7 +147,7 @@ export default function HeroCarousel() {
                 <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
                   {slide.eyebrow}
                 </div>
-                <h1 className="mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight text-white">
+                <h1 className="relative z-[3] mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight text-white">
                   {slide.title}
                 </h1>
                 <div className="mb-5 h-[3px] w-12 bg-lmc-green" />
