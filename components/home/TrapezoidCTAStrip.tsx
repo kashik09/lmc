@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Heart, UserRound, CalendarDays } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -16,8 +18,8 @@ interface CTABlock {
   subtitle: string;
   href: string;
   icon: LucideIcon;
-  bgColor: string;
-  hoverColor: string;
+  color: string; // raw hex
+  hoverColor: string; // raw hex
 }
 
 const BLOCKS: CTABlock[] = [
@@ -26,24 +28,24 @@ const BLOCKS: CTABlock[] = [
     subtitle: "A list of all available care.",
     href: "/services",
     icon: Heart,
-    bgColor: "bg-[#1b7a12]",
-    hoverColor: "hover:bg-[#156610]",
+    color: "#1b7a12",
+    hoverColor: "#156610",
   },
   {
     label: "Find a Doctor",
     subtitle: "All our staff by department.",
     href: "/about",
     icon: UserRound,
-    bgColor: "bg-[#4A90D9]",
-    hoverColor: "hover:bg-[#3a7fc8]",
+    color: "#4A90D9",
+    hoverColor: "#3a7fc8",
   },
   {
     label: "Request an Appointment",
     subtitle: "Call us or fill in a form.",
     href: "/contacts",
     icon: CalendarDays,
-    bgColor: "bg-[#1b7a12]",
-    hoverColor: "hover:bg-[#156610]",
+    color: "#1b7a12",
+    hoverColor: "#156610",
   },
 ];
 
@@ -60,10 +62,13 @@ export default function TrapezoidCTAStrip() {
               <Link
                 key={block.label}
                 href={block.href}
-                className={`group relative flex items-center gap-5 text-white transition-transform duration-200 hover:-translate-y-[3px] ${block.bgColor} ${block.hoverColor}`}
+                className="group relative flex items-center gap-5 text-white transition-all duration-200 hover:-translate-y-[3px]"
                 style={{
                   padding: idx === 0 ? "32px 36px 32px 56px" : "32px 36px 32px 70px",
+                  backgroundColor: block.color,
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = block.hoverColor)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = block.color)}
               >
                 {/* Icon in circular border */}
                 <div className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-white/45">
@@ -83,7 +88,7 @@ export default function TrapezoidCTAStrip() {
                   <div
                     className="pointer-events-none absolute bottom-0 right-[-22px] top-0 z-[2] hidden w-[44px] md:block"
                     style={{
-                      background: "inherit",
+                      backgroundColor: block.color,
                       clipPath: "polygon(0 0, 50% 50%, 0 100%)",
                     }}
                   />
