@@ -27,7 +27,7 @@ export default function PageBanner({
   crumbs = [],
   variant = "default",
 }: PageBannerProps) {
-  const bgClass = variant === "blue" ? "bg-lmc-blueAccent" : "bg-lmc-green";
+  const bgClass = variant === "blue" ? "bg-lmc-blue" : "bg-lmc-green";
 
   return (
     <section

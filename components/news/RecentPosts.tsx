@@ -70,10 +70,10 @@ export default async function RecentPosts({
   const posts = await getRecentPosts(excludeSlug, limit);
 
   return (
-    <div className="border border-lmc-grayLight bg-white p-5">
-      <h3 className="mb-3 font-heading text-base font-semibold uppercase tracking-wide text-lmc-grayDark">
+    <div className="border border-lmc-borderLight bg-white p-6">
+      <h4 className="mb-4 border-b-2 border-lmc-green pb-3 font-heading text-[13px] font-bold uppercase tracking-[0.14em] text-lmc-grayDark">
         Recent Posts
-      </h3>
+      </h4>
 
       {posts.length === 0 ? (
         <p className="text-sm italic text-lmc-grayMedium">No recent posts.</p>
