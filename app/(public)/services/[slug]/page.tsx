@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageBanner from "@/components/layout/PageBanner";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
-import { Button } from "@/components/ui/Button";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
 import { services, serviceSlugs } from "@/content/services";
 
@@ -30,16 +29,32 @@ export default async function ServiceDetailPage({
     title: s.title,
   }));
 
+  // Truncate lede for subtitle if too long
+  const subtitle = page.lede
+    ? page.lede.length > 60
+      ? page.lede.slice(0, 57) + "..."
+      : page.lede
+    : undefined;
+
   return (
     <>
-      <PageHeader title={page.title} subtitle="Our Services" />
+      <PageBanner
+        title={page.title}
+        subtitle={subtitle}
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: page.title },
+        ]}
+      />
 
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-container px-4">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
-            {/* Main Content — spans 2 cols */}
-            <article className="lg:col-span-2">
-              {/* Featured Image */}
+      <section className="bg-lmc-pageBg py-16 md:py-20">
+        <div className="mx-auto max-w-container px-7">
+          {/* Two-col layout: 2fr content / 1fr sidebar, 56px gap */}
+          <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[2fr_1fr]">
+            {/* Main Content */}
+            <article>
+              {/* Featured Image (if present) */}
               {page.heroImage && (
                 <div className="relative mb-8 aspect-[16/9] overflow-hidden bg-lmc-offWhite">
                   <Image
@@ -54,25 +69,10 @@ export default async function ServiceDetailPage({
 
               {/* Body Content */}
               <ServiceDetailBody page={page} />
-
-              {/* Bottom CTA */}
-              <div className="mt-10 flex flex-col items-start justify-between gap-4 border-l-4 border-lmc-green bg-lmc-offWhite p-6 sm:flex-row sm:items-center">
-                <div>
-                  <h3 className="font-heading text-lg font-semibold text-lmc-grayDark">
-                    Ready to book this service?
-                  </h3>
-                  <p className="font-body text-sm text-lmc-grayMedium">
-                    Reserve your appointment in a few clicks.
-                  </p>
-                </div>
-                <Button variant="primary" asChild href="/appointments">
-                  Book Appointment
-                </Button>
-              </div>
             </article>
 
             {/* Sidebar */}
-            <aside className="lg:col-span-1">
+            <aside>
               <ServicesSidebar services={sidebarList} currentSlug={slug} />
             </aside>
           </div>
