@@ -26,7 +26,11 @@ function generateCspHeader(): string {
       "wss://*.supabase.co",
       "https://cloudflareinsights.com",
     ],
-    "frame-src": ["https://challenges.cloudflare.com"],
+    "frame-src": [
+      "https://challenges.cloudflare.com",
+      "https://www.google.com",
+      "https://maps.google.com",
+    ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],

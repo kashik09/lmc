@@ -1,131 +1,199 @@
-import { PageHeader } from "@/components/layout/PageHeader";
+import Link from "next/link";
+import { ArrowRight, Clock, Phone, Mail, MapPin } from "lucide-react";
 import { ContactForm } from "@/components/blocks/contact-form";
-import { Button } from "@/components/ui/Button";
 import { contactInfo } from "@/content/contacts";
+
+/**
+ * Contacts page — Mockup-style layout
+ *
+ * Structure:
+ * 1. Map block (full-width iframe)
+ * 2. Contacts section (navy clip-path + form-card + info card)
+ * 3. Appointment banner (navy)
+ *
+ * Refs: docs/visual-rebuild/00-mockup-spec.md, mockup-reference/contacts.html
+ */
+
+// TODO: Kashi to replace with real LMC Google Maps embed URL
+const GOOGLE_MAPS_EMBED_URL =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7336!2d32.5833!3d0.4833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGayaza%2C%20Uganda!5e0!3m2!1sen!2sug!4v1234567890";
 
 export default function ContactsPage() {
   return (
     <>
-      <PageHeader title="Contact Us" subtitle="Get in touch with Lifeline" />
+      {/* Section 1 — Map Block */}
+      <section aria-label="Location map">
+        <div className="relative h-[280px] w-full bg-lmc-borderLight md:h-[380px]">
+          <iframe
+            src={GOOGLE_MAPS_EMBED_URL}
+            className="h-full w-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Lifeline Medical Centre location"
+            allowFullScreen
+          />
+        </div>
+      </section>
 
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-container px-4">
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Left - Contact Form */}
-            <div>
+      {/* Section 2 — Contacts Section (form + info) */}
+      <section className="relative bg-lmc-pageBg py-20">
+        {/* Navy clip-path banner */}
+        <div
+          className="absolute inset-x-0 top-0 z-0 h-[220px] bg-lmc-blue"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 0 100%)" }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 mx-auto max-w-container px-7">
+          {/* Contacts Head */}
+          <div className="mb-10 pt-3">
+            <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
+              Get in touch
+            </p>
+            <h1 className="font-heading text-[42px] font-bold uppercase tracking-[0.01em] text-white">
+              Contacts
+            </h1>
+          </div>
+
+          {/* Contacts Grid */}
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
+            {/* LEFT — Form Card (navy) */}
+            <div className="bg-lmc-blue p-9 text-white">
+              <h2 className="mb-1 font-heading text-[22px] font-bold uppercase tracking-[0.02em]">
+                Send us a Message
+              </h2>
+              <p className="mb-6 text-[12px] uppercase tracking-[0.14em] opacity-70">
+                We respond within 24 hours
+              </p>
+
+              {/* Existing ContactForm — wiring untouched */}
               <ContactForm />
             </div>
 
-            {/* Right - Contact Info Panel */}
-            <div className="rounded-lg border border-lmc-grayLight bg-lmc-offWhite p-6 md:p-8">
-              <h2 className="mb-4 font-heading text-xl font-bold text-lmc-grayDark">
-                {contactInfo.heading}
+            {/* RIGHT — Contact Info Card (light) */}
+            <div className="border border-lmc-borderLight bg-white p-9">
+              <h2 className="mb-1 font-heading text-[22px] font-bold uppercase tracking-[0.02em] text-lmc-grayDark">
+                Contact Information
               </h2>
-              <p className="mb-6 text-lmc-grayMedium">
-                {contactInfo.description}
+              <p className="mb-6 text-[12px] uppercase tracking-[0.14em] text-lmc-grayMedium">
+                Open 24 hours · 7 days a week
               </p>
 
-              <ul className="mb-6 space-y-4">
-                {/* Phones */}
-                {contactInfo.phones.map((phone) => (
-                  <li key={phone} className="flex items-start gap-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <a
-                      href={`tel:${phone.replace(/\D/g, "")}`}
-                      className="text-lmc-grayDark hover:text-lmc-green"
-                    >
-                      {phone}
-                    </a>
-                  </li>
-                ))}
+              {/* Icon Rows */}
+              <div className="space-y-0 divide-y divide-lmc-borderLight">
+                {/* Opening Hours */}
+                <div className="flex items-start gap-4 py-5">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#eaf6f1] text-lmc-green">
+                    <Clock className="h-5 w-5" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
+                      Opening Hours
+                    </p>
+                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                      {contactInfo.openHours}
+                    </h4>
+                    <p className="text-[14.5px] text-lmc-grayDark">
+                      Including weekends and public holidays.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-start gap-4 py-5">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#eaf6f1] text-lmc-green">
+                    <Phone className="h-5 w-5" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
+                      Phone
+                    </p>
+                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                      {contactInfo.phones[0]}
+                    </h4>
+                    <p className="text-[14.5px] text-lmc-grayDark">
+                      Reception · {contactInfo.phones[1]}
+                    </p>
+                  </div>
+                </div>
 
                 {/* Email */}
-                <li className="flex items-start gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
-                  >
-                    <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-                    <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
-                  </svg>
-                  <a
-                    href={`mailto:${contactInfo.email}`}
-                    className="text-lmc-grayDark hover:text-lmc-green"
-                  >
-                    {contactInfo.email}
-                  </a>
-                </li>
+                <div className="flex items-start gap-4 py-5">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#eaf6f1] text-lmc-green">
+                    <Mail className="h-5 w-5" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
+                      Email
+                    </p>
+                    <h4 className="font-heading text-[18px] font-bold">
+                      <a
+                        href={`mailto:${contactInfo.email}`}
+                        className="text-lmc-green transition-colors hover:underline"
+                      >
+                        {contactInfo.email}
+                      </a>
+                    </h4>
+                  </div>
+                </div>
 
                 {/* Address */}
-                <li className="flex items-start gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-lmc-green"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <a
-                    href={contactInfo.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lmc-grayDark hover:text-lmc-green"
-                  >
-                    {contactInfo.address}
-                  </a>
-                </li>
-              </ul>
-
-              {/* Open Hours */}
-              <div className="mb-6 rounded-md bg-lmc-green/10 px-4 py-3">
-                <p className="flex items-center gap-2 font-medium text-lmc-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-5 w-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  {contactInfo.openHours}
-                </p>
+                <div className="flex items-start gap-4 py-5">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#eaf6f1] text-lmc-green">
+                    <MapPin className="h-5 w-5" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
+                      Address
+                    </p>
+                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                      {contactInfo.address}
+                    </h4>
+                    <p className="text-[14.5px] text-lmc-grayDark">
+                      Gayaza, Wakiso District, Uganda ·{" "}
+                      <a
+                        href={contactInfo.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-lmc-green transition-colors hover:underline"
+                      >
+                        Get directions →
+                      </a>
+                    </p>
+                  </div>
+                </div>
               </div>
-
-              <hr className="mb-6 border-lmc-grayLight" />
-
-              {/* Appointment Section */}
-              <h3 className="mb-2 font-heading font-semibold text-lmc-grayDark">
-                {contactInfo.appointmentSection.heading}
-              </h3>
-              <p className="mb-4 text-sm text-lmc-grayMedium">
-                {contactInfo.appointmentSection.text}
-              </p>
-              <Button asChild href={contactInfo.appointmentSection.buttonLink}>
-                {contactInfo.appointmentSection.buttonText}
-              </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3 — Appointment Banner */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-container px-7">
+          <div className="flex flex-col items-start justify-between gap-8 bg-lmc-blue p-10 text-white md:flex-row md:items-center md:gap-12 md:px-12">
+            {/* Text side */}
+            <div>
+              <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
+                Appointment Request
+              </p>
+              <h3 className="mb-1 font-heading text-[30px] font-bold uppercase tracking-[0.02em]">
+                Want to book ahead?
+              </h3>
+              <p className="text-[14.5px] leading-[1.7] opacity-85">
+                Skip the queue and request a specific date, doctor and
+                department through the booking page.
+              </p>
+            </div>
+
+            {/* Button */}
+            <Link
+              href="/appointments"
+              className="inline-flex flex-shrink-0 items-center gap-2.5 bg-lmc-green px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-lmc-greenDark"
+            >
+              Request Now
+              <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
+            </Link>
           </div>
         </div>
       </section>
