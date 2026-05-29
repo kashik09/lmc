@@ -105,7 +105,7 @@ export default function HeroCarousel() {
 
   return (
     <section
-      className="relative h-[560px] overflow-hidden bg-lmc-blue"
+      className="relative h-[640px] overflow-hidden bg-lmc-blue md:h-[700px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-roledescription="carousel"
@@ -131,16 +131,6 @@ export default function HeroCarousel() {
             sizes="100vw"
           />
 
-          {/* Layer 2: Dark vignette overlay for caption contrast (darkened to hide building signage) */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/65" />
-
-          {/* Layer 3: Subtle noise/grain via SVG for texture */}
-          <div
-            className="absolute inset-0 opacity-20 mix-blend-overlay"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
-            }}
-          />
 
           {/* Caption box — right-aligned per mockup .hero-overlay */}
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
