@@ -14,7 +14,7 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageBanner from "@/components/layout/PageBanner";
 import Reveal from "@/components/ui/Reveal";
 import { services } from "@/content/services";
 
@@ -87,7 +87,11 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageHeader title="Our Services" subtitle="Comprehensive medical care" />
+      <PageBanner
+        title="Our Services"
+        subtitle="Comprehensive medical care"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+      />
 
       <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
