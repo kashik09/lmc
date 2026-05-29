@@ -1,109 +1,192 @@
 // content/lmc-images.ts
-// Auto-classified from LMC Company Profile PDF extraction.
-// Generic wiring only — NO name-face matching has been done.
-// To swap a specific image: just change the filename string.
+// Image manifest organized by page context.
+// Photo files live under public/images/lmc/<category>/<slug>/
 
-export type ImageClassification =
-  | "landscape"
-  | "portrait"
-  | "square"
-  | "decorative";
+export type LmcImage = {
+  src: string;
+  alt: string;
+};
 
-export interface LMCImage {
-  src: string; // /images/lmc/<filename>
-  classification: ImageClassification;
+// Legacy type with dimensions for backward compatibility
+export type LegacyImage = {
+  src: string;
   width: number;
   height: number;
-}
+};
 
-export const lmcImages: LMCImage[] = [
-  // decorative (10) — logos, icons, tiny graphics — not exported for general use
-  { src: "/images/lmc/28.png", classification: "decorative", width: 197, height: 138 },
-  { src: "/images/lmc/29.png", classification: "decorative", width: 188, height: 77 },
-  { src: "/images/lmc/30.png", classification: "decorative", width: 185, height: 103 },
-  { src: "/images/lmc/31.png", classification: "decorative", width: 176, height: 121 },
-  { src: "/images/lmc/32.png", classification: "decorative", width: 232, height: 149 },
-  { src: "/images/lmc/33.png", classification: "decorative", width: 240, height: 154 },
-  { src: "/images/lmc/34.png", classification: "decorative", width: 231, height: 154 },
-  { src: "/images/lmc/35.png", classification: "decorative", width: 167, height: 167 },
-  { src: "/images/lmc/36.png", classification: "decorative", width: 159, height: 158 },
-  { src: "/images/lmc/38.jpg", classification: "decorative", width: 192, height: 147 },
+// ==== ABOUT / TEAM / BUILDING ====
+// Photos for /about, home Welcome section, leadership cards.
+export const aboutImages = {
+  // Building / facility
+  buildingExterior: { src: "/images/lmc/about/building-exterior.png", alt: "Lifeline Medical Centre building exterior" },
+  buildingFacade: { src: "/images/lmc/about/building-facade.jpg", alt: "Lifeline Medical Centre entrance" },
+  buildingTeamPhoto: { src: "/images/lmc/about/building-team-photo.png", alt: "LMC team in front of the centre" },
+  imagingCenter: { src: "/images/lmc/about/imaging-center.jpg", alt: "Imaging centre at LMC" },
+  companyVehicle: { src: "/images/lmc/about/company-vehicle.png", alt: "LMC company vehicle" },
+  // Staff / team
+  staffGroup: { src: "/images/lmc/about/staff-group.jpg", alt: "LMC staff group photo" },
+  staffLabcoat: { src: "/images/lmc/about/staff-labcoat.png", alt: "Medical staff in lab coats at LMC" },
+  staffPortrait: { src: "/images/lmc/about/staff-portrait.jpg", alt: "LMC staff portrait" },
+  teamLunch: { src: "/images/lmc/about/team-lunch.jpg", alt: "LMC team during lunch break" },
+  teamMeeting: { src: "/images/lmc/about/team-meeting.jpg", alt: "LMC team meeting" },
+  teamOutdoor: { src: "/images/lmc/about/team-outdoor.jpg", alt: "LMC team outdoors" },
+  communityRun: { src: "/images/lmc/about/community-run.jpg", alt: "LMC at a community run event" },
+  // Admin
+  adminStaff: { src: "/images/lmc/about/admin-staff.jpg", alt: "LMC administrative staff" },
+  adminLaptop: { src: "/images/lmc/about/admin-laptop.jpg", alt: "LMC admin staff at work" },
+  adminRecords: { src: "/images/lmc/about/admin-records.jpg", alt: "LMC records administration" },
+  // Portrait-oriented (good for tall cards / sidebar slots)
+  executiveFemale: { src: "/images/lmc/about/executive-female.png", alt: "LMC senior team member" },
+  executiveFemaleBlazer: { src: "/images/lmc/about/executive-female-blazer.png", alt: "LMC senior team member" },
+  executiveMale: { src: "/images/lmc/about/executive-male.png", alt: "LMC senior team member" },
+  executiveGreySuit: { src: "/images/lmc/about/executive-grey-suit.png", alt: "LMC senior team member" },
+  boardMember: { src: "/images/lmc/about/board-member.png", alt: "LMC board member" },
+} satisfies Record<string, LmcImage>;
 
-  // landscape (23) — facility / hero candidates
-  { src: "/images/lmc/1.png", classification: "landscape", width: 2490, height: 1763 },
-  { src: "/images/lmc/11.jpg", classification: "landscape", width: 3037, height: 1646 },
-  { src: "/images/lmc/12.jpg", classification: "landscape", width: 2701, height: 1566 },
-  { src: "/images/lmc/13.jpg", classification: "landscape", width: 868, height: 664 },
-  { src: "/images/lmc/14.jpg", classification: "landscape", width: 1007, height: 658 },
-  { src: "/images/lmc/15.jpg", classification: "landscape", width: 1462, height: 541 },
-  { src: "/images/lmc/16.jpg", classification: "landscape", width: 1951, height: 1113 },
-  { src: "/images/lmc/18.jpg", classification: "landscape", width: 1124, height: 617 },
-  { src: "/images/lmc/2.jpg", classification: "landscape", width: 645, height: 430 },
-  { src: "/images/lmc/22.jpg", classification: "landscape", width: 1618, height: 1042 },
-  { src: "/images/lmc/25.jpg", classification: "landscape", width: 2169, height: 1644 },
-  { src: "/images/lmc/3.jpg", classification: "landscape", width: 691, height: 428 },
-  { src: "/images/lmc/4.jpg", classification: "landscape", width: 570, height: 424 },
-  { src: "/images/lmc/41.jpg", classification: "landscape", width: 543, height: 411 },
-  { src: "/images/lmc/43.jpg", classification: "landscape", width: 2074, height: 894 },
-  { src: "/images/lmc/44.jpg", classification: "landscape", width: 2384, height: 1437 },
-  { src: "/images/lmc/47.jpg", classification: "landscape", width: 694, height: 493 },
-  { src: "/images/lmc/48.jpg", classification: "landscape", width: 2481, height: 1485 },
-  { src: "/images/lmc/49.jpg", classification: "landscape", width: 709, height: 470 },
-  { src: "/images/lmc/5.jpg", classification: "landscape", width: 588, height: 424 },
-  { src: "/images/lmc/50.jpg", classification: "landscape", width: 1918, height: 1046 },
-  { src: "/images/lmc/51.png", classification: "landscape", width: 1899, height: 738 },
-  { src: "/images/lmc/52.png", classification: "landscape", width: 584, height: 438 },
+// ==== SERVICES ====
+// Photos for service detail pages and home MedicalDepartments cards.
+// Each service has an array — first entry is the hero/primary, rest are gallery.
+export const serviceImages: Record<string, LmcImage[]> = {
+  "x-ray": [
+    { src: "/images/lmc/services/x-ray/xray-technician.jpg", alt: "X-ray technician at LMC" },
+    { src: "/images/lmc/services/x-ray/xray-patient-exam.jpg", alt: "Patient X-ray examination" },
+  ],
+  dental: [
+    { src: "/images/lmc/services/dental/dental-procedure.jpg", alt: "Dental procedure at LMC" },
+  ],
+  laboratory: [
+    { src: "/images/lmc/services/laboratory/lab-technician-microscope.jpg", alt: "LMC laboratory technician with microscope" },
+    { src: "/images/lmc/services/laboratory/lab-technician-supplies.jpg", alt: "LMC laboratory technician with supplies" },
+  ],
+  outpatient: [
+    { src: "/images/lmc/services/outpatient/reception-desk.jpg", alt: "LMC outpatient reception desk" },
+    { src: "/images/lmc/services/outpatient/reception-staff.jpg", alt: "LMC reception staff" },
+    { src: "/images/lmc/services/outpatient/consultation-room.jpg", alt: "LMC consultation room" },
+  ],
+  pharmacy: [
+    { src: "/images/lmc/services/pharmacy/pharmacist-female.jpg", alt: "LMC female pharmacist" },
+    { src: "/images/lmc/services/pharmacy/pharmacist-male.jpg", alt: "LMC male pharmacist" },
+    { src: "/images/lmc/services/pharmacy/pharmacy-staff-supplies.jpg", alt: "LMC pharmacy staff with supplies" },
+  ],
+  theatre: [
+    { src: "/images/lmc/services/theatre/operating-room.jpg", alt: "LMC operating theatre" },
+    { src: "/images/lmc/services/theatre/surgical-table.png", alt: "LMC surgical equipment" },
+  ],
+  radiology: [
+    { src: "/images/lmc/services/radiology/ultrasound-technician.jpg", alt: "LMC radiology ultrasound technician" },
+  ],
+  ambulance: [
+    { src: "/images/lmc/services/ambulance/ambulance-vehicle.jpg", alt: "LMC ambulance vehicle" },
+  ],
+  inpatient: [
+    { src: "/images/lmc/services/inpatient/ward-beds.png", alt: "LMC inpatient ward beds" },
+  ],
+  "general-medicine": [
+    { src: "/images/lmc/services/general-medicine/doctor-female.png", alt: "LMC general medicine doctor" },
+    { src: "/images/lmc/services/general-medicine/doctor-male-clipboard.png", alt: "LMC doctor with clipboard" },
+    { src: "/images/lmc/services/general-medicine/doctor-male-portrait.png", alt: "LMC doctor portrait" },
+    { src: "/images/lmc/services/general-medicine/doctors-trio.jpg", alt: "LMC medical team" },
+  ],
+};
 
-  // portrait (7) — individual headshot candidates
-  { src: "/images/lmc/19.png", classification: "portrait", width: 1246, height: 2820 },
-  { src: "/images/lmc/23.png", classification: "portrait", width: 1338, height: 2577 },
-  { src: "/images/lmc/24.png", classification: "portrait", width: 1532, height: 2102 },
-  { src: "/images/lmc/27.png", classification: "portrait", width: 1097, height: 1455 },
-  { src: "/images/lmc/39.jpg", classification: "portrait", width: 733, height: 1013 },
-  { src: "/images/lmc/8.png", classification: "portrait", width: 1680, height: 2776 },
-  { src: "/images/lmc/9.png", classification: "portrait", width: 1177, height: 1408 },
-
-  // square (12) — group photos, profile cards
-  { src: "/images/lmc/10.png", classification: "square", width: 1178, height: 1033 },
-  { src: "/images/lmc/17.jpg", classification: "square", width: 3187, height: 3316 },
-  { src: "/images/lmc/20.jpg", classification: "square", width: 589, height: 480 },
-  { src: "/images/lmc/21.jpg", classification: "square", width: 589, height: 480 },
-  { src: "/images/lmc/26.jpg", classification: "square", width: 1115, height: 931 },
-  { src: "/images/lmc/37.png", classification: "square", width: 980, height: 1003 },
-  { src: "/images/lmc/40.jpg", classification: "square", width: 471, height: 540 },
-  { src: "/images/lmc/42.jpg", classification: "square", width: 404, height: 372 },
-  { src: "/images/lmc/45.png", classification: "square", width: 244, height: 196 },
-  { src: "/images/lmc/46.png", classification: "square", width: 273, height: 217 },
-  { src: "/images/lmc/6.png", classification: "square", width: 546, height: 632 },
-  { src: "/images/lmc/7.png", classification: "square", width: 569, height: 636 },
+// ==== INSURANCE PARTNERS ====
+// Partner logos for /insurance page and footer trust strip.
+export const insuranceLogos: LmcImage[] = [
+  { src: "/images/lmc/insurance/apa.png", alt: "APA Insurance" },
+  { src: "/images/lmc/insurance/apa-alt.png", alt: "APA Insurance alternate logo" },
+  { src: "/images/lmc/insurance/britam.jpg", alt: "Britam Insurance" },
+  { src: "/images/lmc/insurance/cic.png", alt: "CIC Insurance" },
+  { src: "/images/lmc/insurance/jubilee.png", alt: "Jubilee Insurance" },
+  { src: "/images/lmc/insurance/jubilee-alt.png", alt: "Jubilee Insurance alternate logo" },
+  { src: "/images/lmc/insurance/liberty.png", alt: "Liberty Insurance" },
+  { src: "/images/lmc/insurance/liberty-mutual.png", alt: "Liberty Mutual Insurance" },
+  { src: "/images/lmc/insurance/prudential.png", alt: "Prudential Insurance" },
+  { src: "/images/lmc/insurance/prudential-alt.png", alt: "Prudential Insurance alternate logo" },
 ];
 
-// Convenience filters — decoratives are NOT exported (we don't want them rendering)
-export const heroImages = lmcImages.filter(
-  (i) => i.classification === "landscape"
-);
-export const portraitImages = lmcImages.filter(
-  (i) => i.classification === "portrait"
-);
-export const squareImages = lmcImages.filter(
-  (i) => i.classification === "square"
-);
+// ==== GENERAL / DECORATIVE ====
+export const generalImages = {
+  stethoscope: { src: "/images/lmc/general/stethoscope.png", alt: "Stethoscope" },
+  backupGenerator: { src: "/images/lmc/general/backup-generator.jpg", alt: "LMC backup generator" },
+} satisfies Record<string, LmcImage>;
 
-// Helpers — deterministic so SSR matches client
-export function pickImageBy(
-  classification: ImageClassification,
-  index = 0
-): LMCImage | undefined {
-  const pool = lmcImages.filter((i) => i.classification === classification);
-  if (pool.length === 0) return undefined;
-  return pool[index % pool.length];
+// ==== HELPERS ====
+
+/** Get the primary (first) photo for a service slug. Falls back to a generic outpatient photo. */
+export function getServiceHero(slug: string): LmcImage {
+  const photos = serviceImages[slug];
+  if (photos && photos.length > 0) return photos[0];
+  return serviceImages.outpatient?.[0] ?? generalImages.stethoscope;
 }
 
-// Simple hash for deterministic selection based on string (e.g., slug)
+/** Get all photos for a service slug. */
+export function getServicePhotos(slug: string): LmcImage[] {
+  return serviceImages[slug] ?? [];
+}
+
+/** A flat pool of building/team photos suitable for hero carousels and welcome sections. */
+export const heroPool: LmcImage[] = [
+  aboutImages.buildingExterior,
+  aboutImages.buildingFacade,
+  aboutImages.imagingCenter,
+  aboutImages.staffGroup,
+  aboutImages.teamMeeting,
+  aboutImages.buildingTeamPhoto,
+  aboutImages.staffLabcoat,
+  aboutImages.teamOutdoor,
+];
+
+/** Portrait-oriented photos for tall card slots (Welcome section right card, sidebar). */
+export const portraitPool: LmcImage[] = [
+  aboutImages.executiveFemale,
+  aboutImages.executiveFemaleBlazer,
+  aboutImages.executiveMale,
+  aboutImages.executiveGreySuit,
+  aboutImages.boardMember,
+];
+
+// ==== BACKWARD-COMPATIBLE ALIASES ====
+// Legacy exports with width/height for components that expect dimensions.
+// Width/height values are placeholders — Next.js Image with fill ignores them.
+
+/** @deprecated Use heroPool instead. */
+export const heroImages: LegacyImage[] = [
+  { src: "/images/lmc/about/building-exterior.png", width: 2490, height: 1763 },
+  { src: "/images/lmc/about/building-facade.jpg", width: 3037, height: 1646 },
+  { src: "/images/lmc/about/imaging-center.jpg", width: 2701, height: 1566 },
+  { src: "/images/lmc/about/staff-group.jpg", width: 868, height: 664 },
+  { src: "/images/lmc/about/team-meeting.jpg", width: 1007, height: 658 },
+  { src: "/images/lmc/about/building-team-photo.png", width: 1462, height: 541 },
+  { src: "/images/lmc/about/staff-labcoat.png", width: 1951, height: 1113 },
+  { src: "/images/lmc/about/team-outdoor.jpg", width: 1124, height: 617 },
+];
+
+/** @deprecated Use portraitPool instead. */
+export const portraitImages: LegacyImage[] = [
+  { src: "/images/lmc/about/executive-female.png", width: 1246, height: 2820 },
+  { src: "/images/lmc/about/executive-female-blazer.png", width: 1338, height: 2577 },
+  { src: "/images/lmc/about/executive-male.png", width: 1532, height: 2102 },
+  { src: "/images/lmc/about/executive-grey-suit.png", width: 1097, height: 1455 },
+  { src: "/images/lmc/about/board-member.png", width: 733, height: 1013 },
+];
+
+/** @deprecated Use heroPool or context-specific pools. */
+export const squareImages: LegacyImage[] = [
+  { src: "/images/lmc/about/building-exterior.png", width: 1178, height: 1033 },
+  { src: "/images/lmc/about/staff-group.jpg", width: 3187, height: 3316 },
+  { src: "/images/lmc/about/team-meeting.jpg", width: 589, height: 480 },
+];
+
+/** @deprecated Use getServiceHero(slug) instead. */
 export function pickImageBySlug(
-  classification: ImageClassification,
+  _classification: string,
   slug: string
-): LMCImage | undefined {
-  const hash = slug.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return pickImageBy(classification, hash);
+): LegacyImage {
+  const hero = getServiceHero(slug);
+  return { src: hero.src, width: 1200, height: 800 };
+}
+
+/** @deprecated Use heroPool[0] or context-specific image. */
+export function pickImageBy(): LegacyImage {
+  return heroImages[0];
 }
