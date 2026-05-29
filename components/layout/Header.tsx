@@ -159,9 +159,17 @@ export function Header() {
         </button>
       </nav>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Backdrop + Drawer */}
       {mobileMenuOpen && (
-        <div className="border-t border-lmc-borderLight bg-white px-4 pb-4 lg:hidden">
+        <>
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          {/* Drawer content */}
+          <div className="relative z-50 border-t border-lmc-borderLight bg-white px-4 pb-4 lg:hidden">
           {/* Emergency line in mobile drawer */}
           <div className="flex items-center gap-2 border-b border-lmc-borderLight py-3 text-sm text-lmc-textPrimary">
             <svg
@@ -217,7 +225,8 @@ export function Header() {
               </li>
             ))}
           </ul>
-        </div>
+          </div>
+        </>
       )}
     </header>
   );
