@@ -53,6 +53,7 @@ export default function PharmacyPage() {
           { label: "Services" },
           { label: "Pharmacy" },
         ]}
+        edgeColor="#ffffff"
       />
 
       <section className="bg-white py-12 md:py-16">

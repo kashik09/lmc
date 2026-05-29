@@ -21,6 +21,8 @@ interface PageBannerProps {
   subtitle?: string;
   crumbs?: Crumb[];
   variant?: "default" | "blue"; // default = green, blue = navy (news/contacts)
+  /** Color of the ragged bottom edge. Should match the section below the banner. Defaults to #f5f5f5 (lmc-pageBg). */
+  edgeColor?: string;
 }
 
 /** Ragged bottom edge SVG — irregular zig-zag torn-paper effect */
@@ -45,6 +47,7 @@ export default function PageBanner({
   subtitle,
   crumbs = [],
   variant = "default",
+  edgeColor = "#f5f5f5",
 }: PageBannerProps) {
   const bgClass = variant === "blue" ? "bg-lmc-blue" : "bg-lmc-green";
 
@@ -91,7 +94,7 @@ export default function PageBanner({
       </div>
 
       {/* Ragged bottom edge — uses page bg color to create torn-paper effect */}
-      <RaggedBottomEdge color="#f5f5f5" />
+      <RaggedBottomEdge color={edgeColor} />
     </section>
   );
 }
