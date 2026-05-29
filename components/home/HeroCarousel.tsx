@@ -119,8 +119,8 @@ export default function HeroCarousel() {
             sizes="100vw"
           />
 
-          {/* Layer 2: Dark vignette overlay for caption contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/50" />
+          {/* Layer 2: Dark vignette overlay for caption contrast (darkened to hide building signage) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/65" />
 
           {/* Layer 3: Subtle noise/grain via SVG for texture */}
           <div
