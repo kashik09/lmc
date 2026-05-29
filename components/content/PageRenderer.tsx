@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ServicePage, ContentBlock } from "@/content/types";
 
 /**
@@ -68,7 +69,15 @@ function renderBlock(block: ContentBlock, idx: number) {
     case "image":
       return (
         <figure key={idx} className="my-8">
-          <img src={block.src} alt={block.alt} className="w-full" />
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-lmc-offWhite">
+            <Image
+              src={block.src}
+              alt={block.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
           {block.caption && (
             <figcaption className="mt-3 text-[13px] italic text-lmc-textSecondary">
               {block.caption}

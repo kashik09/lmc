@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PageBanner from "@/components/layout/PageBanner";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { servicesList } from '@/content/services';
@@ -45,11 +46,13 @@ export default function InsurancePage() {
                     className="flex flex-col items-center justify-center border border-lmc-grayLight bg-lmc-offWhite p-6"
                   >
                     {partner.logo ? (
-                      <div className="mb-2 flex h-16 w-full items-center justify-center">
-                        <img
+                      <div className="relative mb-2 h-16 w-full">
+                        <Image
                           src={partner.logo.src}
                           alt={partner.logo.alt}
-                          className="max-h-full max-w-full object-contain"
+                          fill
+                          className="object-contain"
+                          sizes="120px"
                         />
                       </div>
                     ) : (
