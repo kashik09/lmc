@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import LogoMark from "./LogoMark";
+import { services, serviceSlugs } from "@/content/services";
 
 /**
  * Header / Mainbar — white background nav with dropdowns
@@ -20,19 +21,22 @@ import LogoMark from "./LogoMark";
  * Dropdowns: 220px min-width, 3px green top border
  */
 
+// Build services dropdown from real content
+const servicesDropdown = [
+  { label: "All Services", href: "/services" },
+  ...serviceSlugs.map((slug) => ({
+    label: services[slug].title,
+    href: `/services/${slug}`,
+  })),
+];
+
 const NAV_ITEMS = [
   { label: "Home", href: "/", key: "home" },
   {
     label: "Our Services",
     href: "/services",
     key: "services",
-    dropdown: [
-      { label: "All Services", href: "/services" },
-      { label: "X-Ray Imaging", href: "/services/x-ray" },
-      { label: "Dental Care", href: "/services/dental" },
-      { label: "Laboratory", href: "/services/laboratory" },
-      { label: "Cardiology", href: "/services/cardiology" },
-    ],
+    dropdown: servicesDropdown,
   },
   {
     label: "Patients",
@@ -41,7 +45,7 @@ const NAV_ITEMS = [
     dropdown: [
       { label: "Visitor Info", href: "/visitors" },
       { label: "Pharmacy", href: "/pharmacy" },
-      // TODO: Insurance / Patient Guide pages don't exist yet
+      { label: "Insurance", href: "/insurance" },
     ],
   },
   { label: "News", href: "/news", key: "news" },
@@ -121,9 +125,9 @@ export function Header() {
                 )}
               </Link>
 
-              {/* Dropdown */}
+              {/* Dropdown — max-h for overflow with many services */}
               {item.dropdown && (
-                <ul className="invisible absolute left-2 top-full z-50 min-w-[220px] translate-y-[-6px] border-t-[3px] border-lmc-green bg-white py-2 opacity-0 shadow-cardHover transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                <ul className="invisible absolute left-2 top-full z-50 max-h-[400px] min-w-[220px] translate-y-[-6px] overflow-y-auto border-t-[3px] border-lmc-green bg-white py-2 opacity-0 shadow-cardHover transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                   {item.dropdown.map((d) => (
                     <li key={d.href}>
                       <Link

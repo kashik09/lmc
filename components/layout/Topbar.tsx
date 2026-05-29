@@ -29,9 +29,12 @@ export function Topbar() {
         <div className="flex items-center gap-2 text-[#4a4a4a]">
           <Ambulance className="h-[18px] w-[18px] text-lmc-green" />
           <span>Emergency Line</span>
-          <strong className="font-bold tracking-[0.04em] text-lmc-green">
+          <a
+            href="tel:+256774202747"
+            className="font-bold tracking-[0.04em] text-lmc-green transition-colors hover:text-lmc-greenDark"
+          >
             (+256) 774-202-747
-          </strong>
+          </a>
         </div>
       </div>
     </div>
