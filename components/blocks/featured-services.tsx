@@ -6,10 +6,7 @@ import {
   ScanLine,
   type LucideIcon,
 } from "lucide-react";
-import {
-  featuredServiceSlugs,
-  featuredServicesSection,
-} from "@/content/home";
+import { featuredServiceSlugs } from "@/content/home";
 import { servicesList } from "@/content/services";
 import { Button } from "@/components/ui/Button";
 
@@ -18,6 +15,15 @@ const iconMap: Record<string, LucideIcon> = {
   "x-ray": Radiation,
   laboratory: FlaskConical,
   "diagnostic-imaging": ScanLine,
+};
+
+// Inlined content (was in content/home.ts)
+const sectionContent = {
+  eyebrow: "WHAT WE OFFER",
+  heading: "Our Featured Services",
+  subheading: "Comprehensive care from a team you can trust.",
+  ctaLabel: "View All Services",
+  ctaHref: "/services",
 };
 
 export function FeaturedServices() {
@@ -31,13 +37,13 @@ export function FeaturedServices() {
         {/* Header */}
         <div className="mb-12 text-center">
           <span className="text-sm font-medium uppercase tracking-widest text-primary">
-            {featuredServicesSection.eyebrow}
+            {sectionContent.eyebrow}
           </span>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground md:text-4xl">
-            {featuredServicesSection.heading}
+            {sectionContent.heading}
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            {featuredServicesSection.subheading}
+            {sectionContent.subheading}
           </p>
         </div>
 
@@ -74,8 +80,8 @@ export function FeaturedServices() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <Button asChild href={featuredServicesSection.ctaHref} size="lg">
-            {featuredServicesSection.ctaLabel}
+          <Button asChild href={sectionContent.ctaHref} size="lg">
+            {sectionContent.ctaLabel}
           </Button>
         </div>
       </div>

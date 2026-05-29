@@ -15,13 +15,6 @@ export const featuredServiceSlugs = [
   "diagnostic-imaging",
 ] as const;
 
-export const featuredServicesSection = {
-  eyebrow: "WHAT WE OFFER",
-  heading: "Our Featured Services",
-  subheading: "Comprehensive care from a team you can trust.",
-  ctaLabel: "View All Services",
-  ctaHref: "/services",
-};
 
 export const heroSlides = [
   {
