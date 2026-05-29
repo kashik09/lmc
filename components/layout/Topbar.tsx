@@ -1,40 +1,41 @@
 import Link from "next/link";
-import { Ambulance } from "lucide-react";
+import { Clock } from "lucide-react";
 
 /**
  * Topbar — light background bar above main header
  *
- * Mockup styling (.topbar):
+ * Lamogi pattern (A1 redesign):
  * - bg: #efefef, border-bottom: 1px solid #e3e3e3
  * - height: 46px
- * - font-size: 12.5px, letter-spacing: 0.06em
- * - left: REQUEST AN APPOINTMENT link (uppercase, font-weight 600)
- * - right: Emergency line with ambulance icon
+ * - left: BOOK AN APPOINTMENT link (green, uppercase, bold)
+ * - right: hours + urgent phone line
  *
- * Hidden on mobile (< md breakpoint)
+ * Hidden on mobile (< md breakpoint) — only left link would show if we wanted
  */
 export function Topbar() {
   return (
     <div className="hidden border-b border-lmc-borderMedium bg-lmc-topbarBg md:block">
-      <div className="mx-auto flex h-[46px] max-w-container items-center justify-between px-7 text-[12.5px] tracking-[0.06em]">
+      <div className="mx-auto flex h-[46px] max-w-7xl items-center justify-between px-6 text-[12px] tracking-wide text-[#4a4a4a]">
         {/* Left: Appointment link */}
         <Link
-          href="/contacts"
-          className="font-semibold uppercase text-[#4a4a4a] transition-colors hover:text-lmc-green"
+          href="/appointments"
+          className="font-bold uppercase tracking-[0.08em] text-lmc-green transition-colors hover:text-lmc-greenDark"
         >
-          Request an Appointment
+          Book an Appointment
         </Link>
 
-        {/* Right: Emergency contact */}
-        <div className="flex items-center gap-2 text-[#4a4a4a]">
-          <Ambulance className="h-[18px] w-[18px] text-lmc-green" />
-          <span>Emergency Line</span>
-          <a
-            href="tel:+256774202747"
-            className="font-bold tracking-[0.04em] text-lmc-green transition-colors hover:text-lmc-greenDark"
-          >
-            (+256) 774-202-747
-          </a>
+        {/* Right: Hours + Urgent line */}
+        <div className="flex items-center gap-1.5">
+          <Clock className="h-4 w-4 text-lmc-green" />
+          <span>
+            Mon–Sat 7am–8pm · Urgent line:{" "}
+            <a
+              href="tel:+256774202747"
+              className="font-bold tracking-wide text-lmc-green transition-colors hover:text-lmc-greenDark"
+            >
+              (+256) 774 202 747
+            </a>
+          </span>
         </div>
       </div>
     </div>
