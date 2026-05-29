@@ -20,7 +20,7 @@ export default function EmptyState() {
 
       {/* Subtext */}
       <p className="mb-6 max-w-md text-[15px] leading-[1.7] text-lmc-grayMedium">
-        We're working on bringing you medical articles, community updates, and
+        We&apos;re working on bringing you medical articles, community updates, and
         wellness tips. Check back soon — or follow us for updates.
       </p>
 

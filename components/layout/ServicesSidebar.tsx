@@ -65,7 +65,7 @@ export function ServicesSidebar({
             Request an Appointment
           </h3>
           <p className="mb-6 text-[12px] uppercase tracking-[0.14em] opacity-70">
-            Fill in the form — we'll confirm by phone
+            Fill in the form — we&apos;ll confirm by phone
           </p>
 
           <p className="mb-6 text-[14.5px] leading-[1.7] opacity-85">
