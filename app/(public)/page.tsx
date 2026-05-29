@@ -12,7 +12,12 @@ export default function Home() {
     <>
       {/* Replaces old Round 4.1 HomeHero — T2.1 carousel per mockup */}
       <HeroCarousel />
-      <TrapezoidCTAStrip />
+
+      {/* Trapezoid strip overlaps hero bottom by ~64-80px on desktop */}
+      <div className="relative z-10 -mt-16 md:-mt-20">
+        <TrapezoidCTAStrip />
+      </div>
+
       <Reveal>
         <WelcomeSection />
       </Reveal>
