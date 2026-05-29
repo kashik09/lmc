@@ -74,6 +74,9 @@ export function AppointmentForm() {
     // Reset doctor selection when department changes
     if (name === "department") {
       setFormData((prev) => ({ ...prev, department: value, doctorSlug: "" }));
+    } else if (name === "patientType") {
+      // Reset DOB when patient type changes so calendar shows appropriate default
+      setFormData((prev) => ({ ...prev, patientType: value, dateOfBirth: "" }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -258,7 +261,11 @@ export function AppointmentForm() {
         }}
         error={errors.dateOfBirth}
         dateRules="past-only"
-        defaultMonth={new Date(new Date().getFullYear() - 30, 0, 1)}
+        defaultMonth={
+          formData.patientType === "child"
+            ? new Date(new Date().getFullYear() - 10, 0, 1)
+            : new Date(new Date().getFullYear() - 30, 0, 1)
+        }
         placeholder="Select date of birth"
       />
 
