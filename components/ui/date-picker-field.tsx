@@ -91,8 +91,8 @@ export function DatePickerField({
         type="button"
         id={fieldId}
         onClick={() => setIsOpen(!isOpen)}
-        aria-required={required}
-        aria-invalid={!!error}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
         aria-describedby={error ? errorId : undefined}
         className={`flex w-full items-center justify-between rounded-btn border bg-white px-4 py-2.5 text-left text-lmc-grayDark transition-colors duration-200 focus:border-lmc-green focus:outline-none focus:ring-1 focus:ring-lmc-green ${
           error ? "border-red-500" : "border-lmc-grayLight"

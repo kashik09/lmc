@@ -27,9 +27,8 @@ export interface ServicePage {
   meta?: Record<string, string>;
 }
 
-export interface InfoPage extends ServicePage {
-  // Same shape for now — keeping separate type for future divergence
-}
+// Same shape as ServicePage for now — keeping separate type for future divergence
+export type InfoPage = ServicePage;
 
 export interface InsurancePartner {
   name: string;

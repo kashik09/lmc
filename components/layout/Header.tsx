@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import LogoMark from "./LogoMark";
 
 /**
@@ -176,7 +176,7 @@ export function Header() {
           </div>
 
           <Link
-            href="/contacts"
+            href="/appointments"
             className="block border-b border-lmc-borderLight py-3 font-semibold text-lmc-green"
           >
             Request an Appointment

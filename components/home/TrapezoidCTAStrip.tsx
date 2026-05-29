@@ -32,8 +32,8 @@ const BLOCKS: CTABlock[] = [
     hoverColor: "#156610",
   },
   {
-    label: "Find a Doctor",
-    subtitle: "All our staff by department.",
+    label: "About Us",
+    subtitle: "Our story and medical team.",
     href: "/about",
     icon: UserRound,
     color: "#4A90D9",
@@ -42,7 +42,7 @@ const BLOCKS: CTABlock[] = [
   {
     label: "Request an Appointment",
     subtitle: "Call us or fill in a form.",
-    href: "/contacts",
+    href: "/appointments",
     icon: CalendarDays,
     color: "#1b7a12",
     hoverColor: "#156610",
