@@ -115,9 +115,9 @@ export function Header() {
                 {item.dropdown && (
                   <span className="inline-block h-0 w-0 border-x-[4px] border-t-[4px] border-x-transparent border-t-current opacity-60" />
                 )}
-                {/* Active underline */}
+                {/* Active underline — hide on dropdown hover to avoid double line */}
                 {isActive(item.href) && (
-                  <span className="absolute bottom-[-1px] left-[18px] right-[18px] h-[3px] bg-lmc-green" />
+                  <span className={`absolute bottom-[-1px] left-[18px] right-[18px] h-[3px] bg-lmc-green transition-opacity ${item.dropdown ? "group-hover:opacity-0" : ""}`} />
                 )}
               </Link>
 
