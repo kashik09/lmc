@@ -41,7 +41,6 @@ export default function AboutPage() {
         title="About Us"
         subtitle="Lifeline Medical Centre — Quality healthcare since 2009"
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-        edgeColor="#ffffff"
       />
 
       {/* Section 1: Who We Are — image left, text right */}
