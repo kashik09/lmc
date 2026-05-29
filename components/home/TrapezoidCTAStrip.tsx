@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, UserRound, CalendarDays } from "lucide-react";
+import { Stethoscope, Users, Calendar } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 /**
- * TrapezoidCTAStrip — Signature quick-action ribbon below the hero
+ * TrapezoidCTAStrip — Signature quick-action ribbon below the hero (B2 Lamogi upgrade)
  *
- * Three interlocking cards with chevron arrows, pulled up to overlap
- * the bottom of the hero. Per mockup: green / blue / green.
+ * Three interlocking cards with chevron arrows, overlapping the hero bottom.
+ * Pattern: navy / green (highlight) / navy — middle card is the accent.
  *
- * Refs: docs/visual-rebuild/mockup-reference/{index.html,styles.css}
+ * Refs: Lamogi image 3, adapted to LMC brand colors
  */
 
 interface CTABlock {
@@ -18,41 +18,41 @@ interface CTABlock {
   subtitle: string;
   href: string;
   icon: LucideIcon;
-  color: string; // raw hex
-  hoverColor: string; // raw hex
+  color: string;
+  hoverColor: string;
 }
 
 const BLOCKS: CTABlock[] = [
   {
     label: "Medical Services",
-    subtitle: "A list of all available care.",
+    subtitle: "Care for every patient.",
     href: "/services",
-    icon: Heart,
-    color: "#1b7a12",
-    hoverColor: "#156610",
+    icon: Stethoscope,
+    color: "#304770", // lmc-blue
+    hoverColor: "#3d5a8a",
   },
   {
     label: "About Us",
-    subtitle: "Our story and medical team.",
+    subtitle: "Meet our team.",
     href: "/about",
-    icon: UserRound,
-    color: "#4A90D9",
-    hoverColor: "#3a7fc8",
+    icon: Users,
+    color: "#1b7a12", // lmc-green (highlight)
+    hoverColor: "#156610",
   },
   {
-    label: "Request an Appointment",
-    subtitle: "Call us or fill in a form.",
+    label: "Request Appointment",
+    subtitle: "Call or book online.",
     href: "/appointments",
-    icon: CalendarDays,
-    color: "#1b7a12",
-    hoverColor: "#156610",
+    icon: Calendar,
+    color: "#304770", // lmc-blue
+    hoverColor: "#3d5a8a",
   },
 ];
 
 export default function TrapezoidCTAStrip() {
   return (
-    <section className="relative z-10 -mt-14 px-7" aria-label="Quick actions">
-      <div className="mx-auto max-w-container">
+    <section className="px-6" aria-label="Quick actions">
+      <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3">
           {BLOCKS.map((block, idx) => {
             const Icon = block.icon;
@@ -62,31 +62,35 @@ export default function TrapezoidCTAStrip() {
               <Link
                 key={block.label}
                 href={block.href}
-                className="group relative flex items-center gap-5 text-white transition-all duration-200 hover:-translate-y-[3px]"
+                className="group relative flex items-center gap-4 text-white transition-all duration-200 hover:-translate-y-1"
                 style={{
-                  padding: idx === 0 ? "32px 36px 32px 56px" : "32px 36px 32px 70px",
+                  padding: idx === 0 ? "28px 32px 28px 40px" : "28px 32px 28px 56px",
                   backgroundColor: block.color,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = block.hoverColor)}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = block.color)}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = block.hoverColor)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = block.color)
+                }
               >
                 {/* Icon in circular border */}
-                <div className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-white/45">
-                  <Icon className="h-[26px] w-[26px]" strokeWidth={2} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-white/30">
+                  <Icon className="h-6 w-6" strokeWidth={2} />
                 </div>
 
                 {/* Text content */}
                 <div>
-                  <h3 className="mb-1 font-heading text-xl font-extrabold uppercase tracking-tight">
+                  <h3 className="mb-0.5 text-base font-bold uppercase tracking-wide">
                     {block.label}
                   </h3>
-                  <p className="text-[13px] opacity-90">{block.subtitle}</p>
+                  <p className="text-sm text-white/85">{block.subtitle}</p>
                 </div>
 
                 {/* Chevron arrow — overlaps onto next card */}
                 {!isLast && (
                   <div
-                    className="pointer-events-none absolute bottom-0 right-[-22px] top-0 z-[2] hidden w-[44px] md:block"
+                    className="pointer-events-none absolute bottom-0 right-[-20px] top-0 z-[2] hidden w-10 md:block"
                     style={{
                       backgroundColor: block.color,
                       clipPath: "polygon(0 0, 50% 50%, 0 100%)",
