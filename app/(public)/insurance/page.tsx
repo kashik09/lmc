@@ -18,7 +18,6 @@ export default function InsurancePage() {
           { label: "Patients" },
           { label: "Insurance" },
         ]}
-        edgeColor="#ffffff"
       />
 
       <section className="bg-white py-12 md:py-16">

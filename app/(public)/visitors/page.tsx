@@ -62,7 +62,6 @@ export default function VisitorsPage() {
           { label: "Patients" },
           { label: "Visitors" },
         ]}
-        edgeColor="#ffffff"
       />
 
       <section className="bg-white py-12 md:py-16">
