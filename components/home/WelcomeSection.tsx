@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { home } from "@/content/info/home";
 import type { ContentBlock } from "@/content/types";
+import { squareImages } from "@/content/lmc-images";
 
 /**
  * WelcomeSection — "Welcome to Lifeline" intro block
@@ -71,27 +73,16 @@ export default function WelcomeSection() {
 
           {/* RIGHT: Photo with Patient & Visitor Guide caption bar */}
           <div className="relative">
-            {/* Photo placeholder — gradient until real LMC photos sorted */}
-            <div
-              className="relative aspect-[4/5] w-full overflow-hidden"
-              style={{
-                background: "linear-gradient(160deg, #2D4A6F 0%, #1b7a12 100%)",
-              }}
-            >
-              {/* Subtle noise texture */}
-              <div
-                className="absolute inset-0 opacity-30 mix-blend-overlay"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
-                }}
-              />
-
-              {/* Placeholder text */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg font-medium text-white/60">
-                  Staff group photo
-                </span>
-              </div>
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-lmc-offWhite">
+              {squareImages[0] && (
+                <Image
+                  src={squareImages[0].src}
+                  alt="Medical staff at Lifeline Medical Centre"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              )}
 
               {/* Caption bar — full width at bottom per mockup */}
               <Link

@@ -1,11 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/content/services";
+import { heroImages } from "@/content/lmc-images";
 
 /**
  * MedicalDepartments — Department cards row on dark navy background
  *
- * 3 featured services with photo placeholder + title + description + link.
+ * 3 featured services with real LMC photos + title + description + link.
  * Per mockup: X-Ray, Dental, Laboratory on left (2fr) with sidebar on right (1fr).
  * Simplified: just header + 3 cards for now.
  *
@@ -14,11 +16,11 @@ import { services } from "@/content/services";
 
 const FEATURED_DEPT_SLUGS = ["x-ray", "dental", "laboratory"] as const;
 
-// Per-card gradient placeholder (real photos TODO once 61 sorted)
-const cardGradients: Record<string, { from: string; to: string }> = {
-  "x-ray": { from: "#4A90D9", to: "#1b7a12" },
-  dental: { from: "#1b7a12", to: "#2D4A6F" },
-  laboratory: { from: "#2D4A6F", to: "#4A90D9" },
+// Use heroImages starting at index 3 to avoid reusing home hero images
+const cardImages: Record<string, { src: string; width: number; height: number }> = {
+  "x-ray": heroImages[3] ?? { src: "/images/lmc/13.jpg", width: 868, height: 664 },
+  dental: heroImages[4] ?? { src: "/images/lmc/14.jpg", width: 1007, height: 658 },
+  laboratory: heroImages[5] ?? { src: "/images/lmc/15.jpg", width: 1462, height: 541 },
 };
 
 export default function MedicalDepartments() {
@@ -45,34 +47,26 @@ export default function MedicalDepartments() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {FEATURED_DEPT_SLUGS.map((slug) => {
             const service = services[slug];
-            const gradient = cardGradients[slug] ?? {
-              from: "#4A90D9",
-              to: "#1b7a12",
-            };
+            const image = cardImages[slug];
 
             return (
               <article
                 key={slug}
                 className="group overflow-hidden border border-white/[0.08] bg-white/[0.04] transition-all duration-200 hover:-translate-y-1 hover:border-lmc-green"
               >
-                {/* Photo placeholder with gradient */}
-                <div
-                  className="relative flex h-[150px] items-center justify-center overflow-hidden"
-                  style={{
-                    background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
-                  }}
-                >
-                  {/* Subtle noise texture */}
-                  <div
-                    className="absolute inset-0 opacity-25 mix-blend-overlay"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
-                    }}
-                  />
-                  {/* Department icon placeholder */}
-                  <span className="text-[40px] font-bold uppercase tracking-wide text-white/70">
-                    {service.title.charAt(0)}
-                  </span>
+                {/* Photo with dark gradient overlay */}
+                <div className="relative h-[150px] overflow-hidden bg-lmc-blue">
+                  {image && (
+                    <Image
+                      src={image.src}
+                      alt={`${service.title} at Lifeline Medical Centre`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  )}
+                  {/* Dark gradient overlay for text contrast on card body */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
 
                 {/* Card body */}

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { heroImages } from "@/content/lmc-images";
 
 /**
  * HeroCarousel — T2.1 per mockup design (T2.1-fix polish applied)
@@ -10,7 +12,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
  * Refs: docs/visual-rebuild/mockup-reference/{index.html,styles.css,site.js}
  *
  * Features:
- * - 3 slides with layered gradient placeholders (pending real LMC photos)
+ * - 3 slides with real LMC photos + overlay layers for caption contrast
  * - Caption box on RIGHT side per mockup, near-opaque bg + left green border
  * - 6s auto-advance, pauses on hover
  * - Respects prefers-reduced-motion
@@ -24,8 +26,7 @@ interface HeroSlide {
   description: string;
   ctaLabel: string;
   ctaHref: string;
-  gradientFrom: string;
-  gradientTo: string;
+  image: { src: string; width: number; height: number };
 }
 
 const SLIDES: HeroSlide[] = [
@@ -37,8 +38,7 @@ const SLIDES: HeroSlide[] = [
       "Comprehensive primary care, diagnostics, and specialist services delivered with warmth and clinical rigour — for every family in Gayaza and beyond.",
     ctaLabel: "Learn More",
     ctaHref: "/about",
-    gradientFrom: "#1b7a12",
-    gradientTo: "#2D4A6F",
+    image: heroImages[0] ?? { src: "/images/lmc/1.png", width: 2490, height: 1763 },
   },
   {
     eyebrow: "Surgical Excellence",
@@ -48,8 +48,7 @@ const SLIDES: HeroSlide[] = [
       "Our theatre complex offers elective and emergency surgical care across general, orthopaedic, and gynaecological specialties — supported by a 24-hour anaesthetic team.",
     ctaLabel: "Explore Theatre",
     ctaHref: "/services/theatre",
-    gradientFrom: "#2D4A6F",
-    gradientTo: "#4A90D9",
+    image: heroImages[1] ?? { src: "/images/lmc/11.jpg", width: 3037, height: 1646 },
   },
   {
     eyebrow: "Diagnostic Precision",
@@ -59,8 +58,7 @@ const SLIDES: HeroSlide[] = [
       "Our accredited clinical laboratory delivers haematology, biochemistry, microbiology and parasitology testing with rapid turnaround — most routine results within four hours.",
     ctaLabel: "View Lab Services",
     ctaHref: "/services/laboratory",
-    gradientFrom: "#1b7a12",
-    gradientTo: "#1a2530",
+    image: heroImages[2] ?? { src: "/images/lmc/12.jpg", width: 2701, height: 1566 },
   },
 ];
 
@@ -111,33 +109,26 @@ export default function HeroCarousel() {
           }`}
           aria-hidden={idx !== activeIdx}
         >
-          {/* Layer 1: Base gradient */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${slide.gradientFrom} 0%, ${slide.gradientTo} 100%)`,
-            }}
+          {/* Layer 1: Real LMC photo */}
+          <Image
+            src={slide.image.src}
+            alt="Lifeline Medical Centre"
+            fill
+            className="object-cover"
+            priority={idx === 0}
+            sizes="100vw"
           />
 
-          {/* Layer 2: Radial highlight from top-left for depth */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(circle at 25% 30%, rgba(255,255,255,0.15) 0%, transparent 50%)",
-            }}
-          />
+          {/* Layer 2: Dark vignette overlay for caption contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/50" />
 
           {/* Layer 3: Subtle noise/grain via SVG for texture */}
           <div
-            className="absolute inset-0 opacity-30 mix-blend-overlay"
+            className="absolute inset-0 opacity-20 mix-blend-overlay"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
             }}
           />
-
-          {/* Layer 4: Bottom-right vignette to ground the caption box */}
-          <div className="absolute inset-0 bg-gradient-to-bl from-black/40 via-transparent to-transparent" />
 
           {/* Caption box — right-aligned per mockup .hero-overlay */}
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
