@@ -3,15 +3,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { home } from "@/content/info/home";
 import type { ContentBlock } from "@/content/types";
-import { squareImages } from "@/content/lmc-images";
+import { SectionHeading } from "@/components/sections/SectionHeading";
+import { aboutImages } from "@/content/lmc-images";
 
 /**
- * WelcomeSection — "Welcome to Lifeline" intro block
+ * WelcomeSection — "Welcome to Lifeline" intro block (B1 Lamogi redesign)
  *
- * 2-column layout: text + CTA on left, photo with caption overlay on right.
+ * 2-column layout: text + CTA on left (~55%), tall image card on right (~45%).
+ * Uses SectionHeading for consistent eyebrow/heading/accent-bar rhythm.
  * Copy pulled from content/info/home.ts (extracted from WP backup).
- *
- * Refs: docs/visual-rebuild/mockup-reference/{index.html,styles.css}
  */
 
 type ParagraphBlock = Extract<ContentBlock, { type: "paragraph" }>;
@@ -38,63 +38,65 @@ export default function WelcomeSection() {
     qualityParagraphs[0],
   ].filter(Boolean);
 
+  // Portrait-oriented staff photo for the right card
+  const cardImage = aboutImages.staffLabcoat;
+
   return (
-    <section className="bg-white py-20 md:py-24">
-      <div className="mx-auto max-w-container px-7">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+    <section className="bg-white py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-[1.2fr_1fr]">
           {/* LEFT: Text content */}
           <div>
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
-              About us
+            <SectionHeading
+              eyebrow="About Us"
+              title={
+                <>
+                  Welcome to <span className="text-lmc-green">Lifeline</span>{" "}
+                  Medical Centre
+                </>
+              }
+            />
+
+            {/* Body paragraphs */}
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-lmc-grayMedium">
+              {displayParagraphs.map((text, i) => (
+                <p key={i}>{text}</p>
+              ))}
             </div>
-            <h2 className="mb-4 font-heading text-[32px] font-bold leading-tight tracking-tight text-lmc-grayDark md:text-[44px]">
-              Welcome to <span className="text-lmc-green">Lifeline</span> Medical
-              Centre
-            </h2>
-            <div className="mb-6 h-[3px] w-20 bg-lmc-green" />
 
-            {displayParagraphs.map((text, i) => (
-              <p
-                key={i}
-                className="mb-4 text-[15px] leading-[1.75] text-lmc-grayMedium"
-              >
-                {text}
-              </p>
-            ))}
-
-            <Link
-              href="/about"
-              className="mt-4 inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-white transition-all hover:gap-3 hover:bg-lmc-greenDark"
-            >
-              Read More
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* RIGHT: Photo with Patient & Visitor Guide caption bar */}
-          <div className="relative">
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-lmc-offWhite">
-              {squareImages[0] && (
-                <Image
-                  src={squareImages[0].src}
-                  alt="Medical staff at Lifeline Medical Centre"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                />
-              )}
-
-              {/* Caption bar — full width at bottom per mockup */}
+            {/* CTA */}
+            <div className="mt-8">
               <Link
-                href="/visitors"
-                className="group absolute inset-x-0 bottom-0 flex items-center justify-between bg-lmc-green px-6 py-[18px] text-white transition-colors hover:bg-lmc-greenDark"
+                href="/about"
+                className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:gap-3 hover:bg-lmc-greenDark"
               >
-                <span className="text-[13.5px] font-semibold uppercase tracking-[0.14em]">
-                  Patient &amp; Visitor Guide
-                </span>
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                Read More
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
+          </div>
+
+          {/* RIGHT: Tall image card with bottom strip */}
+          <div className="relative overflow-hidden">
+            <div className="relative aspect-[4/5] w-full bg-lmc-offWhite">
+              <Image
+                src={cardImage.src}
+                alt={cardImage.alt}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </div>
+            {/* Bottom strip — Patient & Visitor Guide */}
+            <Link
+              href="/visitors"
+              className="group flex items-center justify-between bg-lmc-green px-6 py-4 text-white transition-colors hover:bg-lmc-greenDark"
+            >
+              <span className="text-sm font-bold uppercase tracking-[0.12em]">
+                Patient &amp; Visitor Guide
+              </span>
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
       </div>
