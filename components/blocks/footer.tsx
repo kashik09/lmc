@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CookiePreferencesButton } from "./cookie-consent";
 
 const contactInfo = {
-  phones: ["(+256) 751 873 951", "(+256) 774 202 747"],
+  phones: ["(+256) 774 202 747"],
   email: "info@lmc.co.ug",
   address: "Namavundu Rd, Gayaza",
 };

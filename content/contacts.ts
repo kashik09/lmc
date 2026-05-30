@@ -44,7 +44,7 @@ export const contactInfo = {
   heading: "Contact Info & Details",
   description:
     "We would love to hear from you. Please send us a message using the form or use the contact information below.",
-  phones: ["(+256) 751 873 951", "(+256) 774 202 747"],
+  phones: ["(+256) 774 202 747"],
   email: "info@lmc.co.ug",
   address: "Namavundu Rd, Gayaza",
   mapsUrl: "https://maps.google.com/?q=Namavundu+Rd+Gayaza+Uganda",
