@@ -1,10 +1,8 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/layout/PageBanner";
 import { ServicesSidebar } from "@/components/layout/ServicesSidebar";
 import { ServiceDetailBody } from "@/components/blocks/service-detail-body";
 import { services, serviceSlugs } from "@/content/services";
-import { pickImageBySlug } from "@/content/lmc-images";
 
 export function generateStaticParams() {
   return serviceSlugs.map((slug) => ({ slug }));
@@ -55,27 +53,6 @@ export default async function ServiceDetailPage({
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[2fr_1fr]">
             {/* Main Content */}
             <article>
-              {/* Featured Image — uses service heroImage or fallback from LMC images */}
-              {(() => {
-                const heroSrc = page.heroImage?.src;
-                const heroAlt = page.heroImage?.alt ?? `${page.title} at Lifeline Medical Centre`;
-                const fallback = pickImageBySlug("landscape", slug);
-                const imageSrc = heroSrc ?? fallback?.src;
-
-                return imageSrc ? (
-                  <div className="relative mb-8 aspect-[16/9] overflow-hidden bg-lmc-offWhite">
-                    <Image
-                      src={imageSrc}
-                      alt={heroAlt}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-                ) : null;
-              })()}
-
-              {/* Body Content */}
               <ServiceDetailBody page={page} />
             </article>
 
