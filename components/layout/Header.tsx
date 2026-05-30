@@ -95,7 +95,7 @@ export function Header() {
           <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-lmc-green bg-white">
             <LogoMark className="h-7 w-7" />
           </div>
-          <span className="font-sans text-[11.5px] font-extrabold uppercase leading-tight tracking-[0.04em] text-lmc-textPrimary">
+          <span className="font-sans text-[11.5px] font-extrabold uppercase leading-tight tracking-[0.04em] text-lmc-green">
             Lifeline Medical
             <br />
             Centre ·{" "}
