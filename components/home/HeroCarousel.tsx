@@ -38,7 +38,7 @@ const SLIDES: HeroSlide[] = [
       "Comprehensive primary care, diagnostics, and specialist services delivered with warmth and clinical rigour — for every family in Gayaza and beyond.",
     ctaLabel: "Learn More",
     ctaHref: "/about",
-    image: heroImages[0] ?? { src: "/images/lmc/1.png", width: 2490, height: 1763 },
+    image: heroImages[0] ?? { src: "/images/lmc/about/building-exterior.png", width: 2490, height: 1763 },
   },
   {
     eyebrow: "Surgical Excellence",
@@ -48,7 +48,7 @@ const SLIDES: HeroSlide[] = [
       "Our theatre complex offers elective and emergency surgical care across general, orthopaedic, and gynaecological specialties — supported by a 24-hour anaesthetic team.",
     ctaLabel: "Explore Theatre",
     ctaHref: "/services/theatre",
-    image: heroImages[1] ?? { src: "/images/lmc/11.jpg", width: 3037, height: 1646 },
+    image: heroImages[1] ?? { src: "/images/lmc/about/building-facade.jpg", width: 3037, height: 1646 },
   },
   {
     eyebrow: "Diagnostic Precision",
@@ -58,7 +58,7 @@ const SLIDES: HeroSlide[] = [
       "Our accredited clinical laboratory delivers haematology, biochemistry, microbiology and parasitology testing with rapid turnaround — most routine results within four hours.",
     ctaLabel: "View Lab Services",
     ctaHref: "/services/laboratory",
-    image: heroImages[2] ?? { src: "/images/lmc/12.jpg", width: 2701, height: 1566 },
+    image: heroImages[2] ?? { src: "/images/lmc/about/imaging-center.jpg", width: 2701, height: 1566 },
   },
 ];
 
@@ -136,7 +136,7 @@ export default function HeroCarousel() {
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
             <div className="ml-auto max-w-[540px]">
               {/* Semi-transparent grey card with subtle blur */}
-              <div className="border-l-4 border-lmc-green bg-[rgba(35,40,50,0.40)] p-10 shadow-2xl">
+              <div className="border-l-4 border-lmc-green bg-[rgba(35,40,50,0.50)] p-10 shadow-2xl">
                 <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
                   {slide.eyebrow}
                 </div>
