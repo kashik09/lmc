@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 /**
- * ServicesSidebar — Mockup-style sidebar for service detail pages
+ * ServicesSidebar — Lamogi-style sidebar for service detail pages
  *
  * Two cards stacked:
- * 1. All Services nav with green underline h4 (not filled bar)
+ * 1. All Services nav with partial green bar heading (Lamogi pattern)
  * 2. Navy form-card appointment CTA linking to /appointments
  *
- * Refs: docs/visual-rebuild/00-mockup-spec.md, mockup-reference/service-detail.html
+ * Refs: Lamogi image 1 "ALL MODALITIES" sidebar
  */
 
 type ServicesSidebarProps = {
@@ -26,37 +26,45 @@ export function ServicesSidebar({
 }: ServicesSidebarProps) {
   return (
     <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-      {/* Side Card — All Services nav */}
-      <div className="border border-lmc-borderLight bg-white p-6">
-        {/* h4 with green underline (not filled bar) */}
-        <h4 className="mb-4 border-b-2 border-lmc-green pb-3 font-heading text-[20px] font-bold uppercase tracking-[0.04em] text-lmc-grayDark">
+      {/* Side Card — All Services nav (Lamogi pattern) */}
+      <nav aria-label="All services" className="border border-lmc-borderLight bg-white p-6">
+        {/* Heading with partial green bar */}
+        <h3 className="mb-3 text-base font-bold uppercase tracking-wide text-lmc-grayDark">
           {menuTitle}
-        </h4>
+        </h3>
+        <div className="mb-4 h-[2px] w-full bg-lmc-green/20">
+          <div className="h-full w-[60px] bg-lmc-green" aria-hidden="true" />
+        </div>
 
-        {/* Services list — current one highlighted green */}
-        <nav>
-          <ul className="divide-y divide-lmc-borderLight">
-            {services.map((s) => {
-              const isActive = s.slug === currentSlug;
-              return (
-                <li key={s.slug}>
-                  <Link
-                    href={`/services/${s.slug}`}
-                    className={`flex items-center justify-between py-3 text-[13px] font-semibold uppercase tracking-[0.06em] transition-colors ${
-                      isActive
-                        ? "text-lmc-green"
-                        : "text-[#444] hover:text-lmc-green"
-                    }`}
-                  >
-                    <span>{s.title}</span>
-                    <span className="font-bold text-lmc-green">›</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
+        {/* Services list — current one highlighted green, ChevronRight arrows */}
+        <ul className="divide-y divide-lmc-borderMedium">
+          {services.map((s) => {
+            const isActive = s.slug === currentSlug;
+            return (
+              <li key={s.slug}>
+                <Link
+                  href={`/services/${s.slug}`}
+                  className={[
+                    "flex items-center justify-between py-3 text-sm font-bold uppercase tracking-wide transition-colors",
+                    isActive
+                      ? "text-lmc-green"
+                      : "text-lmc-grayDark hover:text-lmc-green",
+                  ].join(" ")}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <span>{s.title}</span>
+                  <ChevronRight
+                    className={[
+                      "h-4 w-4",
+                      isActive ? "text-lmc-green" : "text-lmc-grayMedium",
+                    ].join(" ")}
+                  />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
 
       {/* Form Card — Navy appointment CTA */}
       {showAppointmentTeaser && (
