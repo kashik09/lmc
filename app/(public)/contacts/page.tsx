@@ -111,9 +111,6 @@ export default function ContactsPage() {
                     <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
                       {contactInfo.phones[0]}
                     </h4>
-                    <p className="text-[14.5px] text-lmc-grayDark">
-                      Reception · {contactInfo.phones[1]}
-                    </p>
                   </div>
                 </div>
 
