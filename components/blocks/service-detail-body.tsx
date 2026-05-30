@@ -57,8 +57,13 @@ export function ServiceDetailBody({ page }: ServiceDetailBodyProps) {
 
   return (
     <div>
-      {/* Service Detail Head */}
+      {/* Service Detail Head — Lamogi rhythm: eyebrow / heading / accent bar */}
       <div className="mb-7">
+        {/* Eyebrow */}
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-lmc-green">
+          Department
+        </p>
+
         {/* 38px uppercase heading */}
         <h2 className="mb-3 font-heading text-[38px] font-bold uppercase leading-tight tracking-[0.01em] text-lmc-grayDark">
           {page.title}
@@ -78,9 +83,14 @@ export function ServiceDetailBody({ page }: ServiceDetailBodyProps) {
       {/* Procedures / Sections Accordion */}
       {accordionSections.length > 0 ? (
         <div className="mt-9 border border-lmc-borderLight bg-white p-8">
-          <h3 className="mb-5 font-heading text-[22px] font-bold uppercase tracking-[0.03em] text-lmc-grayDark">
+          {/* Lamogi rhythm: eyebrow / heading / accent bar */}
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-lmc-green">
+            What We Offer
+          </p>
+          <h3 className="mb-3 font-heading text-[22px] font-bold uppercase tracking-[0.03em] text-lmc-grayDark">
             Procedures &amp; Details
           </h3>
+          <div className="mb-6 h-[3px] w-[60px] bg-lmc-green" />
 
           <div className="flex flex-col gap-3.5">
             {accordionSections.map((section, index) => {
