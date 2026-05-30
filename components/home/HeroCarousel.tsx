@@ -59,13 +59,13 @@ const SLIDES: HeroSlide[] = [
     image: serviceImages.laboratory[0].src,
   },
   {
-    eyebrow: "Your Feedback Matters",
-    title: "IMAGING CENTRE",
-    subtitle: "Advanced diagnostic imaging services",
+    eyebrow: "Patient First",
+    title: "RECEPTION",
+    subtitle: "Your feedback matters to us",
     description:
-      "Our imaging centre offers state-of-the-art diagnostic services. We value your feedback and are committed to continuous improvement in patient care.",
-    ctaLabel: "Contact Us",
-    ctaHref: "/contacts",
+      "From the moment you walk in, our friendly reception team is here to assist you. We value your feedback and are committed to providing excellent patient care.",
+    ctaLabel: "Book Appointment",
+    ctaHref: "/appointments",
     image: aboutImages.imagingCenter.src,
   },
 ];
