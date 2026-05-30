@@ -136,7 +136,7 @@ export default function HeroCarousel() {
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
             <div className="ml-auto max-w-[540px]">
               {/* Semi-transparent grey card with subtle blur */}
-              <div className="border-l-4 border-lmc-green bg-[rgba(35,40,50,0.50)] p-10 shadow-2xl">
+              <div className="border-l-4 border-lmc-green bg-[rgba(35,40,50,0.60)] p-10 shadow-2xl">
                 <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
                   {slide.eyebrow}
                 </div>
@@ -147,7 +147,7 @@ export default function HeroCarousel() {
                 <div className="mb-4 text-[16px] font-semibold text-white">
                   {slide.subtitle}
                 </div>
-                <p className="mb-7 text-[14px] leading-[1.75] text-white/85">
+                <p className="mb-7 text-[14px] leading-[1.75] text-white">
                   {slide.description}
                 </p>
                 <Link
