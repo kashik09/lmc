@@ -99,7 +99,7 @@ export function Header() {
             Lifeline Medical
             <br />
             Centre ·{" "}
-            <span className="text-lmc-green">Gayaza</span>
+            <span className="text-red-600">Gayaza</span>
           </span>
         </Link>
 
