@@ -143,7 +143,7 @@ export default function HeroCarousel() {
                 </div>
                 <h1
                   className="relative z-[3] mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight"
-                  style={{ color: "#f5f5f5" }}
+                  style={{ color: "#ffffff" }}
                 >
                   {slide.title}
                 </h1>
