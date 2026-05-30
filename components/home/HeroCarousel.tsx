@@ -4,12 +4,10 @@ import { useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { heroImages } from "@/content/lmc-images";
+import { aboutImages, serviceImages } from "@/content/lmc-images";
 
 /**
  * HeroCarousel — T2.1 per mockup design (T2.1-fix polish applied)
- *
- * Refs: docs/visual-rebuild/mockup-reference/{index.html,styles.css,site.js}
  *
  * Features:
  * - 3 slides with real LMC photos + overlay layers for caption contrast
@@ -26,39 +24,39 @@ interface HeroSlide {
   description: string;
   ctaLabel: string;
   ctaHref: string;
-  image: { src: string; width: number; height: number };
+  image: string;
 }
 
 const SLIDES: HeroSlide[] = [
   {
     eyebrow: "Welcome to Lifeline",
     title: "QUALITY CARE",
-    subtitle: "Compassionate medical excellence",
+    subtitle: "Your Health is our priority",
     description:
-      "Comprehensive primary care, diagnostics, and specialist services delivered with warmth and clinical rigour — for every family in Gayaza and beyond.",
+      "From preventive care and checkups, to immunizations and exams, our primary care physicians and providers work to keep you and your whole family healthy and strong each and every day.",
     ctaLabel: "Learn More",
     ctaHref: "/about",
-    image: heroImages[0] ?? { src: "/images/lmc/about/building-exterior.png", width: 2490, height: 1763 },
+    image: aboutImages.buildingTeamPhoto.src,
   },
   {
     eyebrow: "Surgical Excellence",
     title: "THEATRE",
     subtitle: "Modern surgical suites, expert teams",
     description:
-      "Our theatre complex offers elective and emergency surgical care across general, orthopaedic, and gynaecological specialties — supported by a 24-hour anaesthetic team.",
-    ctaLabel: "Explore Theatre",
+      "We have a team of skilled and experienced Doctors and Nurses who are ready to perform common surgical procedures.",
+    ctaLabel: "Learn More",
     ctaHref: "/services/theatre",
-    image: heroImages[1] ?? { src: "/images/lmc/about/building-facade.jpg", width: 3037, height: 1646 },
+    image: serviceImages.theatre[0].src,
   },
   {
     eyebrow: "Diagnostic Precision",
     title: "LABORATORY",
     subtitle: "On-site testing, same-day results",
     description:
-      "Our accredited clinical laboratory delivers haematology, biochemistry, microbiology and parasitology testing with rapid turnaround — most routine results within four hours.",
-    ctaLabel: "View Lab Services",
+      "We have over the years has provided high quality service delivery with a wide range of medical laboratory investigations for our patients.",
+    ctaLabel: "Learn More",
     ctaHref: "/services/laboratory",
-    image: heroImages[2] ?? { src: "/images/lmc/about/imaging-center.jpg", width: 2701, height: 1566 },
+    image: serviceImages.laboratory[0].src,
   },
 ];
 
@@ -123,7 +121,7 @@ export default function HeroCarousel() {
         >
           {/* Layer 1: Real LMC photo */}
           <Image
-            src={slide.image.src}
+            src={slide.image}
             alt="Lifeline Medical Centre"
             fill
             className="object-cover"

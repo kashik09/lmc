@@ -1,45 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { home } from "@/content/info/home";
-import type { ContentBlock } from "@/content/types";
-import { SectionHeading } from "@/components/sections/SectionHeading";
 import { aboutImages } from "@/content/lmc-images";
 
 /**
- * WelcomeSection — "Welcome to Lifeline" intro block (B1 Lamogi redesign)
+ * WelcomeSection — "Welcome to Lifeline" intro block
  *
- * 2-column layout: text + CTA on left (~55%), tall image card on right (~45%).
- * Uses SectionHeading for consistent eyebrow/heading/accent-bar rhythm.
- * Copy pulled from content/info/home.ts (extracted from WP backup).
+ * 2-column layout: text + CTA on left (~55%), image card on right (~45%).
  */
 
-type ParagraphBlock = Extract<ContentBlock, { type: "paragraph" }>;
-
 export default function WelcomeSection() {
-  // home.ts has 2 sections — use both for richer content
-  const welcomeSection = home.sections[0];
-  const qualitySection = home.sections[1];
-
-  const welcomeParagraphs =
-    welcomeSection?.blocks
-      .filter((b): b is ParagraphBlock => b.type === "paragraph")
-      .map((b) => b.text) ?? [];
-
-  const qualityParagraphs =
-    qualitySection?.blocks
-      .filter((b): b is ParagraphBlock => b.type === "paragraph")
-      .map((b) => b.text) ?? [];
-
-  // Combine first paragraph from each section for variety
-  const displayParagraphs = [
-    welcomeParagraphs[0],
-    welcomeParagraphs[1],
-    qualityParagraphs[0],
-  ].filter(Boolean);
-
-  // Portrait-oriented staff photo for the right card
-  const cardImage = aboutImages.staffLabcoat;
+  // Staff image for the right card
+  const cardImage = aboutImages.staffGroup;
 
   return (
     <section className="bg-white py-16 md:py-24">
@@ -47,21 +19,21 @@ export default function WelcomeSection() {
         <div className="grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-[1.2fr_1fr]">
           {/* LEFT: Text content */}
           <div>
-            <SectionHeading
-              eyebrow="About Us"
-              title={
-                <>
-                  Welcome to <span className="text-lmc-green">Lifeline</span>{" "}
-                  Medical Centre
-                </>
-              }
-            />
+            <h2 className="font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+              Welcome to Lifeline
+            </h2>
+            <p className="mt-2 text-base text-lmc-grayMedium">
+              LMC is renowned for its range of clinical services.
+            </p>
 
             {/* Body paragraphs */}
             <div className="mt-6 space-y-4 text-base leading-relaxed text-lmc-grayMedium">
-              {displayParagraphs.map((text, i) => (
-                <p key={i}>{text}</p>
-              ))}
+              <p>
+                Thank you for allocating time to know more about us. We are certain you will find us of relevance to your healthcare needs. Lifeline Medical Centre is here to serve you and your family and it is our appeal that when you have any healthcare need, you will look upto us as your first option.
+              </p>
+              <p>
+                Our website is exceptionally interactive and collaborative. Our mission is to provide quality health care services more accessible to the general public and we are physically located in Gayaza town 13.7 km from Kampala. We welcome you to know more about Lifeline Medical Centre through this forum and encourage you to freely contact us for any inquiries.
+              </p>
             </div>
 
             {/* CTA */}
@@ -70,15 +42,15 @@ export default function WelcomeSection() {
                 href="/about"
                 className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:gap-3 hover:bg-lmc-greenDark"
               >
-                Read More
                 <ArrowRight className="h-4 w-4" />
+                Read More
               </Link>
             </div>
           </div>
 
-          {/* RIGHT: Tall image card with bottom strip */}
+          {/* RIGHT: Image card with bottom strip */}
           <div className="relative overflow-hidden">
-            <div className="relative aspect-[4/5] w-full bg-lmc-offWhite">
+            <div className="relative aspect-[4/3] w-full bg-lmc-offWhite">
               <Image
                 src={cardImage.src}
                 alt={cardImage.alt}
@@ -90,12 +62,14 @@ export default function WelcomeSection() {
             {/* Bottom strip — Patient & Visitor Guide */}
             <Link
               href="/visitors"
-              className="group flex items-center justify-between bg-lmc-green px-6 py-4 text-white transition-colors hover:bg-lmc-greenDark"
+              className="group flex flex-col items-center justify-center bg-lmc-green px-6 py-5 text-white transition-colors hover:bg-lmc-greenDark"
             >
               <span className="text-sm font-bold uppercase tracking-[0.12em]">
                 Patient &amp; Visitor Guide
               </span>
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <span className="mt-1 text-xs text-white/80">
+                Plan your visit to our Clinic
+              </span>
             </Link>
           </div>
         </div>
