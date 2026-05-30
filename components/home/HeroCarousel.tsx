@@ -135,8 +135,8 @@ export default function HeroCarousel() {
           {/* Caption box — right-aligned per mockup .hero-overlay */}
           <div className="relative z-[2] mx-auto flex h-full w-full max-w-container items-center px-7">
             <div className="ml-auto max-w-[540px]">
-              {/* Solid bg, no backdrop-blur — gives type a real foundation */}
-              <div className="border-l-4 border-lmc-green bg-[rgba(15,25,40,0.92)] p-10 shadow-2xl">
+              {/* Glass effect: 70% opacity + backdrop-blur for frosted-glass card */}
+              <div className="border-l-4 border-lmc-green bg-lmc-blue/70 backdrop-blur-md ring-1 ring-white/10 p-10 shadow-2xl">
                 <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-green">
                   {slide.eyebrow}
                 </div>
