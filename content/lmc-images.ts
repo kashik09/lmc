@@ -82,10 +82,10 @@ export const serviceImages: Record<string, LmcImage[]> = {
     { src: "/images/lmc/services/inpatient/ward-beds.png", alt: "LMC inpatient ward beds" },
   ],
   "general-medicine": [
-    { src: "/images/lmc/services/general-medicine/doctor-female.png", alt: "LMC general medicine doctor" },
+    { src: "/images/lmc/services/general-medicine/doctors-trio.jpg", alt: "LMC medical team" },
     { src: "/images/lmc/services/general-medicine/doctor-male-clipboard.png", alt: "LMC doctor with clipboard" },
     { src: "/images/lmc/services/general-medicine/doctor-male-portrait.png", alt: "LMC doctor portrait" },
-    { src: "/images/lmc/services/general-medicine/doctors-trio.jpg", alt: "LMC medical team" },
+    { src: "/images/lmc/services/general-medicine/doctor-female.png", alt: "LMC general medicine doctor" },
   ],
   antenatal: [
     { src: "/images/lmc/services/outpatient/consultation-room.jpg", alt: "LMC antenatal consultation" },
