@@ -58,6 +58,16 @@ const SLIDES: HeroSlide[] = [
     ctaHref: "/services/laboratory",
     image: serviceImages.laboratory[0].src,
   },
+  {
+    eyebrow: "Your Feedback Matters",
+    title: "IMAGING CENTRE",
+    subtitle: "Advanced diagnostic imaging services",
+    description:
+      "Our imaging centre offers state-of-the-art diagnostic services. We value your feedback and are committed to continuous improvement in patient care.",
+    ctaLabel: "Contact Us",
+    ctaHref: "/contacts",
+    image: aboutImages.imagingCenter.src,
+  },
 ];
 
 const AUTO_ADVANCE_MS = 6000;
