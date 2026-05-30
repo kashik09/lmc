@@ -15,7 +15,7 @@ import { Clock } from "lucide-react";
 export function Topbar() {
   return (
     <div className="hidden border-b border-lmc-borderMedium bg-lmc-topbarBg md:block">
-      <div className="mx-auto flex h-[46px] max-w-7xl items-center justify-between px-6 text-[12px] tracking-wide text-[#4a4a4a]">
+      <div className="flex h-[46px] items-center justify-between px-4 text-[12px] tracking-wide text-[#4a4a4a]">
         {/* Left: Appointment link */}
         <Link
           href="/appointments"
