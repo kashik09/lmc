@@ -28,24 +28,24 @@ const BLOCKS: CTABlock[] = [
     subtitle: "Care for every patient.",
     href: "/services",
     icon: Stethoscope,
-    color: "#304770", // lmc-blue
-    hoverColor: "#3d5a8a",
+    color: "#1b7a12", // lmc-green (outer)
+    hoverColor: "#156610",
   },
   {
     label: "About Us",
     subtitle: "Meet our team.",
     href: "/about",
     icon: Users,
-    color: "#1b7a12", // lmc-green (highlight)
-    hoverColor: "#156610",
+    color: "#304770", // lmc-blue (center highlight)
+    hoverColor: "#3d5a8a",
   },
   {
     label: "Request Appointment",
     subtitle: "Call or book online.",
     href: "/appointments",
     icon: Calendar,
-    color: "#304770", // lmc-blue
-    hoverColor: "#3d5a8a",
+    color: "#1b7a12", // lmc-green (outer)
+    hoverColor: "#156610",
   },
 ];
 
