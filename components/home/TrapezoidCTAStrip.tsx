@@ -19,7 +19,6 @@ interface CTABlock {
   href: string;
   icon: LucideIcon;
   color: string;
-  hoverColor: string;
 }
 
 const BLOCKS: CTABlock[] = [
@@ -29,15 +28,13 @@ const BLOCKS: CTABlock[] = [
     href: "/services",
     icon: Stethoscope,
     color: "#1b7a12", // lmc-green (outer)
-    hoverColor: "#156610",
   },
   {
     label: "About Us",
     subtitle: "Meet our team.",
     href: "/about",
     icon: Users,
-    color: "#304770", // lmc-blue (center highlight)
-    hoverColor: "#3d5a8a",
+    color: "#304770", // lmc-blue (center)
   },
   {
     label: "Request Appointment",
@@ -45,7 +42,6 @@ const BLOCKS: CTABlock[] = [
     href: "/appointments",
     icon: Calendar,
     color: "#1b7a12", // lmc-green (outer)
-    hoverColor: "#156610",
   },
 ];
 
@@ -62,17 +58,11 @@ export default function TrapezoidCTAStrip() {
               <Link
                 key={block.label}
                 href={block.href}
-                className="group relative flex items-center gap-4 text-white transition-all duration-200 hover:-translate-y-1"
+                className="group relative flex items-center gap-4 text-white transition-all duration-200 hover:-translate-y-1 hover:brightness-110"
                 style={{
                   padding: idx === 0 ? "28px 32px 28px 40px" : "28px 32px 28px 56px",
                   backgroundColor: block.color,
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = block.hoverColor)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = block.color)
-                }
               >
                 {/* Icon in circular border */}
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-white/30">
