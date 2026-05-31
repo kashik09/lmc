@@ -1,88 +1,67 @@
 import Link from "next/link";
-import {
-  Smile,
-  ScanLine,
-  FlaskConical,
-  Stethoscope,
-  Syringe,
-  BedDouble,
-  Activity,
-  Radiation,
-  Ambulance,
-  Pill,
-  Baby,
-  ArrowRight,
-  type LucideIcon,
-} from "lucide-react";
+import Image from "next/image";
 import PageBanner from "@/components/layout/PageBanner";
 import Reveal from "@/components/ui/Reveal";
 import { services } from "@/content/services";
 
 /**
- * Services Listing Page — 12-card grid with light card style
- *
- * Uses typed services from content/services/index.ts
- * Light cards (white bg) to avoid visual overload
+ * Services Listing Page — clean image grid matching backup.lmc.co.ug
  */
 
 interface ServiceCardData {
   slug: string;
   title: string;
-  shortDescription: string;
+  image: string;
 }
 
-const iconMap: Record<string, LucideIcon> = {
-  dental: Smile,
-  "x-ray": ScanLine,
-  laboratory: FlaskConical,
-  theatre: Activity,
-  radiology: Radiation,
-  antenatal: Baby,
-  inpatient: BedDouble,
-  outpatient: Stethoscope,
-  "general-medicine": Stethoscope,
-  immunisation: Syringe,
-  ambulance: Ambulance,
-  pharmacy: Pill,
+const imageMap: Record<string, string> = {
+  theatre: "/images/lmc/services/theatre/operating-room.jpg",
+  laboratory: "/images/lmc/services/laboratory/lab-technician-microscope.jpg",
+  dental: "/images/lmc/services/dental/dental-procedure.jpg",
+  "x-ray": "/images/lmc/services/x-ray/xray-technician.jpg",
+  radiology: "/images/lmc/services/radiology/ultrasound-technician.jpg",
+  antenatal: "/images/lmc/services/general-medicine/doctor-female.png",
+  inpatient: "/images/lmc/services/inpatient/ward-beds.png",
+  outpatient: "/images/lmc/services/outpatient/consultation-room.jpg",
+  "general-medicine": "/images/lmc/services/general-medicine/doctor-male-clipboard.png",
+  immunisation: "/images/lmc/services/general-medicine/doctor-male-portrait.png",
+  ambulance: "/images/lmc/services/ambulance/ambulance-vehicle.jpg",
+  pharmacy: "/images/lmc/services/pharmacy/pharmacist-female.jpg",
 };
 
 function ServiceCard({ service }: { service: ServiceCardData }) {
-  const Icon = iconMap[service.slug] ?? Stethoscope;
-
   return (
     <Link
       href={`/services/${service.slug}`}
-      className="group flex flex-col gap-4 border border-lmc-grayLight bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-cardHover"
+      className="group flex flex-col overflow-hidden bg-white transition-all hover:-translate-y-1 hover:shadow-cardHover"
     >
-      {/* Icon Tile */}
-      <div className="flex h-14 w-14 items-center justify-center bg-lmc-green/10">
-        <Icon className="h-7 w-7 text-lmc-green" />
+      {/* Image */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
+        <Image
+          src={service.image}
+          alt={service.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
       </div>
 
-      {/* Title */}
-      <h3 className="font-heading text-xl font-semibold text-lmc-grayDark transition-colors group-hover:text-lmc-green">
-        {service.title}
-      </h3>
-
-      {/* Description */}
-      <p className="line-clamp-3 flex-1 font-body text-sm text-lmc-grayMedium">
-        {service.shortDescription}
-      </p>
-
-      {/* Learn More Link */}
-      <span className="mt-auto inline-flex items-center gap-2 text-sm font-bold text-lmc-green transition-all group-hover:gap-3">
-        Learn More <ArrowRight className="h-4 w-4" />
-      </span>
+      {/* Title + Green Bar */}
+      <div className="flex flex-col items-center py-5">
+        <h3 className="mb-3 font-heading text-sm font-bold uppercase tracking-wide text-lmc-grayDark">
+          {service.title}
+        </h3>
+        <div className="h-[3px] w-12 bg-lmc-green" />
+      </div>
     </Link>
   );
 }
 
 export default function ServicesPage() {
-  // Map ServicePage to card display shape
   const serviceCards: ServiceCardData[] = Object.values(services).map((s) => ({
     slug: s.slug,
     title: s.title,
-    shortDescription: s.lede ?? "Quality healthcare services.",
+    image: imageMap[s.slug] ?? "/images/lmc/services/general-medicine/doctor-male-clipboard.png",
   }));
 
   return (
@@ -110,8 +89,8 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          {/* Service Cards Grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          {/* Service Cards Grid — 4 columns */}
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
             {serviceCards.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
