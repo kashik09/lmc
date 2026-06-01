@@ -19,36 +19,43 @@ export const insurancePartners: InsurancePartnersPage = {
     {
       name: 'Jubilee Insurance',
       logo: {
-        src: '/images/partners/jubilee.png',
+        src: '/images/lmc/insurance/jubilee.png',
         alt: 'Jubilee Insurance logo',
       },
     },
     {
       name: 'Prudential',
       logo: {
-        src: '/images/partners/prudential.png',
+        src: '/images/lmc/insurance/prudential.png',
         alt: 'Prudential Insurance logo',
       },
     },
     {
       name: 'APA Insurance',
       logo: {
-        src: '/images/partners/apa.png',
+        src: '/images/lmc/insurance/apa.png',
         alt: 'APA Insurance logo',
       },
     },
     {
       name: 'Liberty',
       logo: {
-        src: '/images/partners/liberty.png',
+        src: '/images/lmc/insurance/liberty.png',
         alt: 'Liberty Insurance logo',
       },
     },
     {
       name: 'Britam',
       logo: {
-        src: '/images/partners/britam.png',
+        src: '/images/lmc/insurance/britam.jpg',
         alt: 'Britam Insurance logo',
+      },
+    },
+    {
+      name: 'CIC Insurance',
+      logo: {
+        src: '/images/lmc/insurance/cic.png',
+        alt: 'CIC Insurance logo',
       },
     },
   ],
