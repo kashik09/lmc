@@ -15,18 +15,18 @@ interface ServiceCardData {
 }
 
 const imageMap: Record<string, string> = {
-  theatre: "/images/lmc/services/theatre/operating-room.jpg",
-  laboratory: "/images/lmc/services/laboratory/lab-technician-microscope.jpg",
-  dental: "/images/lmc/services/dental/dental-procedure.jpg",
-  "x-ray": "/images/lmc/services/x-ray/xray-technician.jpg",
-  radiology: "/images/lmc/services/radiology/ultrasound-technician.jpg",
-  antenatal: "/images/lmc/services/general-medicine/doctor-female.png",
-  inpatient: "/images/lmc/services/inpatient/ward-beds.png",
-  outpatient: "/images/lmc/services/outpatient/consultation-room.jpg",
-  "general-medicine": "/images/lmc/services/general-medicine/doctor-male-clipboard.png",
-  immunisation: "/images/lmc/services/general-medicine/doctor-male-portrait.png",
-  ambulance: "/images/lmc/services/ambulance/ambulance-vehicle.jpg",
-  pharmacy: "/images/lmc/services/pharmacy/pharmacist-female.jpg",
+  theatre: "/images/lmc/services/backup/theatre.jpg",
+  laboratory: "/images/lmc/services/backup/laboratory.jpg",
+  dental: "/images/lmc/services/backup/dental.jpg",
+  "x-ray": "/images/lmc/services/backup/x-ray.jpg",
+  radiology: "/images/lmc/services/backup/radiology.jpg",
+  antenatal: "/images/lmc/services/backup/general-medicine.jpg",
+  inpatient: "/images/lmc/services/inpatient/hospital-ward.png",
+  outpatient: "/images/lmc/services/outpatient/consultation.jpg",
+  "general-medicine": "/images/lmc/services/backup/general-medicine.jpg",
+  immunisation: "/images/lmc/services/backup/immunisation.jpg",
+  ambulance: "/images/lmc/services/backup/ambulance.jpg",
+  pharmacy: "/images/lmc/services/backup/pharmacy.jpg",
 };
 
 function ServiceCard({ service }: { service: ServiceCardData }) {
@@ -36,7 +36,7 @@ function ServiceCard({ service }: { service: ServiceCardData }) {
       className="group flex flex-col overflow-hidden bg-white transition-all hover:-translate-y-1 hover:shadow-cardHover"
     >
       {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
+      <div className="relative aspect-[16/10] overflow-hidden bg-lmc-offWhite">
         <Image
           src={service.image}
           alt={service.title}
@@ -61,7 +61,7 @@ export default function ServicesPage() {
   const serviceCards: ServiceCardData[] = Object.values(services).map((s) => ({
     slug: s.slug,
     title: s.title,
-    image: imageMap[s.slug] ?? "/images/lmc/services/general-medicine/doctor-male-clipboard.png",
+    image: imageMap[s.slug] ?? "/images/lmc/services/general-medicine/doctor-with-clipboard.png",
   }));
 
   return (

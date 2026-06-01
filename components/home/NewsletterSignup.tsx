@@ -24,7 +24,7 @@ export default function NewsletterSignup() {
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/lmc/services/outpatient/reception-staff.jpg')" }}
+        style={{ backgroundImage: "url('/images/lmc/services/outpatient/receptionist.jpg')" }}
       >
         <div className="absolute inset-0 bg-lmc-blue/80" />
       </div>
