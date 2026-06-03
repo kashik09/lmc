@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import PageBanner from "@/components/layout/PageBanner";
 import PostCard, { type Post } from "@/components/news/PostCard";
-import EmptyState from "@/components/news/EmptyState";
 import NewsSidebar from "@/components/news/NewsSidebar";
 import { createClient } from "@/lib/supabase/server";
 
@@ -14,6 +13,54 @@ import { createClient } from "@/lib/supabase/server";
  *
  * Refs: docs/visual-rebuild/mockup-reference/news.html
  */
+
+// Static fallback posts when Supabase has no data
+const fallbackPosts: Post[] = [
+  {
+    id: "fallback-1",
+    title: "New paediatric ward opens with expanded capacity",
+    slug: "new-paediatric-ward-opens",
+    excerpt:
+      "Our new dedicated children's wing more than doubles inpatient capacity, with family-friendly rooms, a play area, and round-the-clock paediatric nursing — bringing specialist care closer to families across Gayaza.",
+    featured_image: "/images/lmc/services/inpatient/hospital-ward.png",
+    published_at: "2026-05-12",
+    created_at: "2026-05-12",
+    category: "Announcements",
+  },
+  {
+    id: "fallback-2",
+    title: "Free community health screening this Saturday",
+    slug: "free-community-health-screening",
+    excerpt:
+      "Join us for free blood pressure, blood sugar and BMI checks — no appointment needed. Our team will be on-site all morning to answer your questions.",
+    featured_image: "/images/lmc/about/community-outreach.jpg",
+    published_at: "2026-04-28",
+    created_at: "2026-04-28",
+    category: "Community",
+  },
+  {
+    id: "fallback-3",
+    title: "Three new specialists join our cardiology team",
+    slug: "new-specialists-join-team",
+    excerpt:
+      "We're growing our heart-care capabilities with three experienced cardiologists, expanding access to diagnostics and follow-up care for the region.",
+    featured_image: "/images/lmc/services/general-medicine/doctors-team.jpg",
+    published_at: "2026-04-14",
+    created_at: "2026-04-14",
+    category: "Our Team",
+  },
+  {
+    id: "fallback-4",
+    title: "Why you shouldn't wait until you're sick to see a doctor",
+    slug: "preventive-checkups-importance",
+    excerpt:
+      "Preventive checkups catch issues early, when they're easiest to treat. Here's how regular visits keep you and your family healthier all year round.",
+    featured_image: "/images/lmc/services/outpatient/consultation.jpg",
+    published_at: "2026-04-02",
+    created_at: "2026-04-02",
+    category: "Health Tips",
+  },
+];
 
 export const metadata = {
   title: "The Blog | Lifeline Medical Centre",
@@ -45,7 +92,10 @@ async function getPosts(): Promise<Post[]> {
 }
 
 export default async function NewsPage() {
-  const posts = await getPosts();
+  const dbPosts = await getPosts();
+
+  // Use fallback posts if database is empty
+  const posts = dbPosts.length > 0 ? dbPosts : fallbackPosts;
 
   return (
     <>
@@ -64,20 +114,13 @@ export default async function NewsPage() {
       <section className="bg-lmc-pageBg py-16 md:py-20">
         <div className="mx-auto max-w-container px-7">
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
-            {/* LEFT — Posts or Empty State */}
+            {/* LEFT — Posts */}
             <main>
-              {posts.length === 0 ? (
-                <EmptyState />
-              ) : (
-                <div className="flex flex-col gap-10">
-                  {posts.map((post) => (
-                    <PostCard key={post.id} post={post} />
-                  ))}
-
-                  {/* Pagination — render only when posts exist and count > page size */}
-                  {/* TODO: implement pagination when more posts arrive */}
-                </div>
-              )}
+              <div className="flex flex-col gap-10">
+                {posts.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
             </main>
 
             {/* RIGHT — Sidebar */}

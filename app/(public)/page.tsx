@@ -3,6 +3,7 @@ import TrapezoidCTAStrip from "@/components/home/TrapezoidCTAStrip";
 import WelcomeSection from "@/components/home/WelcomeSection";
 import MedicalDepartments from "@/components/home/MedicalDepartments";
 import { LatestNews } from "@/components/home/LatestNews";
+import NewsletterSignup from "@/components/home/NewsletterSignup";
 import Reveal from "@/components/ui/Reveal";
 
 export default function Home() {
@@ -24,6 +25,9 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <LatestNews />
+      </Reveal>
+      <Reveal>
+        <NewsletterSignup />
       </Reveal>
     </>
   );
