@@ -12,7 +12,7 @@
   --color-primary-foreground: 0 0% 100%;
   --color-primary-dark: 113 97% 24%;      /* #107a02 - CTAs, appointment buttons */
   --color-secondary: 207 100% 64%;        /* #45aaff - Brand blue accent */
-  --color-secondary-foreground: 0 0% 100%;
+  --color-secondary-foreground: 0 0% 16%;   /* Dark text for #45aaff (5.8:1 contrast) */
   --color-accent: 207 100% 64%;           /* Same as secondary for this brand */
   --color-accent-foreground: 0 0% 0%;
 
