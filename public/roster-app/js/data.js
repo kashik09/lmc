@@ -18,18 +18,31 @@
 
   /* curated soft palette an admin can pick from for department tags */
   var PALETTE = [
+    // Greens
     { bg: "#dcefe4", fg: "#1c7a55" }, // teal-green
-    { bg: "#e5efe6", fg: "#2e7d45" }, // brand green
+    { bg: "#e5efe6", fg: "#1b7a12" }, // LMC brand green
+    { bg: "#d4edda", fg: "#155724" }, // forest green
+    { bg: "#e6ede0", fg: "#5a7a32" }, // olive
+    // Blues
     { bg: "#dcebf8", fg: "#1f5fa8" }, // blue
-    { bg: "#dff0f1", fg: "#1f7a86" }, // cyan
+    { bg: "#dff0f1", fg: "#1f7a86" }, // cyan/teal
+    { bg: "#e0e7f1", fg: "#304770" }, // navy (LMC)
+    { bg: "#cce5ff", fg: "#004085" }, // royal blue
+    // Purples & Pinks
     { bg: "#e8e1f5", fg: "#6b3fb8" }, // purple
     { bg: "#f3e4f1", fg: "#9b3f8e" }, // magenta
-    { bg: "#fbe2e9", fg: "#c0395b" }, // rose
     { bg: "#fce3ef", fg: "#b23b7e" }, // pink
+    { bg: "#e2d5f0", fg: "#5e3d8e" }, // violet
+    // Reds & Oranges
+    { bg: "#fbe2e9", fg: "#c0395b" }, // rose
+    { bg: "#f8d7da", fg: "#a71d2a" }, // red
     { bg: "#fdecd6", fg: "#c77a21" }, // amber
+    { bg: "#ffe5d0", fg: "#d35400" }, // orange
+    // Neutrals & Earth
     { bg: "#e7eaf3", fg: "#45568c" }, // indigo-slate
-    { bg: "#e6ede0", fg: "#5a7a32" }, // olive
-    { bg: "#f0e7df", fg: "#8a5a35" }  // clay
+    { bg: "#f0e7df", fg: "#8a5a35" }, // clay/brown
+    { bg: "#e8e8e8", fg: "#495057" }, // slate gray
+    { bg: "#fff3cd", fg: "#856404" }  // gold/yellow
   ];
 
   function seed() {

@@ -20,39 +20,6 @@ type Post = {
   created_at: string;
 };
 
-// Static fallback articles when Supabase has no posts
-const fallbackPosts: Post[] = [
-  {
-    id: "fallback-1",
-    title: "New paediatric ward opens with expanded capacity",
-    slug: "new-paediatric-ward-opens",
-    excerpt:
-      "Our new dedicated children's wing more than doubles inpatient capacity, with family-friendly rooms, a play area, and round-the-clock paediatric nursing.",
-    featured_image: "/images/lmc/services/inpatient/hospital-ward.png",
-    published_at: "2026-05-12",
-    created_at: "2026-05-12",
-  },
-  {
-    id: "fallback-2",
-    title: "Free community health screening this Saturday",
-    slug: "free-community-health-screening",
-    excerpt:
-      "Join us for free blood pressure, blood sugar and BMI checks — no appointment needed. Our team will be on-site all morning to answer your questions.",
-    featured_image: "/images/lmc/about/community-outreach.jpg",
-    published_at: "2026-04-28",
-    created_at: "2026-04-28",
-  },
-  {
-    id: "fallback-3",
-    title: "Three new specialists join our cardiology team",
-    slug: "new-specialists-join-team",
-    excerpt:
-      "We're growing our heart-care capabilities with three experienced cardiologists, expanding access to diagnostics and follow-up care for the region.",
-    featured_image: "/images/lmc/services/general-medicine/doctors-team.jpg",
-    published_at: "2026-04-14",
-    created_at: "2026-04-14",
-  },
-];
 
 function formatDate(dateString: string): string {
   return new Intl.DateTimeFormat("en-US", {
@@ -126,10 +93,12 @@ async function getLatestPosts(): Promise<Post[]> {
 }
 
 export async function LatestNews() {
-  const dbPosts = await getLatestPosts();
+  const posts = await getLatestPosts();
 
-  // Use fallback posts if database is empty
-  const posts = dbPosts.length > 0 ? dbPosts : fallbackPosts;
+  // Graceful degradation: render nothing if no posts
+  if (posts.length === 0) {
+    return null;
+  }
 
   return (
     <section className="bg-white py-16 md:py-20">
