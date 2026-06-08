@@ -12,7 +12,7 @@ const securityHeaders = [
   },
   {
     key: "X-Frame-Options",
-    value: "DENY",
+    value: "SAMEORIGIN", // Allow iframe embedding from same origin (roster app)
   },
   {
     key: "Referrer-Policy",

@@ -16,10 +16,11 @@ function generateCspHeader(): string {
       ...(isDev ? ["'unsafe-eval'"] : []),
       "https://challenges.cloudflare.com",
       "https://static.cloudflareinsights.com",
+      "https://unpkg.com", // Roster app: React, ReactDOM, Babel
     ],
-    "style-src": ["'self'", "'unsafe-inline'"],
+    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     "img-src": ["'self'", "blob:", "data:", "https://*.supabase.co"],
-    "font-src": ["'self'"],
+    "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
       "'self'",
       "https://*.supabase.co",
@@ -27,6 +28,7 @@ function generateCspHeader(): string {
       "https://cloudflareinsights.com",
     ],
     "frame-src": [
+      "'self'", // Allow embedding own static files (roster app)
       "https://challenges.cloudflare.com",
       "https://www.google.com",
       "https://maps.google.com",
