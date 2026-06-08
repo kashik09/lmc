@@ -36,7 +36,7 @@ function generateCspHeader(): string {
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],
-    "frame-ancestors": ["'none'"],
+    "frame-ancestors": ["'self'"], // Allow embedding in same-origin iframes
     "upgrade-insecure-requests": [],
   };
 
