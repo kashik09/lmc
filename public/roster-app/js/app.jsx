@@ -144,14 +144,14 @@
         setDataSource(result.source);
         setLoading(false);
         if (result.source === "supabase") {
-          toasts.push("Connected to database.", "ok", 2600);
+          toasts.push("Roster loaded successfully!", "ok", 4000);
         } else if (result.fresh) {
-          toasts.push("Using default roster (database unavailable).", "info", 3500);
+          toasts.push("Could not connect to server. Showing sample data.", "info", 5000);
         }
       }).catch(function (err) {
         console.error("Load error:", err);
         setLoading(false);
-        toasts.push("Failed to load data. Using defaults.", "err", 4000);
+        toasts.push("Something went wrong loading the roster. Please refresh the page.", "err", 6000);
       });
     }, []);
 
@@ -207,17 +207,17 @@
           publishedRef.current = JSON.stringify(doc);
           setDirty(false);
           setSaveState("saved");
-          toasts.push("Published to database.", "ok");
+          toasts.push("Changes saved! The roster is now live.", "ok", 5000);
         } else {
           setSaveState("unsaved");
-          toasts.push("Failed to publish. Check connection.", "err");
+          toasts.push("Could not save changes. Please check your internet connection.", "err", 6000);
         }
         setPublishing(false);
       }).catch(function (err) {
         console.error("Publish error:", err);
         setSaveState("unsaved");
         setPublishing(false);
-        toasts.push("Publish failed: " + err.message, "err");
+        toasts.push("Could not save changes. Please try again.", "err", 6000);
       });
     }
 
@@ -226,7 +226,7 @@
       var isNew = !doc.doctors.some(function (d) { return d.id === dr.id; });
       commit(function (d) { return M.saveDoctor(d, dr); });
       patchSurf({ doctorModal: null });
-      toasts.push(isNew ? "Added " + dr.name + " to the roster." : "Saved changes to " + dr.name + ".", "ok");
+      toasts.push(isNew ? dr.name + " has been added. Click Publish to save." : "Updated " + dr.name + ". Click Publish to save.", "ok", 5000);
     }
     function requestDeleteDoctor(dr) {
       var slots = Object.keys(doc.schedule).filter(function (k) { return doc.schedule[k].indexOf(dr.id) >= 0; }).length;
@@ -240,7 +240,7 @@
           onConfirm: function () {
             commit(function (d) { return M.deleteDoctor(d, dr.id); });
             patchSurf({ confirm: null });
-            toasts.push("Removed " + dr.name + ".", "ok");
+            toasts.push(dr.name + " has been removed. Click Publish to save.", "ok", 5000);
           }
         }
       });
@@ -268,12 +268,12 @@
     function applyDepts(list) {
       commit(function (d) { return M.applyDepts(d, list); });
       patchSurf({ manageDepts: false });
-      toasts.push("Departments updated.", "ok");
+      toasts.push("Departments updated. Click Publish to save.", "ok", 5000);
     }
     function applyBlocks(list, overlap) {
       commit(function (d) { return M.applyBlocks(d, list); });
       patchSurf({ manageBlocks: false });
-      toasts.push(overlap ? "Time blocks saved (note: some overlap)." : "Time blocks updated.", overlap ? "info" : "ok");
+      toasts.push(overlap ? "Time blocks updated (some times overlap)." : "Time blocks updated. Click Publish to save.", overlap ? "info" : "ok", 5000);
     }
 
     /* ---- refresh from database ---- */
@@ -286,10 +286,10 @@
         setDataSource(result.source);
         setDirty(false);
         setLoading(false);
-        toasts.push("Refreshed from database.", "ok");
+        toasts.push("Roster reloaded from server.", "ok", 4000);
       }).catch(function (err) {
         setLoading(false);
-        toasts.push("Failed to refresh: " + err.message, "err");
+        toasts.push("Could not reload. Please check your connection.", "err", 6000);
       });
     }
 
@@ -304,7 +304,7 @@
           publishedRef.current = JSON.stringify(fresh);
           setDirty(false);
           patchSurf({ confirm: null });
-          toasts.push("Roster reset to defaults.", "ok");
+          toasts.push("Roster has been reset to sample data.", "ok", 5000);
         }
       } });
     }
