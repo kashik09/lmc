@@ -363,89 +363,139 @@
 
 /* Tablet - sidebar becomes collapsible drawer */
 @media (max-width: 768px) {
-  .body { flex-direction: column; }
+  .body { flex-direction: column; overflow: hidden; }
 
   .sidebar {
     width: 100%;
-    max-height: 45vh;
+    max-height: 280px;
     border-right: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    overflow: hidden;
   }
-  .side-list { max-height: 200px; }
+  .side-head { padding: 12px 14px 8px; }
+  .side-title { font-size: 15px; }
+  .side-search { margin: 0 12px; }
+  .side-search input { padding: 7px 0; font-size: 13px; }
+  .side-filters { padding: 8px 12px 6px; gap: 6px; flex-wrap: nowrap; overflow-x: auto; }
+  .chip-filter { flex: 0 0 auto; padding: 5px 10px; font-size: 11px; }
+  .side-list {
+    flex: 1;
+    max-height: 120px;
+    padding: 8px 12px;
+    gap: 8px;
+    overflow-y: auto;
+  }
+  .side-foot { display: none; }
 
-  .main { min-height: 55vh; }
-  .main-toolbar { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .main-tools { width: 100%; }
-  .main-tools .btn { flex: 1; justify-content: center; }
+  /* Compact doctor cards */
+  .pal-card {
+    padding: 8px 10px;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+  .pal-card .avatar { width: 36px !important; height: 36px !important; font-size: 13px !important; }
+  .pal-meta { min-width: 0; }
+  .pal-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pal-tags { margin-top: 3px; gap: 4px; flex-wrap: nowrap; }
+  .pal-tags .tag { font-size: 10px; padding: 2px 6px; }
+  .pal-title { display: none; }
+  .pal-actions { gap: 0; }
+  .pal-card .switch { transform: scale(0.8); }
+  .pal-edit { display: none; }
+  .pal-grip { display: none; }
 
-  .wk { min-width: 700px; }
-  .cell { min-width: 90px; }
-  .wk-time { width: 80px; min-width: 80px; }
-  .wk-time-btn { padding: 10px 8px; min-height: 80px; }
+  .main { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .main-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+    flex: none;
+  }
+  .main-title { font-size: 16px; }
+  .main-sub { font-size: 11px; margin-top: 2px; }
+  .main-tools { display: flex; gap: 8px; }
+  .main-tools .btn { flex: 1; justify-content: center; padding: 8px; font-size: 12px; }
+
+  .grid-scroll { flex: 1; overflow: auto; padding: 0 12px 12px; }
+  .wk { min-width: 600px; }
+  .cell { min-width: 80px; }
+  .cell-inner { padding: 6px; min-height: 70px; }
+  .wk-time { width: 70px; min-width: 70px; }
+  .wk-time-btn { padding: 8px 6px; min-height: 70px; }
   .wk-time-label { font-size: 12px; }
-  .wk-time-sep { font-size: 11px; }
+  .wk-time-sep { font-size: 10px; }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-  .topbar { height: 56px; padding: 0 12px; gap: 10px; }
-  .tb-left .lmc-logo > div:last-child { display: none; } /* Hide logo text */
+  .topbar { height: 52px; padding: 0 10px; gap: 8px; }
+  .tb-left .lmc-logo > div:last-child { display: none; }
   .tb-slug { display: none; }
   .db-badge { display: none; }
   .publish-btn span:not(.pub-dot) { display: none; }
-  .publish-btn { padding: 9px 12px; }
-  .publish-btn svg { margin: 0; }
+  .publish-btn { padding: 8px 10px; min-width: auto; }
 
-  .sidebar { max-height: 40vh; }
-  .side-head { padding: 14px 14px 10px; }
+  .sidebar { max-height: 240px; }
+  .side-head { padding: 10px 12px 6px; }
   .side-title { font-size: 14px; }
-  .side-search { margin: 0 12px; }
-  .side-filters { padding: 10px 12px 6px; gap: 5px; }
-  .chip-filter { padding: 5px 3px; font-size: 10px; }
-  .side-list { padding: 8px 12px 14px; gap: 10px; }
-  .side-foot { padding: 10px 12px; font-size: 11px; }
+  .side-count { font-size: 11px; padding: 1px 7px; }
+  .side-head .btn { padding: 6px 10px; font-size: 12px; }
+  .side-search { margin: 0 10px; }
+  .side-search input { padding: 6px 0; font-size: 13px; }
+  .side-filters { padding: 6px 10px; }
+  .side-list { max-height: 100px; padding: 6px 10px; gap: 6px; }
 
-  .pal-card { padding: 10px 10px 10px 12px; gap: 10px; }
-  .pal-name { font-size: 13px; }
-  .pal-tags .tag { font-size: 10px; padding: 2px 6px; }
-  .pal-title { font-size: 11px; }
-  .pal-edit { width: 26px; height: 26px; }
-  .pal-card .switch { transform: scale(0.85); }
+  .pal-card { padding: 6px 8px; gap: 8px; }
+  .pal-card .avatar { width: 32px !important; height: 32px !important; font-size: 12px !important; }
+  .pal-name { font-size: 12px; }
+  .pal-tags .tag { font-size: 9px; padding: 1px 5px; }
 
-  .main-toolbar { padding: 12px; }
-  .main-title { font-size: 16px; }
-  .main-sub { font-size: 11px; }
-  .main-tools .btn { font-size: 11px; padding: 6px 8px; }
+  .main-toolbar { padding: 10px; gap: 8px; }
+  .main-title { font-size: 14px; }
+  .main-sub { font-size: 10px; }
+  .main-tools .btn { padding: 6px 8px; font-size: 11px; }
+  .main-tools .btn svg { width: 14px; height: 14px; }
 
-  .grid-scroll { padding: 0 12px 16px; }
-  .wk { min-width: 600px; }
-  .wk thead th { padding: 10px 8px; font-size: 11px; }
-  .cell { min-width: 76px; }
-  .cell-inner { padding: 6px; min-height: 70px; gap: 4px; }
-  .cell-chip { padding: 4px 5px 4px 7px; font-size: 11px; border-radius: 7px; }
-  .cc-dot { width: 5px; height: 5px; }
-  .cc-x { width: 16px; height: 16px; }
-  .cell-add { padding: 3px 6px; font-size: 10px; }
+  .grid-scroll { padding: 0 10px 12px; }
+  .wk { min-width: 520px; }
+  .wk thead th { padding: 8px 6px; font-size: 10px; }
+  .wk-corner { gap: 4px; }
+  .wk-corner svg { width: 12px; height: 12px; }
+  .cell { min-width: 68px; }
+  .cell-inner { padding: 4px; min-height: 60px; gap: 3px; }
+  .cell-chip { padding: 3px 4px 3px 6px; font-size: 10px; border-radius: 6px; gap: 4px; }
+  .cc-dot { width: 4px; height: 4px; }
+  .cc-x { width: 14px; height: 14px; opacity: 1; }
+  .cell-add { padding: 2px 5px; font-size: 9px; opacity: 1; }
+  .cell-empty { font-size: 12px; }
 
-  .wk-time { width: 64px; min-width: 64px; }
-  .wk-time-btn { padding: 8px 6px; min-height: 70px; }
-  .wk-time-label { font-size: 11px; }
-  .wk-time-sep { font-size: 10px; }
+  .wk-time { width: 56px; min-width: 56px; }
+  .wk-time-btn { padding: 6px 4px; min-height: 60px; }
+  .wk-time-label { font-size: 10px; }
+  .wk-time-sep { font-size: 9px; }
   .wk-time-edit { display: none; }
 
-  /* Modals full width on mobile */
-  .modal { max-width: calc(100vw - 24px); border-radius: var(--r); }
-  .modal-head { padding: 14px 16px; }
-  .modal-head h2 { font-size: 16px; }
-  .modal-body { padding: 16px; }
-  .modal-foot { padding: 12px 16px; }
+  /* Modals */
+  .overlay { padding: 12px; }
+  .modal { max-width: 100%; border-radius: var(--r); }
+  .modal-head { padding: 12px 14px; gap: 10px; }
+  .modal-head h2 { font-size: 15px; }
+  .modal-body { padding: 14px; }
+  .modal-foot { padding: 10px 14px; gap: 8px; }
+  .modal-foot .btn { padding: 8px 12px; font-size: 13px; }
 
-  .assign-pop { width: calc(100vw - 24px); max-width: 320px; }
+  .assign-pop { width: calc(100vw - 20px); max-width: none; left: 10px !important; right: 10px !important; }
 
-  .login-card { padding: 24px 20px; }
-  .login-card h2 { font-size: 20px; }
-  .login-sub { font-size: 13px; }
-  .login-btn { padding: 11px; font-size: 14px; }
+  .login-card { padding: 20px 16px; }
+  .login-card h2 { font-size: 18px; }
+  .login-sub { font-size: 12px; margin-bottom: 18px; }
+  .login-btn { padding: 10px; font-size: 13px; }
+  .login-demo { padding: 8px 10px; font-size: 11px; }
+
+  /* Toast at top on mobile for visibility */
+  .toast-host { bottom: auto; top: 60px; }
+  .toast { font-size: 12px; padding: 10px 14px; }
 }
 
 /* Very small screens */
