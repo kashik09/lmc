@@ -343,10 +343,118 @@
   .login-wrap { grid-template-columns: 1fr; }
   .login-art { display: none; }
 }
+
+@media (max-width: 960px) {
+  .sidebar { width: 280px; }
+  .main-toolbar { padding: 16px 16px 12px; }
+  .grid-scroll { padding: 0 16px 20px; }
+}
+
 @media (max-width: 860px) {
-  .sidebar { width: 270px; }
+  .sidebar { width: 240px; }
   .wk-day-full { display: none; }
   .wk-day-ab { display: inline; }
   .wk-day { min-width: 92px; }
   .tb-center { display: none; }
+  .main-title { font-size: 18px; }
+  .main-tools { gap: 6px; }
+  .main-tools .btn { padding: 7px 10px; font-size: 12px; }
+}
+
+/* Tablet - sidebar becomes collapsible drawer */
+@media (max-width: 768px) {
+  .body { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    max-height: 45vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .side-list { max-height: 200px; }
+
+  .main { min-height: 55vh; }
+  .main-toolbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .main-tools { width: 100%; }
+  .main-tools .btn { flex: 1; justify-content: center; }
+
+  .wk { min-width: 700px; }
+  .cell { min-width: 90px; }
+  .wk-time { width: 80px; min-width: 80px; }
+  .wk-time-btn { padding: 10px 8px; min-height: 80px; }
+  .wk-time-label { font-size: 12px; }
+  .wk-time-sep { font-size: 11px; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .topbar { height: 56px; padding: 0 12px; gap: 10px; }
+  .tb-left .lmc-logo > div:last-child { display: none; } /* Hide logo text */
+  .tb-slug { display: none; }
+  .db-badge { display: none; }
+  .publish-btn span:not(.pub-dot) { display: none; }
+  .publish-btn { padding: 9px 12px; }
+  .publish-btn svg { margin: 0; }
+
+  .sidebar { max-height: 40vh; }
+  .side-head { padding: 14px 14px 10px; }
+  .side-title { font-size: 14px; }
+  .side-search { margin: 0 12px; }
+  .side-filters { padding: 10px 12px 6px; gap: 5px; }
+  .chip-filter { padding: 5px 3px; font-size: 10px; }
+  .side-list { padding: 8px 12px 14px; gap: 10px; }
+  .side-foot { padding: 10px 12px; font-size: 11px; }
+
+  .pal-card { padding: 10px 10px 10px 12px; gap: 10px; }
+  .pal-name { font-size: 13px; }
+  .pal-tags .tag { font-size: 10px; padding: 2px 6px; }
+  .pal-title { font-size: 11px; }
+  .pal-edit { width: 26px; height: 26px; }
+  .pal-card .switch { transform: scale(0.85); }
+
+  .main-toolbar { padding: 12px; }
+  .main-title { font-size: 16px; }
+  .main-sub { font-size: 11px; }
+  .main-tools .btn { font-size: 11px; padding: 6px 8px; }
+
+  .grid-scroll { padding: 0 12px 16px; }
+  .wk { min-width: 600px; }
+  .wk thead th { padding: 10px 8px; font-size: 11px; }
+  .cell { min-width: 76px; }
+  .cell-inner { padding: 6px; min-height: 70px; gap: 4px; }
+  .cell-chip { padding: 4px 5px 4px 7px; font-size: 11px; border-radius: 7px; }
+  .cc-dot { width: 5px; height: 5px; }
+  .cc-x { width: 16px; height: 16px; }
+  .cell-add { padding: 3px 6px; font-size: 10px; }
+
+  .wk-time { width: 64px; min-width: 64px; }
+  .wk-time-btn { padding: 8px 6px; min-height: 70px; }
+  .wk-time-label { font-size: 11px; }
+  .wk-time-sep { font-size: 10px; }
+  .wk-time-edit { display: none; }
+
+  /* Modals full width on mobile */
+  .modal { max-width: calc(100vw - 24px); border-radius: var(--r); }
+  .modal-head { padding: 14px 16px; }
+  .modal-head h2 { font-size: 16px; }
+  .modal-body { padding: 16px; }
+  .modal-foot { padding: 12px 16px; }
+
+  .assign-pop { width: calc(100vw - 24px); max-width: 320px; }
+
+  .login-card { padding: 24px 20px; }
+  .login-card h2 { font-size: 20px; }
+  .login-sub { font-size: 13px; }
+  .login-btn { padding: 11px; font-size: 14px; }
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+  .sidebar { max-height: 35vh; }
+  .side-list { max-height: 120px; }
+  .pal-card .avatar { width: 32px !important; height: 32px !important; font-size: 12px !important; }
+  .wk { min-width: 520px; }
+  .cell { min-width: 64px; }
+  .cell-chip { font-size: 10px; }
+  .wk-time { width: 56px; min-width: 56px; }
 }
