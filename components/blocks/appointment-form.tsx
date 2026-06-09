@@ -1,7 +1,7 @@
 "use client";
 // CLIENT: form state + validation + doctor filtering + redirect
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Loader2, AlertCircle } from "lucide-react";
@@ -10,8 +10,14 @@ import {
   sexOptions,
   patientTypeOptions,
 } from "@/content/appointments";
-import { doctors } from "@/content/doctors";
 import { submitAppointment } from "@/lib/actions/appointment";
+
+type Doctor = {
+  id: string;
+  name: string;
+  department: string;
+  departmentName: string;
+};
 import { DatePickerField } from "@/components/ui/date-picker-field";
 import { Button } from "@/components/ui/Button";
 import {
@@ -57,12 +63,27 @@ export function AppointmentForm() {
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
+
+  // Fetch doctors from Supabase on mount
+  useEffect(() => {
+    fetch("/api/roster/doctors")
+      .then((res) => res.json())
+      .then((data) => {
+        setDoctors(data.doctors || []);
+        setLoadingDoctors(false);
+      })
+      .catch(() => {
+        setLoadingDoctors(false);
+      });
+  }, []);
 
   // Filter doctors by selected department
   const filteredDoctors = useMemo(() => {
     if (!formData.department) return doctors;
     return doctors.filter((doc) => doc.department === formData.department);
-  }, [formData.department]);
+  }, [formData.department, doctors]);
 
   function handleChange(
     e: React.ChangeEvent<
@@ -188,10 +209,13 @@ export function AppointmentForm() {
           value={formData.doctorSlug}
           onChange={handleChange}
           className={selectClass}
+          disabled={loadingDoctors}
         >
-          <option value="">No preference</option>
+          <option value="">
+            {loadingDoctors ? "Loading doctors..." : "No preference"}
+          </option>
           {filteredDoctors.map((doc) => (
-            <option key={doc.slug} value={doc.slug}>
+            <option key={doc.id} value={doc.id}>
               {doc.name}
             </option>
           ))}
