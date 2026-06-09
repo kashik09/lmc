@@ -6,7 +6,16 @@
   "use strict";
 
   var SESSION_KEY = "lmc_roster_session_v1";
-  var SCHEMA = 2;
+  var OLD_STORAGE_KEY = "lmc_roster_doc_v1"; // Legacy localStorage key to clear
+  var SCHEMA = 3;
+
+  // Clear old localStorage data on startup (migration to Supabase)
+  try {
+    if (localStorage.getItem(OLD_STORAGE_KEY)) {
+      console.log("[LMC] Clearing legacy localStorage data");
+      localStorage.removeItem(OLD_STORAGE_KEY);
+    }
+  } catch (e) {}
 
   var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   var DAY_FULL = {
@@ -167,18 +176,22 @@
   function isDoctor(d) { return d && typeof d.id === "string" && typeof d.name === "string"; }
   function isBlock(b) { return b && typeof b.id === "string" && typeof b.start === "string" && typeof b.end === "string"; }
 
-  function sanitize(doc) {
+  function sanitize(doc, useSeedFallback) {
     var base = seed();
     if (!doc || typeof doc !== "object") return base;
 
-    var departments = Array.isArray(doc.departments) ? doc.departments.filter(isDept) : base.departments;
-    if (departments.length === 0) departments = base.departments;
+    // Only use seed fallback if explicitly requested (for initial empty state)
+    var shouldFallback = useSeedFallback === true;
+
+    var departments = Array.isArray(doc.departments) ? doc.departments.filter(isDept) : [];
+    if (departments.length === 0 && shouldFallback) departments = base.departments;
 
     var deptIds = {};
     departments.forEach(function (d) { deptIds[d.id] = true; });
-    var fallbackDept = departments[0].id;
+    var fallbackDept = departments.length > 0 ? departments[0].id : null;
 
-    var doctors = (Array.isArray(doc.doctors) ? doc.doctors : base.doctors)
+    // Keep doctors array as-is (even if empty) - don't inject seed data
+    var doctors = (Array.isArray(doc.doctors) ? doc.doctors : [])
       .filter(isDoctor)
       .map(function (d) {
         return {
@@ -191,8 +204,8 @@
     var docIds = {};
     doctors.forEach(function (d) { docIds[d.id] = true; });
 
-    var timeBlocks = (Array.isArray(doc.timeBlocks) ? doc.timeBlocks : base.timeBlocks).filter(isBlock);
-    if (timeBlocks.length === 0) timeBlocks = base.timeBlocks;
+    var timeBlocks = (Array.isArray(doc.timeBlocks) ? doc.timeBlocks : []).filter(isBlock);
+    if (timeBlocks.length === 0 && shouldFallback) timeBlocks = base.timeBlocks;
     var blockIds = {};
     timeBlocks.forEach(function (b) { blockIds[b.id] = true; });
 
@@ -216,9 +229,14 @@
   /* ---------- Supabase data loading ---------- */
   async function loadFromSupabase() {
     var sb = await initSupabase();
-    if (!sb) return null;
+    if (!sb) {
+      console.error("[LMC] Supabase client not initialized");
+      return null;
+    }
 
     try {
+      console.log("[LMC] Fetching from Supabase...");
+
       // Fetch all data in parallel
       var [deptsRes, docsRes, blocksRes, assignRes] = await Promise.all([
         sb.from("roster_departments").select("*").order("sort_order"),
@@ -227,8 +245,15 @@
         sb.from("roster_assignments").select("*")
       ]);
 
-      if (deptsRes.error || docsRes.error || blocksRes.error || assignRes.error) {
-        console.error("[LMC] Supabase fetch error:", deptsRes.error || docsRes.error || blocksRes.error || assignRes.error);
+      // Log individual errors but don't fail completely
+      if (deptsRes.error) console.error("[LMC] Departments error:", deptsRes.error);
+      if (docsRes.error) console.error("[LMC] Doctors error:", docsRes.error);
+      if (blocksRes.error) console.error("[LMC] Time blocks error:", blocksRes.error);
+      if (assignRes.error) console.error("[LMC] Assignments error:", assignRes.error);
+
+      // If ALL queries failed, return null
+      if (deptsRes.error && docsRes.error && blocksRes.error && assignRes.error) {
+        console.error("[LMC] All Supabase queries failed");
         return null;
       }
 
@@ -385,14 +410,23 @@
 
   /* ---------- main load function (async) ---------- */
   async function load() {
+    console.log("[LMC] Loading roster data...");
+
     // Try Supabase first
     var sbDoc = await loadFromSupabase();
-    if (sbDoc && sbDoc.departments.length > 0) {
+
+    if (sbDoc) {
+      console.log("[LMC] Loaded from Supabase:", {
+        departments: sbDoc.departments.length,
+        doctors: sbDoc.doctors.length,
+        timeBlocks: sbDoc.timeBlocks.length
+      });
+      // Use Supabase data even if some arrays are empty
       return { doc: sanitize(sbDoc), fresh: false, source: "supabase" };
     }
 
-    // Fallback to seed
-    console.warn("[LMC] Using seed data (Supabase unavailable or empty)");
+    // Fallback to seed only if Supabase completely failed
+    console.warn("[LMC] Supabase unavailable, using seed data");
     return { doc: seed(), fresh: true, source: "seed" };
   }
 

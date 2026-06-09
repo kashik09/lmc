@@ -132,7 +132,13 @@
 
     /* initial async load */
     useEffect(function () {
+      // Clear any old localStorage data first
+      try {
+        localStorage.removeItem("lmc_roster_doc_v1");
+      } catch (e) {}
+
       L.load().then(function (result) {
+        console.log("[LMC] Data loaded:", result.source, result.doc);
         dispatch({ type: "init", doc: result.doc });
         publishedRef.current = JSON.stringify(result.doc);
         setDataSource(result.source);
@@ -270,6 +276,23 @@
       toasts.push(overlap ? "Time blocks saved (note: some overlap)." : "Time blocks updated.", overlap ? "info" : "ok");
     }
 
+    /* ---- refresh from database ---- */
+    function refreshFromDB() {
+      patchSurf({ userMenu: false });
+      setLoading(true);
+      L.load().then(function (result) {
+        dispatch({ type: "init", doc: result.doc });
+        publishedRef.current = JSON.stringify(result.doc);
+        setDataSource(result.source);
+        setDirty(false);
+        setLoading(false);
+        toasts.push("Refreshed from database.", "ok");
+      }).catch(function (err) {
+        setLoading(false);
+        toasts.push("Failed to refresh: " + err.message, "err");
+      });
+    }
+
     /* ---- reset / logout ---- */
     function requestReset() {
       patchSurf({ userMenu: false, confirm: {
@@ -342,8 +365,10 @@
                   h("div", { className: "um-name" }, user.name),
                   h("div", { className: "um-email" }, user.email)),
                 h("hr", { className: "divider" }),
+                h("button", { className: "um-item", onClick: refreshFromDB },
+                  h(window.Icon, { name: "undo", size: 16 }), "Refresh from database"),
                 h("button", { className: "um-item", onClick: requestReset },
-                  h(window.Icon, { name: "undo", size: 16 }), "Reset to defaults"),
+                  h(window.Icon, { name: "trash", size: 16 }), "Reset to defaults"),
                 h("button", { className: "um-item danger", onClick: logout },
                   h(window.Icon, { name: "logout", size: 16 }), "Sign out"))
             )
