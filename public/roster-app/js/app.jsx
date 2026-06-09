@@ -1,6 +1,5 @@
 /* ============================================================
-   Lifeline Roster — app root: history, autosave, publish,
-   wiring + mount
+   Lifeline Roster — app root with Supabase backend
    ============================================================ */
 (function () {
   "use strict";
@@ -58,6 +57,8 @@
   /* ---------------- history reducer ---------------- */
   function historyReducer(state, action) {
     switch (action.type) {
+      case "init":
+        return { past: [], present: action.doc, future: [] };
       case "commit": {
         var next = typeof action.fn === "function" ? action.fn(state.present) : action.fn;
         if (next === state.present) return state;
@@ -75,35 +76,42 @@
         var nx = state.future[0];
         return { past: state.past.concat([state.present]), present: nx, future: state.future.slice(1) };
       }
-      case "publishedReset":
-        return state;
       default: return state;
     }
   }
 
+  /* ---------------- Loading screen ---------------- */
+  function LoadingScreen() {
+    return h("div", { className: "loading-screen" },
+      h("div", { className: "loading-content" },
+        h(window.Logo, { size: 48 }),
+        h("div", { className: "loading-spinner" },
+          h(window.Icon, { name: "spark", size: 20, className: "spin" })),
+        h("p", null, "Loading roster data…")
+      )
+    );
+  }
+
   /* ---------------- root ---------------- */
   function RosterApp() {
+    /* loading state */
+    var loadingS = useState(true), loading = loadingS[0], setLoading = loadingS[1];
+    var dataSourceS = useState(""), dataSource = dataSourceS[0], setDataSource = dataSourceS[1];
+
     /* session / login */
     var sess = useState(function () { return L.loadSession(); });
     var user = sess[0], setUser = sess[1];
 
     /* document history */
-    var initial = useRef(null);
-    if (!initial.current) {
-      var loaded = L.load();
-      initial.current = loaded;
-    }
-    var hist = useReducer(historyReducer, null, function () {
-      return { past: [], present: initial.current.doc, future: [] };
-    });
+    var hist = useReducer(historyReducer, { past: [], present: L.seed(), future: [] });
     var state = hist[0], dispatch = hist[1];
     var doc = state.present;
 
     var toasts = window.useToasts();
 
     /* publish / dirty tracking */
-    var publishedRef = useRef(JSON.stringify(initial.current.doc));
-    var dirty = useState(initial.current.recovered ? true : false);
+    var publishedRef = useRef("");
+    var dirty = useState(false);
     var isDirty = dirty[0], setDirty = dirty[1];
     var saveStateS = useState("saved"), saveState = saveStateS[0], setSaveState = saveStateS[1];
     var publishingS = useState(false), publishing = publishingS[0], setPublishing = publishingS[1];
@@ -122,29 +130,31 @@
       var m = {}; doc.doctors.forEach(function (d) { m[d.id] = d; }); return m;
     }, [doc.doctors]);
 
-    /* recovered-data notice */
+    /* initial async load */
     useEffect(function () {
-      if (initial.current.recovered) toasts.push("Recovered your roster after a storage glitch.", "info", 4200);
-      else if (initial.current.fresh) toasts.push("Loaded the current published roster.", "ok", 2600);
+      L.load().then(function (result) {
+        dispatch({ type: "init", doc: result.doc });
+        publishedRef.current = JSON.stringify(result.doc);
+        setDataSource(result.source);
+        setLoading(false);
+        if (result.source === "supabase") {
+          toasts.push("Connected to database.", "ok", 2600);
+        } else if (result.fresh) {
+          toasts.push("Using default roster (database unavailable).", "info", 3500);
+        }
+      }).catch(function (err) {
+        console.error("Load error:", err);
+        setLoading(false);
+        toasts.push("Failed to load data. Using defaults.", "err", 4000);
+      });
     }, []);
 
-    /* ---- commit + autosave ---- */
+    /* ---- commit + autosave indicator ---- */
     var commit = useCallback(function (fn) {
       dispatch({ type: "commit", fn: fn });
       setDirty(true);
+      setSaveState("unsaved");
     }, []);
-
-    // autosave whenever present changes (skip very first render)
-    var firstSave = useRef(true);
-    useEffect(function () {
-      if (firstSave.current) { firstSave.current = false; return; }
-      setSaveState("saving");
-      var t = setTimeout(function () {
-        L.save(doc);
-        setSaveState("saved");
-      }, 550);
-      return function () { clearTimeout(t); };
-    }, [doc]);
 
     /* recompute dirty vs published */
     useEffect(function () {
@@ -170,7 +180,7 @@
       return function () { document.removeEventListener("keydown", onKey); };
     }, []);
 
-    /* ---- unsaved-changes (unpublished) warning ---- */
+    /* ---- unsaved-changes warning ---- */
     useEffect(function () {
       function onBeforeUnload(e) {
         if (!isDirty || !user) return;
@@ -180,16 +190,29 @@
       return function () { window.removeEventListener("beforeunload", onBeforeUnload); };
     }, [isDirty, user]);
 
-    /* ---- publish ---- */
+    /* ---- publish to Supabase ---- */
     function publish() {
       if (publishing) return;
       setPublishing(true);
-      setTimeout(function () {
-        L.save(doc);
-        publishedRef.current = JSON.stringify(doc);
-        setDirty(false); setPublishing(false);
-        toasts.push("Published to the live schedule.", "ok");
-      }, 850);
+      setSaveState("saving");
+
+      L.saveAll(doc).then(function (success) {
+        if (success) {
+          publishedRef.current = JSON.stringify(doc);
+          setDirty(false);
+          setSaveState("saved");
+          toasts.push("Published to database.", "ok");
+        } else {
+          setSaveState("unsaved");
+          toasts.push("Failed to publish. Check connection.", "err");
+        }
+        setPublishing(false);
+      }).catch(function (err) {
+        console.error("Publish error:", err);
+        setSaveState("unsaved");
+        setPublishing(false);
+        toasts.push("Publish failed: " + err.message, "err");
+      });
     }
 
     /* ---- doctor actions ---- */
@@ -206,8 +229,8 @@
         confirm: {
           title: "Remove " + dr.name + "?", danger: true, confirmLabel: "Remove", confirmIcon: "trash",
           message: slots
-            ? dr.name + " is assigned to " + slots + " slot" + (slots > 1 ? "s" : "") + ". Removing them clears those assignments. You can undo this."
-            : "This removes " + dr.name + " from the roster. You can undo this.",
+            ? dr.name + " is assigned to " + slots + " slot" + (slots > 1 ? "s" : "") + ". Removing them clears those assignments."
+            : "This removes " + dr.name + " from the roster.",
           onConfirm: function () {
             commit(function (d) { return M.deleteDoctor(d, dr.id); });
             patchSurf({ confirm: null });
@@ -250,12 +273,13 @@
     /* ---- reset / logout ---- */
     function requestReset() {
       patchSurf({ userMenu: false, confirm: {
-        title: "Reset demo roster?", danger: true, confirmLabel: "Reset everything", confirmIcon: "trash",
-        message: "This restores the original seeded roster, departments and time blocks. Your current edits will be discarded.",
+        title: "Reset to defaults?", danger: true, confirmLabel: "Reset everything", confirmIcon: "trash",
+        message: "This restores the original roster from the database seed. Your unpublished changes will be discarded.",
         onConfirm: function () {
           var fresh = L.seed();
-          commit(function () { return fresh; });
+          dispatch({ type: "init", doc: fresh });
           publishedRef.current = JSON.stringify(fresh);
+          setDirty(false);
           patchSurf({ confirm: null });
           toasts.push("Roster reset to defaults.", "ok");
         }
@@ -263,6 +287,11 @@
     }
     function logout() {
       L.clearSession(); setUser(null); patchSurf({ userMenu: false });
+    }
+
+    /* ============ render: loading ============ */
+    if (loading) {
+      return h(LoadingScreen);
     }
 
     /* ============ render: login gate ============ */
@@ -280,16 +309,19 @@
       h("header", { className: "topbar" },
         h("div", { className: "tb-left" },
           h(window.Logo, { size: 36 }),
-          h("span", { className: "tb-slug mono" }, "/roster")
+          h("span", { className: "tb-slug mono" }, "/roster"),
+          dataSource === "supabase" && h("span", { className: "db-badge" }, "DB")
         ),
         h("div", { className: "tb-center" },
           h(window.IconBtn, { icon: "undo", framed: true, onClick: undo, disabled: !canUndo,
-            title: "Undo (⌘Z)", "aria-label": "Undo" }),
+            title: "Undo (Ctrl+Z)", "aria-label": "Undo" }),
           h(window.IconBtn, { icon: "redo", framed: true, onClick: redo, disabled: !canRedo,
-            title: "Redo (⌘⇧Z)", "aria-label": "Redo" }),
+            title: "Redo (Ctrl+Shift+Z)", "aria-label": "Redo" }),
           h("span", { className: "save-state " + saveState },
             saveState === "saving"
               ? h(React.Fragment, null, h(window.Icon, { name: "spark", size: 13, className: "spin" }), "Saving…")
+              : saveState === "unsaved"
+              ? h(React.Fragment, null, h(window.Icon, { name: "warn", size: 13 }), "Unsaved changes")
               : h(React.Fragment, null, h(window.Icon, { name: "check", size: 13 }), "All changes saved"))
         ),
         h("div", { className: "tb-right" },
@@ -311,7 +343,7 @@
                   h("div", { className: "um-email" }, user.email)),
                 h("hr", { className: "divider" }),
                 h("button", { className: "um-item", onClick: requestReset },
-                  h(window.Icon, { name: "undo", size: 16 }), "Reset demo roster"),
+                  h(window.Icon, { name: "undo", size: 16 }), "Reset to defaults"),
                 h("button", { className: "um-item danger", onClick: logout },
                   h(window.Icon, { name: "logout", size: 16 }), "Sign out"))
             )

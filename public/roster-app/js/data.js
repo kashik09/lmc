@@ -1,13 +1,12 @@
 /* ============================================================
-   Lifeline Roster — data model, seed, helpers, safe storage
+   Lifeline Roster — data model with Supabase backend
    Plain script. Everything attaches to window.LMC
    ============================================================ */
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "lmc_roster_doc_v1";
   var SESSION_KEY = "lmc_roster_session_v1";
-  var SCHEMA = 1;
+  var SCHEMA = 2;
 
   var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   var DAY_FULL = {
@@ -19,32 +18,50 @@
   /* curated soft palette an admin can pick from for department tags */
   var PALETTE = [
     // Greens
-    { bg: "#dcefe4", fg: "#1c7a55" }, // teal-green
-    { bg: "#e5efe6", fg: "#1b7a12" }, // LMC brand green
-    { bg: "#d4edda", fg: "#155724" }, // forest green
-    { bg: "#e6ede0", fg: "#5a7a32" }, // olive
+    { bg: "#dcefe4", fg: "#1c7a55" },
+    { bg: "#e5efe6", fg: "#1b7a12" },
+    { bg: "#d4edda", fg: "#155724" },
+    { bg: "#e6ede0", fg: "#5a7a32" },
     // Blues
-    { bg: "#dcebf8", fg: "#1f5fa8" }, // blue
-    { bg: "#dff0f1", fg: "#1f7a86" }, // cyan/teal
-    { bg: "#e0e7f1", fg: "#304770" }, // navy (LMC)
-    { bg: "#cce5ff", fg: "#004085" }, // royal blue
+    { bg: "#dcebf8", fg: "#1f5fa8" },
+    { bg: "#dff0f1", fg: "#1f7a86" },
+    { bg: "#e0e7f1", fg: "#304770" },
+    { bg: "#cce5ff", fg: "#004085" },
     // Purples & Pinks
-    { bg: "#e8e1f5", fg: "#6b3fb8" }, // purple
-    { bg: "#f3e4f1", fg: "#9b3f8e" }, // magenta
-    { bg: "#fce3ef", fg: "#b23b7e" }, // pink
-    { bg: "#e2d5f0", fg: "#5e3d8e" }, // violet
+    { bg: "#e8e1f5", fg: "#6b3fb8" },
+    { bg: "#f3e4f1", fg: "#9b3f8e" },
+    { bg: "#fce3ef", fg: "#b23b7e" },
+    { bg: "#e2d5f0", fg: "#5e3d8e" },
     // Reds & Oranges
-    { bg: "#fbe2e9", fg: "#c0395b" }, // rose
-    { bg: "#f8d7da", fg: "#a71d2a" }, // red
-    { bg: "#fdecd6", fg: "#c77a21" }, // amber
-    { bg: "#ffe5d0", fg: "#d35400" }, // orange
+    { bg: "#fbe2e9", fg: "#c0395b" },
+    { bg: "#f8d7da", fg: "#a71d2a" },
+    { bg: "#fdecd6", fg: "#c77a21" },
+    { bg: "#ffe5d0", fg: "#d35400" },
     // Neutrals & Earth
-    { bg: "#e7eaf3", fg: "#45568c" }, // indigo-slate
-    { bg: "#f0e7df", fg: "#8a5a35" }, // clay/brown
-    { bg: "#e8e8e8", fg: "#495057" }, // slate gray
-    { bg: "#fff3cd", fg: "#856404" }  // gold/yellow
+    { bg: "#e7eaf3", fg: "#45568c" },
+    { bg: "#f0e7df", fg: "#8a5a35" },
+    { bg: "#e8e8e8", fg: "#495057" },
+    { bg: "#fff3cd", fg: "#856404" }
   ];
 
+  /* Supabase client - initialized on first load */
+  var supabase = null;
+
+  async function initSupabase() {
+    if (supabase) return supabase;
+    try {
+      var res = await fetch("/api/roster/config");
+      var config = await res.json();
+      if (config.supabaseUrl && config.supabaseAnonKey) {
+        supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+      }
+    } catch (e) {
+      console.warn("[LMC] Could not initialize Supabase:", e);
+    }
+    return supabase;
+  }
+
+  /* ---------- seed data (fallback) ---------- */
   function seed() {
     var departments = [
       { id: "g_consult", name: "General Consultation", short: "General", color: { bg: "#e5efe6", fg: "#2e7d45" } },
@@ -89,7 +106,6 @@
       "b1|Fri": ["d_a", "d_b", "d_c", "d_card", "d_ped"],
       "b1|Sat": ["d_b", "d_d", "d_c", "d_diag", "d_card", "d_ped"],
       "b1|Sun": ["d_e"],
-
       "b2|Mon": ["d_a", "d_c", "d_e", "d_ortho"],
       "b2|Tue": ["d_b", "d_d", "d_ped"],
       "b2|Wed": ["d_a", "d_b", "d_c", "d_card", "d_gyn"],
@@ -97,7 +113,6 @@
       "b2|Fri": ["d_a", "d_d", "d_e", "d_gyn"],
       "b2|Sat": ["d_d", "d_e"],
       "b2|Sun": [],
-
       "b3|Mon": ["d_c", "d_d"],
       "b3|Tue": ["d_c", "d_d", "d_micro"],
       "b3|Wed": ["d_d"],
@@ -127,7 +142,6 @@
   }
 
   function fmtTime(t) {
-    // "08:00" -> "8:00"
     if (!t) return "";
     var m = /^(\d{1,2}):(\d{2})$/.exec(t);
     if (!m) return t;
@@ -146,7 +160,13 @@
   }
 
   /* ---------- validation / integrity ---------- */
-  // Make any loaded doc internally consistent so the UI can never crash on bad refs.
+  function isDept(d) {
+    return d && typeof d.id === "string" && typeof d.name === "string" &&
+      d.color && typeof d.color.bg === "string" && typeof d.color.fg === "string";
+  }
+  function isDoctor(d) { return d && typeof d.id === "string" && typeof d.name === "string"; }
+  function isBlock(b) { return b && typeof b.id === "string" && typeof b.start === "string" && typeof b.end === "string"; }
+
   function sanitize(doc) {
     var base = seed();
     if (!doc || typeof doc !== "object") return base;
@@ -193,40 +213,259 @@
     return { schema: SCHEMA, departments: departments, doctors: doctors, timeBlocks: timeBlocks, schedule: schedule };
   }
 
-  function isDept(d) {
-    return d && typeof d.id === "string" && typeof d.name === "string" &&
-      d.color && typeof d.color.bg === "string" && typeof d.color.fg === "string";
-  }
-  function isDoctor(d) { return d && typeof d.id === "string" && typeof d.name === "string"; }
-  function isBlock(b) { return b && typeof b.id === "string" && typeof b.start === "string" && typeof b.end === "string"; }
+  /* ---------- Supabase data loading ---------- */
+  async function loadFromSupabase() {
+    var sb = await initSupabase();
+    if (!sb) return null;
 
-  /* ---------- safe storage ---------- */
-  function load() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { doc: seed(), fresh: true };
-      var parsed = JSON.parse(raw);
-      return { doc: sanitize(parsed), fresh: false };
+      // Fetch all data in parallel
+      var [deptsRes, docsRes, blocksRes, assignRes] = await Promise.all([
+        sb.from("roster_departments").select("*").order("sort_order"),
+        sb.from("roster_doctors").select("*"),
+        sb.from("roster_time_blocks").select("*").order("sort_order"),
+        sb.from("roster_assignments").select("*")
+      ]);
+
+      if (deptsRes.error || docsRes.error || blocksRes.error || assignRes.error) {
+        console.error("[LMC] Supabase fetch error:", deptsRes.error || docsRes.error || blocksRes.error || assignRes.error);
+        return null;
+      }
+
+      // Transform to app format
+      var departments = (deptsRes.data || []).map(function (d) {
+        return {
+          id: d.id,
+          name: d.name,
+          short: d.short_name || d.name,
+          color: { bg: d.color_bg, fg: d.color_fg }
+        };
+      });
+
+      var doctors = (docsRes.data || []).map(function (d) {
+        return {
+          id: d.id,
+          name: d.name,
+          title: d.title || "Doctor",
+          deptId: d.department_id,
+          active: d.active !== false
+        };
+      });
+
+      var timeBlocks = (blocksRes.data || []).map(function (b) {
+        return {
+          id: b.id,
+          start: b.start_time,
+          end: b.end_time
+        };
+      });
+
+      // Build schedule from assignments
+      var schedule = {};
+      timeBlocks.forEach(function (b) {
+        DAYS.forEach(function (day) {
+          schedule[key(b.id, day)] = [];
+        });
+      });
+      (assignRes.data || []).forEach(function (a) {
+        var k = key(a.time_block_id, a.day);
+        if (schedule[k]) {
+          schedule[k].push(a.doctor_id);
+        }
+      });
+
+      return { schema: SCHEMA, departments: departments, doctors: doctors, timeBlocks: timeBlocks, schedule: schedule };
     } catch (e) {
-      console.warn("[LMC] roster store unreadable, recovering with seed:", e);
-      return { doc: seed(), fresh: true, recovered: true };
+      console.error("[LMC] Failed to load from Supabase:", e);
+      return null;
     }
   }
 
-  function save(doc) {
+  /* ---------- Supabase save operations ---------- */
+  async function saveDoctor(doctor) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_doctors").upsert({
+      id: doctor.id,
+      name: doctor.name,
+      title: doctor.title,
+      department_id: doctor.deptId,
+      active: doctor.active
+    });
+
+    if (error) console.error("[LMC] Save doctor error:", error);
+    return !error;
+  }
+
+  async function deleteDoctor(doctorId) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_doctors").delete().eq("id", doctorId);
+    if (error) console.error("[LMC] Delete doctor error:", error);
+    return !error;
+  }
+
+  async function saveDepartment(dept) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_departments").upsert({
+      id: dept.id,
+      name: dept.name,
+      short_name: dept.short,
+      color_bg: dept.color.bg,
+      color_fg: dept.color.fg
+    });
+
+    if (error) console.error("[LMC] Save department error:", error);
+    return !error;
+  }
+
+  async function deleteDepartment(deptId) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_departments").delete().eq("id", deptId);
+    if (error) console.error("[LMC] Delete department error:", error);
+    return !error;
+  }
+
+  async function saveTimeBlock(block) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_time_blocks").upsert({
+      id: block.id,
+      start_time: block.start,
+      end_time: block.end
+    });
+
+    if (error) console.error("[LMC] Save time block error:", error);
+    return !error;
+  }
+
+  async function deleteTimeBlock(blockId) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_time_blocks").delete().eq("id", blockId);
+    if (error) console.error("[LMC] Delete time block error:", error);
+    return !error;
+  }
+
+  async function assignDoctor(blockId, day, doctorId) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_assignments").upsert({
+      time_block_id: blockId,
+      day: day,
+      doctor_id: doctorId
+    }, { onConflict: "time_block_id,day,doctor_id" });
+
+    if (error) console.error("[LMC] Assign doctor error:", error);
+    return !error;
+  }
+
+  async function unassignDoctor(blockId, day, doctorId) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
+    var { error } = await sb.from("roster_assignments")
+      .delete()
+      .eq("time_block_id", blockId)
+      .eq("day", day)
+      .eq("doctor_id", doctorId);
+
+    if (error) console.error("[LMC] Unassign doctor error:", error);
+    return !error;
+  }
+
+  /* ---------- main load function (async) ---------- */
+  async function load() {
+    // Try Supabase first
+    var sbDoc = await loadFromSupabase();
+    if (sbDoc && sbDoc.departments.length > 0) {
+      return { doc: sanitize(sbDoc), fresh: false, source: "supabase" };
+    }
+
+    // Fallback to seed
+    console.warn("[LMC] Using seed data (Supabase unavailable or empty)");
+    return { doc: seed(), fresh: true, source: "seed" };
+  }
+
+  /* ---------- batch save (for publish) ---------- */
+  async function saveAll(doc) {
+    var sb = await initSupabase();
+    if (!sb) return false;
+
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(doc));
+      // Save departments
+      var deptData = doc.departments.map(function (d, i) {
+        return {
+          id: d.id,
+          name: d.name,
+          short_name: d.short,
+          color_bg: d.color.bg,
+          color_fg: d.color.fg,
+          sort_order: i
+        };
+      });
+      await sb.from("roster_departments").upsert(deptData);
+
+      // Save doctors
+      var docData = doc.doctors.map(function (d) {
+        return {
+          id: d.id,
+          name: d.name,
+          title: d.title,
+          department_id: d.deptId,
+          active: d.active
+        };
+      });
+      await sb.from("roster_doctors").upsert(docData);
+
+      // Save time blocks
+      var blockData = doc.timeBlocks.map(function (b, i) {
+        return {
+          id: b.id,
+          start_time: b.start,
+          end_time: b.end,
+          sort_order: i
+        };
+      });
+      await sb.from("roster_time_blocks").upsert(blockData);
+
+      // Clear and rebuild assignments
+      await sb.from("roster_assignments").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+
+      var assignments = [];
+      Object.keys(doc.schedule).forEach(function (k) {
+        var parts = k.split("|");
+        var blockId = parts[0], day = parts[1];
+        doc.schedule[k].forEach(function (doctorId) {
+          assignments.push({
+            time_block_id: blockId,
+            day: day,
+            doctor_id: doctorId
+          });
+        });
+      });
+
+      if (assignments.length > 0) {
+        await sb.from("roster_assignments").insert(assignments);
+      }
+
       return true;
     } catch (e) {
-      console.warn("[LMC] could not persist roster:", e);
+      console.error("[LMC] Save all error:", e);
       return false;
     }
   }
 
-  function clearStore() {
-    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-  }
-
+  /* ---------- session storage (local, for UI state) ---------- */
   function loadSession() {
     try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); }
     catch (e) { return null; }
@@ -242,7 +481,18 @@
     DAYS: DAYS, DAY_FULL: DAY_FULL, WEEKEND: WEEKEND, PALETTE: PALETTE,
     seed: seed, sanitize: sanitize,
     uid: uid, key: key, initials: initials, fmtTime: fmtTime, blockLabel: blockLabel, toMinutes: toMinutes,
-    load: load, save: save, clearStore: clearStore,
+    // Async Supabase operations
+    load: load,
+    saveAll: saveAll,
+    saveDoctor: saveDoctor,
+    deleteDoctor: deleteDoctor,
+    saveDepartment: saveDepartment,
+    deleteDepartment: deleteDepartment,
+    saveTimeBlock: saveTimeBlock,
+    deleteTimeBlock: deleteTimeBlock,
+    assignDoctor: assignDoctor,
+    unassignDoctor: unassignDoctor,
+    // Session (local)
     loadSession: loadSession, saveSession: saveSession, clearSession: clearSession
   };
 })();
