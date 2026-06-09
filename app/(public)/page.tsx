@@ -29,6 +29,9 @@ export default function Home() {
       <Reveal>
         <NewsletterSignup />
       </Reveal>
+
+      {/* Bridge between newsletter and footer's angled edge */}
+      <div className="h-[42px] bg-lmc-footerBg" />
     </>
   );
 }
