@@ -52,13 +52,13 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
 export function Footer() {
   return (
     <>
-      <footer className="relative mt-20 bg-lmc-footerBg pt-[88px] text-white/85">
+      <footer className="relative bg-lmc-footerBg pt-[88px] text-white/85">
         {/* Angled top edge */}
         <div
           className="absolute -top-[38px] left-0 right-0 h-10"
           style={{
             background:
-              "linear-gradient(to right bottom, transparent 49.6%, #2D4A6F 50%)",
+              "linear-gradient(to right bottom, transparent 49.6%, var(--color-lmc-footerBg) 50%)",
           }}
         />
 

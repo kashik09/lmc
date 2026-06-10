@@ -30,8 +30,8 @@ export default function Home() {
         <NewsletterSignup />
       </Reveal>
 
-      {/* Bridge between newsletter and footer's angled edge */}
-      <div className="h-[42px] bg-lmc-footerBg" />
+      {/* Spacer for footer's angled edge to overlap into */}
+      <div className="h-20 bg-lmc-pageBg" />
     </>
   );
 }
