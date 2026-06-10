@@ -32,6 +32,11 @@ type ScheduleData = {
   schedule: Record<string, Doctor[]>; // "blockId|day" -> doctors
 };
 
+// Row types from Supabase
+type DeptRow = { id: string; name: string; short_name?: string; color_bg?: string; color_fg?: string };
+type DoctorRow = { id: string; name: string; department_id: string; active: boolean };
+type AssignRow = { time_block_id: string; day: string; doctor_id: string };
+
 async function getScheduleData(): Promise<ScheduleData> {
   const supabase = await createClient();
 
@@ -43,20 +48,20 @@ async function getScheduleData(): Promise<ScheduleData> {
     supabase.from("roster_assignments").select("*"),
   ]);
 
-  const timeBlocks = blocksRes.data || [];
-  const doctors = doctorsRes.data || [];
-  const departments = deptsRes.data || [];
-  const assignments = assignRes.data || [];
+  const timeBlocks = (blocksRes.data ?? []) as TimeBlock[];
+  const doctorRows = (doctorsRes.data ?? []) as DoctorRow[];
+  const departments = (deptsRes.data ?? []) as DeptRow[];
+  const assignments = (assignRes.data ?? []) as AssignRow[];
 
   // Build department lookup
-  const deptById: Record<string, typeof departments[0]> = {};
-  departments.forEach((d) => {
+  const deptById: Record<string, DeptRow> = {};
+  for (const d of departments) {
     deptById[d.id] = d;
-  });
+  }
 
   // Build doctor lookup with department info
   const doctorById: Record<string, Doctor> = {};
-  doctors.forEach((d) => {
+  for (const d of doctorRows) {
     const dept = deptById[d.department_id];
     doctorById[d.id] = {
       id: d.id,
@@ -65,7 +70,7 @@ async function getScheduleData(): Promise<ScheduleData> {
       department_color_bg: dept?.color_bg || "#e5efe6",
       department_color_fg: dept?.color_fg || "#2e7d45",
     };
-  });
+  }
 
   // Build schedule: "blockId|day" -> [doctors]
   const schedule: Record<string, Doctor[]> = {};

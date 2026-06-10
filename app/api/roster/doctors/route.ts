@@ -17,13 +17,17 @@ export async function GET() {
     return NextResponse.json({ doctors: [] });
   }
 
-  const departments = deptsRes.data || [];
-  const deptById: Record<string, typeof departments[0]> = {};
-  departments.forEach((d) => {
-    deptById[d.id] = d;
-  });
+  type Dept = { id: string; name: string; short_name?: string };
+  type Doctor = { id: string; name: string; department_id: string; active: boolean };
 
-  const doctors = (doctorsRes.data || []).map((doc) => {
+  const departments = (deptsRes.data ?? []) as Dept[];
+  const deptById: Record<string, Dept> = {};
+  for (const d of departments) {
+    deptById[d.id] = d;
+  }
+
+  const doctorRows = (doctorsRes.data ?? []) as Doctor[];
+  const doctors = doctorRows.map((doc) => {
     const dept = deptById[doc.department_id];
     return {
       id: doc.id,
