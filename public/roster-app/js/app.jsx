@@ -119,6 +119,9 @@
     /* UI surfaces */
     var ui = useState({ doctorModal: null, manageDepts: false, manageBlocks: false, confirm: null, userMenu: false });
     var surf = ui[0], setSurf = ui[1];
+
+    /* Tab state */
+    var tabS = useState("schedule"), activeTab = tabS[0], setActiveTab = tabS[1];
     var patchSurf = useCallback(function (p) { setSurf(function (s) { return Object.assign({}, s, p); }); }, []);
     var assignS = useState(null), assign = assignS[0], setAssign = assignS[1];
 
@@ -376,32 +379,60 @@
         )
       ),
 
-      /* body */
+      /* body with tabs */
       h("div", { className: "body" },
-        h(window.Sidebar, {
-          doctors: doc.doctors, deptById: deptById,
-          onAddDoctor: function () { patchSurf({ doctorModal: { mode: "new" } }); },
-          onEditDoctor: function (d) { patchSurf({ doctorModal: { mode: "edit", doctor: d } }); },
-          onToggleActive: toggleActive
-        }),
-        h("main", { className: "main" },
-          h("div", { className: "main-toolbar" },
-            h("div", null,
-              h("h1", { className: "main-title" }, "Doctors' weekly schedule"),
-              h("p", { className: "main-sub" },
-                doc.doctors.filter(function(d){return d.active;}).length + " on duty · " +
-                doc.departments.length + " departments · " + doc.timeBlocks.length + " shifts/day")),
-            h("div", { className: "main-tools" },
-              h(window.Btn, { variant: "soft", icon: "clock", onClick: function () { patchSurf({ manageBlocks: true }); } }, "Time blocks"),
-              h(window.Btn, { variant: "soft", icon: "tag", onClick: function () { patchSurf({ manageDepts: true }); } }, "Departments"))
+        /* Tab navigation */
+        h("div", { className: "tab-nav" },
+          h("button", {
+            type: "button",
+            className: "tab-btn" + (activeTab === "doctors" ? " active" : ""),
+            onClick: function () { setActiveTab("doctors"); }
+          },
+            h(window.Icon, { name: "user", size: 16 }),
+            h("span", null, "Doctors"),
+            h("span", { className: "tab-count" }, doc.doctors.length)
           ),
-          h(window.WeekGrid, {
-            timeBlocks: doc.timeBlocks, schedule: doc.schedule,
-            docById: docById, deptById: deptById,
-            onAssign: onAssign, onUnassign: onUnassign, onMove: onMove,
-            onOpenAssign: openAssign, onManageBlocks: function () { patchSurf({ manageBlocks: true }); },
-            onToast: toasts.push
-          })
+          h("button", {
+            type: "button",
+            className: "tab-btn" + (activeTab === "schedule" ? " active" : ""),
+            onClick: function () { setActiveTab("schedule"); }
+          },
+            h(window.Icon, { name: "cal", size: 16 }),
+            h("span", null, "Schedule")
+          )
+        ),
+
+        /* Tab content */
+        activeTab === "doctors" ? (
+          h("div", { className: "tab-panel tab-doctors" },
+            h(window.Sidebar, {
+              doctors: doc.doctors, deptById: deptById,
+              onAddDoctor: function () { patchSurf({ doctorModal: { mode: "new" } }); },
+              onEditDoctor: function (d) { patchSurf({ doctorModal: { mode: "edit", doctor: d } }); },
+              onToggleActive: toggleActive,
+              fullWidth: true
+            })
+          )
+        ) : (
+          h("main", { className: "main" },
+            h("div", { className: "main-toolbar" },
+              h("div", null,
+                h("h1", { className: "main-title" }, "Doctors' weekly schedule"),
+                h("p", { className: "main-sub" },
+                  doc.doctors.filter(function(d){return d.active;}).length + " on duty · " +
+                  doc.departments.length + " departments · " + doc.timeBlocks.length + " shifts/day")),
+              h("div", { className: "main-tools" },
+                h(window.Btn, { variant: "soft", icon: "clock", onClick: function () { patchSurf({ manageBlocks: true }); } }, "Time blocks"),
+                h(window.Btn, { variant: "soft", icon: "tag", onClick: function () { patchSurf({ manageDepts: true }); } }, "Departments"))
+            ),
+            h(window.WeekGrid, {
+              timeBlocks: doc.timeBlocks, schedule: doc.schedule,
+              docById: docById, deptById: deptById,
+              onAssign: onAssign, onUnassign: onUnassign, onMove: onMove,
+              onOpenAssign: openAssign, onManageBlocks: function () { patchSurf({ manageBlocks: true }); },
+              onToast: toasts.push
+            })
+          )
         )
       ),
 
