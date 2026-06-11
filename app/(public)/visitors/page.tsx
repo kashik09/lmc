@@ -77,36 +77,39 @@ export default function VisitorsPage() {
                 Information for Visitors
               </h2>
 
-              {/* Prose content from backup */}
-              <div className="prose prose-lg max-w-none font-body text-lmc-grayDark prose-headings:font-heading prose-headings:text-lmc-grayDark prose-a:text-lmc-green prose-strong:text-lmc-grayDark prose-li:text-lmc-grayMedium">
+              {/* Content */}
+              <div className="space-y-4 text-base leading-relaxed text-lmc-grayMedium">
                 <p>
                   We welcome visitors and care givers. However, we are required
-                  to observe certain restrictions for the comfort of our
-                  patients, infection control and to allow the medical team to
-                  carry out their rounds and procedures.
+                  to observe certain restrictions for the comfort of our patients,
+                  <br />
+                  infection control and to allow the medical team to carry out
+                  their rounds and procedures.
                 </p>
 
-                <h3>Visitor Guidelines</h3>
+                <h3 className="font-heading text-xl font-bold text-lmc-grayDark">
+                  Visitor Guidelines
+                </h3>
                 <p>
                   For the comfort and safety of our patients, we ask all
                   visitors to observe these guidelines:
                 </p>
-                <ul>
+                <ul className="list-disc space-y-1.5 pl-6 marker:text-lmc-green">
                   <li>The ward allows only 2 visitors at a time per patient.</li>
                   <li>
                     To reduce the risk of infection, children under the age of
-                    16 years are not allowed in the wards. We also encourage all
-                    visitors to apply hand gel/alcohol rub prior to and on
-                    leaving the ward. These are located at the entrance to the
-                    ward.
+                    16 years are not allowed in the wards.
+                    <br />
+                    We also encourage all visitors to apply hand gel/alcohol rub
+                    prior to and on leaving the ward.
+                    <br />
+                    These are located at the entrance to the ward.
                   </li>
                   <li>
                     Smoking, use of illicit drugs and alcohol are not permitted
                     in the Hospital premises.
                   </li>
-                  <li>
-                    Filming and photography are not permitted on the ward.
-                  </li>
+                  <li>Filming and photography are not permitted on the ward.</li>
                   <li>
                     The Hospital will not tolerate any form of verbal or
                     physical abuse to staff or damage to hospital property.
