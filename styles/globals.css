@@ -115,16 +115,22 @@
   --color-lmc-textSecondary: #6b7280;
   --color-lmc-textOnDark: #ffffff;
   --color-lmc-textOnDarkMuted: rgba(255,255,255,0.85);
+  --color-lmc-textOnDarkFaint: rgba(255,255,255,0.62);
+
+  /* Link colors */
+  --color-lmc-link: #0f6ea6;
 
   /* GREEN — BRAND: #1b7a12 (not mockup's #0E8A6D) */
   --color-lmc-green: #1b7a12;
   --color-lmc-greenDark: #107a02;
   --color-lmc-greenLight: #2a9c1f;
+  --color-lmc-greenOnDark: #5fd089;
 
   /* BLUE */
   --color-lmc-blue: #304770;
   --color-lmc-blueDark: #233a58;
-  --color-lmc-blueAccent: #4A90D9;
+  --color-lmc-blueAccent: #45aaff;
+  --color-lmc-blueInteractive: #1577c2;
 
   /* Borders/dividers */
   --color-lmc-borderLight: #e5e7eb;
@@ -166,4 +172,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading); /* Raleway — DON'T CHANGE */
   color: #2a2a2a;                   /* mockup --ink */
+}
+
+/* On-dark skin — flips text colors for navy/green backgrounds */
+.on-dark,
+.bg-lmc-footerBg,
+.bg-lmc-blue,
+.bg-lmc-navy,
+.bg-lmc-green {
+  color: rgba(255,255,255,0.85);
+}
+.on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4, .on-dark h5, .on-dark h6,
+.bg-lmc-footerBg h1, .bg-lmc-footerBg h2, .bg-lmc-footerBg h3, .bg-lmc-footerBg h4, .bg-lmc-footerBg h5, .bg-lmc-footerBg h6,
+.bg-lmc-blue h1, .bg-lmc-blue h2, .bg-lmc-blue h3, .bg-lmc-blue h4, .bg-lmc-blue h5, .bg-lmc-blue h6,
+.bg-lmc-green h1, .bg-lmc-green h2, .bg-lmc-green h3, .bg-lmc-green h4, .bg-lmc-green h5, .bg-lmc-green h6 {
+  color: #ffffff;
 }

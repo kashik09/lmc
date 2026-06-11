@@ -47,7 +47,7 @@ export default function ContactsPage() {
         <div className="relative z-10 mx-auto max-w-container px-7">
           {/* Contacts Head */}
           <div className="mb-24 pt-3">
-            <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-[#75d69c]">
+            <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-greenOnDark">
               Get in touch
             </p>
             <h1 className="font-heading text-[42px] font-bold uppercase tracking-[0.01em] text-white">
@@ -171,7 +171,7 @@ export default function ContactsPage() {
           <div className="flex flex-col items-start justify-between gap-8 bg-lmc-blue p-10 text-white md:flex-row md:items-center md:gap-12 md:px-12">
             {/* Text side */}
             <div>
-              <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-[#75d69c]">
+              <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-greenOnDark">
                 Appointment Request
               </p>
               <h3 className="mb-1 font-heading text-[30px] font-bold uppercase tracking-[0.02em]">

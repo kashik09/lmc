@@ -73,7 +73,7 @@ export function Footer() {
                 <span className="font-sans text-[11.5px] font-extrabold uppercase leading-tight tracking-[0.04em] text-white">
                   Lifeline Medical
                   <br />
-                  Centre · <span className="text-[#75d69c]">Gayaza</span>
+                  Centre · <span className="text-lmc-greenOnDark">Gayaza</span>
                 </span>
               </Link>
 
@@ -86,7 +86,7 @@ export function Footer() {
               {/* Contact rows */}
               <div className="mt-[18px] flex flex-col gap-[14px] text-[13.5px]">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-[#75d69c]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-lmc-greenOnDark">
                     <Phone className="h-[14px] w-[14px]" />
                   </div>
                   <div>
@@ -97,7 +97,7 @@ export function Footer() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-[#75d69c]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-lmc-greenOnDark">
                     <Mail className="h-[14px] w-[14px]" />
                   </div>
                   <div>
@@ -110,7 +110,7 @@ export function Footer() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-[#75d69c]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-lmc-greenOnDark">
                     <MapPin className="h-[14px] w-[14px]" />
                   </div>
                   <div>
@@ -140,7 +140,7 @@ export function Footer() {
                       href={link.href}
                       className="inline-flex items-center gap-[10px] transition-colors hover:text-white"
                     >
-                      <span className="font-bold text-[#75d69c]">›</span>
+                      <span className="font-bold text-lmc-greenOnDark">›</span>
                       {link.label}
                     </Link>
                   </li>
@@ -163,7 +163,7 @@ export function Footer() {
                       N{index + 1}
                     </div>
                     <div>
-                      <div className="mb-1 text-[11.5px] uppercase tracking-[0.1em] text-[#75d69c]">
+                      <div className="mb-1 text-[11.5px] uppercase tracking-[0.1em] text-lmc-greenOnDark">
                         {item.date}
                       </div>
                       <h5 className="m-0 text-[13.5px] font-semibold leading-[1.4] text-white group-hover:text-lmc-green transition-colors">

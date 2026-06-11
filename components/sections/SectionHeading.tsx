@@ -27,10 +27,10 @@ type SectionHeadingProps = {
  *   - subtitle: lmc-grayMedium
  *   - accent bar: lmc-green
  * - "dark": for sections on lmc-blue (navy) or other dark backgrounds
- *   - eyebrow: mint green (#75d69c)
+ *   - eyebrow: greenOnDark (#5fd089)
  *   - heading: white
  *   - subtitle: white/85
- *   - accent bar: mint green
+ *   - accent bar: greenOnDark
  */
 export function SectionHeading({
   eyebrow,
@@ -43,10 +43,10 @@ export function SectionHeading({
   const isCenter = align === "center";
   const isDark = theme === "dark";
 
-  const eyebrowColor = isDark ? "text-[#75d69c]" : "text-lmc-green";
+  const eyebrowColor = isDark ? "text-lmc-greenOnDark" : "text-lmc-green";
   const titleColor = isDark ? "text-white" : "text-lmc-grayDark";
   const subtitleColor = isDark ? "text-white/85" : "text-lmc-grayMedium";
-  const barColor = isDark ? "bg-[#75d69c]" : "bg-lmc-green";
+  const barColor = isDark ? "bg-lmc-greenOnDark" : "bg-lmc-green";
 
   return (
     <div

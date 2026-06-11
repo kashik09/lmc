@@ -71,11 +71,16 @@ const config: Config = {
           green: "#1b7a12",
           greenDark: "#107a02",
           greenLight: "#2a9c1f",
+          greenOnDark: "#5fd089",   // accents/dates on navy (4.8:1)
 
-          // BLUE — from mockup
+          // BLUE — from mockup + UI system fixes
           blue: "#2D4A6F",          // mockup --blue (navy)
           blueDark: "#233a58",      // mockup --blue-dark
-          blueAccent: "#4A90D9",    // mockup --accent
+          blueAccent: "#45aaff",    // light blue - needs DARK text
+          blueInteractive: "#1577c2", // darker blue for white text (4.7:1)
+
+          // Link color
+          link: "#0f6ea6",          // links on light (5.1:1)
 
           // Borders/dividers — from mockup
           borderLight: "#e5e7eb",   // mockup --line

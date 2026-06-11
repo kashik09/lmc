@@ -60,7 +60,7 @@ export const teaserBoxes = [
     title: "Find a Doctor",
     description: "Connect with our specialists",
     link: "/contacts",
-    colorClass: "bg-secondary", // #45aaff
+    colorClass: "bg-lmc-blueInteractive", // #1577c2 - white text OK (4.7:1)
   },
   {
     id: "appointment",
