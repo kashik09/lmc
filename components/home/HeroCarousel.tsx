@@ -145,16 +145,10 @@ export default function HeroCarousel() {
             <div className="ml-auto max-w-[540px]">
               {/* Semi-transparent grey card with subtle blur */}
               <div className="border-l-4 border-lmc-green bg-[rgba(35,40,50,0.60)] p-10 shadow-2xl">
-                <div
-                  className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em]"
-                  style={{ color: "#1b7a12" }}
-                >
+                <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-lmc-greenOnDark">
                   {slide.eyebrow}
                 </div>
-                <h1
-                  className="relative z-[3] mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight"
-                  style={{ color: "#ffffff" }}
-                >
+                <h1 className="relative z-[3] mb-3 font-heading text-[44px] font-bold leading-[1.1] tracking-tight text-white">
                   {slide.title}
                 </h1>
                 <div className="mb-5 h-[3px] w-12 bg-lmc-green" />
