@@ -1,14 +1,12 @@
 import type { ReactNode } from "react";
 import {
-  HeartPulse,
+  Wallet,
+  BadgeCheck,
+  Clock,
   Phone,
   Mail,
   MapPin,
-  Clock,
-  Wallet,
-  BadgeCheck,
 } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
 import { AppointmentForm } from "@/components/blocks/appointment-form";
 import { DoctorTimeTable } from "@/components/blocks/doctor-time-table";
 import {
@@ -18,116 +16,102 @@ import {
 } from "@/content/appointments";
 
 const iconMap: Record<string, ReactNode> = {
-  wallet: <Wallet className="h-8 w-8" />,
-  "badge-check": <BadgeCheck className="h-8 w-8" />,
-  clock: <Clock className="h-8 w-8" />,
+  wallet: <Wallet className="h-6 w-6" />,
+  "badge-check": <BadgeCheck className="h-6 w-6" />,
+  clock: <Clock className="h-6 w-6" />,
 };
 
 export default function AppointmentsPage() {
   return (
     <>
-      <PageHeader title="Appointments" subtitle="Book your visit" />
+      {/* Hero */}
+      <header className="bg-lmc-green relative overflow-hidden">
+        <div className="absolute -right-20 -top-16 h-[420px] w-[420px] rounded-full bg-white/5" />
+        <div className="relative z-[1] mx-auto max-w-7xl px-8 pb-14 pt-14">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#cdebd2]">
+            Appointment Request
+          </p>
+          <h1 className="mt-3 text-5xl font-extrabold tracking-tight text-white md:text-6xl">
+            Appointments
+          </h1>
+          <p className="mt-3 max-w-xl text-base text-white/85">
+            Book your visit — takes under a minute, and our reception team confirms by phone.
+          </p>
+        </div>
+      </header>
 
-      {/* Why Choose Us */}
-      <section className="bg-lmc-offWhite py-10">
-        <div className="mx-auto max-w-container px-4">
-          <div className="grid gap-6 md:grid-cols-3 justify-items-center">
-            {appointmentsWhyChooseUs.map((item) => (
-              <div key={item.id} className="flex flex-col items-center text-center gap-2">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-lmc-green text-white">
-                  {iconMap[item.icon]}
-                </div>
-                <div>
-                  <h3 className="font-heading text-sm font-semibold text-lmc-grayDark">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-lmc-grayMedium">
-                    {item.description}
-                  </p>
-                </div>
+      {/* Perks Row */}
+      <section className="border-b border-lmc-grayLight bg-lmc-offWhite">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-7 px-8 py-9 text-center sm:grid-cols-3">
+          {appointmentsWhyChooseUs.map((item) => (
+            <div key={item.id} className="flex flex-col items-center">
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-lmc-green text-white">
+                {iconMap[item.icon]}
               </div>
-            ))}
-          </div>
+              <h3 className="font-heading text-lg font-bold text-lmc-grayDark">
+                {item.title}
+              </h3>
+              <p className="mt-1 text-sm text-lmc-grayMedium">
+                {item.description}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
-        <div className="mx-auto grid max-w-5xl gap-8 px-6 lg:grid-cols-2">
-          {/* Left Column - Form */}
-          <div>
-            <AppointmentForm />
+      {/* Booking Form — centered single column */}
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-[824px] px-8">
+          {/* Form Header */}
+          <div className="mb-9 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-lmc-green">
+              Appointment Request
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-extrabold tracking-tight text-lmc-grayDark md:text-4xl">
+              Book your visit
+            </h2>
+            <p className="mt-2 text-sm text-lmc-grayMedium">
+              Fields marked <span className="text-red-500">*</span> are required.
+            </p>
           </div>
 
-          {/* Right Column - Info Panel */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="w-full max-w-md rounded-lg border border-lmc-grayLight bg-white p-5 shadow-sm">
-              {/* Icon */}
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-lmc-green/10 text-lmc-green">
-                <HeartPulse className="h-6 w-6" />
-              </div>
+          <AppointmentForm />
 
-              {/* Description */}
-              <p className="mb-4 text-sm text-lmc-grayMedium leading-relaxed">
-                {appointmentInfoPanel.description}
-              </p>
-
-              {/* Contact Details */}
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-lmc-green" />
-                  <a
-                    href={`tel:${appointmentInfoPanel.phone.replace(/\D/g, "")}`}
-                    className="font-semibold text-lmc-grayDark hover:text-lmc-green"
-                  >
-                    {appointmentInfoPanel.phone}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-lmc-green" />
-                  <a
-                    href={`mailto:${appointmentInfoPanel.email}`}
-                    className="font-semibold text-lmc-grayDark hover:text-lmc-green"
-                  >
-                    {appointmentInfoPanel.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-lmc-green" />
-                  <a
-                    href={appointmentInfoPanel.addressMapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-lmc-grayDark hover:text-lmc-green"
-                  >
-                    {appointmentInfoPanel.address}
-                  </a>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="my-4 flex items-center gap-3">
-                <div className="h-px flex-1 bg-lmc-grayLight" />
-                <span className="text-xs font-medium text-lmc-grayMedium">
-                  Opening Hours
-                </span>
-                <div className="h-px flex-1 bg-lmc-grayLight" />
-              </div>
-
-              {/* Opening Hours */}
-              <div className="flex items-center gap-2 text-sm text-lmc-grayMedium">
-                <Clock className="h-4 w-4 text-lmc-green" />
-                <span>{appointmentInfoPanel.openingHours}</span>
-              </div>
+          {/* Contact Strip */}
+          <div className="mt-12 flex flex-wrap justify-center gap-12 border-t border-lmc-grayLight pt-7">
+            <div className="flex items-center gap-3 text-sm font-bold text-lmc-grayDark">
+              <Phone className="h-4 w-4 stroke-lmc-green" />
+              <a href={`tel:${appointmentInfoPanel.phone.replace(/\D/g, "")}`} className="hover:text-lmc-green">
+                {appointmentInfoPanel.phone}
+              </a>
+            </div>
+            <div className="flex items-center gap-3 text-sm font-bold text-lmc-grayDark">
+              <Mail className="h-4 w-4 stroke-lmc-green" />
+              <a href={`mailto:${appointmentInfoPanel.email}`} className="hover:text-lmc-green">
+                {appointmentInfoPanel.email}
+              </a>
+            </div>
+            <div className="flex items-center gap-3 text-sm font-bold text-lmc-grayDark">
+              <MapPin className="h-4 w-4 stroke-lmc-green" />
+              <a href={appointmentInfoPanel.addressMapUrl} target="_blank" rel="noopener noreferrer" className="hover:text-lmc-green">
+                {appointmentInfoPanel.address}
+              </a>
             </div>
           </div>
+          <p className="mt-4 text-center text-xs text-lmc-grayMedium">
+            {appointmentInfoPanel.openingHours}
+          </p>
         </div>
       </section>
 
       {/* Doctor Availability */}
-      <section className="bg-lmc-offWhite py-12 md:py-16">
-        <div className="mx-auto max-w-container px-4">
+      <section className="border-t border-lmc-grayLight bg-lmc-offWhite py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-8">
           <div className="mb-8 text-center">
-            <h2 className="font-heading text-2xl font-bold text-lmc-grayDark md:text-3xl">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-lmc-green">
+              Weekly Schedule
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-extrabold tracking-tight text-lmc-grayDark md:text-4xl">
               {doctorAvailabilitySection.heading}
             </h2>
             <p className="mt-2 text-lmc-grayMedium">
