@@ -32,7 +32,7 @@ export default function PageBanner({
 
   return (
     <section className={`${bgClass} w-full`}>
-      <div className="mx-auto max-w-7xl px-6 pb-12 pt-12 md:pb-16 md:pt-16">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-10 md:pb-10 md:pt-12">
         {/* Breadcrumbs — uppercase small text above title */}
         {crumbs.length > 0 && (
           <nav
