@@ -33,15 +33,15 @@ export default function AppointmentsPage() {
         <div className="mx-auto max-w-container px-4">
           <div className="grid gap-6 md:grid-cols-3 justify-items-center">
             {appointmentsWhyChooseUs.map((item) => (
-              <div key={item.id} className="flex flex-col items-center text-center gap-3">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-lmc-green text-white">
+              <div key={item.id} className="flex flex-col items-center text-center gap-2">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-lmc-green text-white">
                   {iconMap[item.icon]}
                 </div>
                 <div>
-                  <h3 className="font-heading text-lg font-semibold text-lmc-grayDark">
+                  <h3 className="font-heading text-sm font-semibold text-lmc-grayDark">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-lmc-grayMedium">
+                  <p className="text-xs text-lmc-grayMedium">
                     {item.description}
                   </p>
                 </div>
@@ -52,15 +52,15 @@ export default function AppointmentsPage() {
       </section>
 
       <section className="py-12 md:py-16">
-        <div className="mx-auto grid max-w-container gap-8 px-7 lg:grid-cols-12">
-          {/* Left Column - Form (5/12) */}
-          <div className="lg:col-span-5 lg:pl-4">
+        <div className="mx-auto grid max-w-5xl gap-8 px-6 lg:grid-cols-2">
+          {/* Left Column - Form */}
+          <div>
             <AppointmentForm />
           </div>
 
           {/* Right Column - Info Panel */}
-          <div className="lg:col-span-5 lg:col-start-7">
-            <div className="rounded-lg border border-lmc-grayLight bg-white p-5 shadow-sm">
+          <div className="flex justify-center lg:justify-start">
+            <div className="w-full max-w-md rounded-lg border border-lmc-grayLight bg-white p-5 shadow-sm">
               {/* Icon */}
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-lmc-green/10 text-lmc-green">
                 <HeartPulse className="h-6 w-6" />
