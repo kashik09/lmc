@@ -50,24 +50,24 @@ export const heroSlides = [
 export const teaserBoxes = [
   {
     id: "medical-services",
-    title: "Medical Services",
-    description: "View our range of healthcare services",
+    title: "MEDICAL SERVICES",
+    description: "Care for every patient.",
     link: "/services",
-    colorClass: "bg-primary", // #1b7a12
+    colorClass: "bg-lmc-green", // #1b7a12
   },
   {
-    id: "find-doctor",
-    title: "Find a Doctor",
-    description: "Connect with our specialists",
-    link: "/contacts",
-    colorClass: "bg-lmc-blueInteractive", // #1577c2 - white text OK (4.7:1)
+    id: "about-us",
+    title: "ABOUT US",
+    description: "Meet our team.",
+    link: "/about",
+    colorClass: "bg-lmc-blue", // #304770 - 8.5:1 contrast with white
   },
   {
     id: "appointment",
-    title: "Request an Appointment",
-    description: "Book your visit today",
+    title: "REQUEST APPOINTMENT",
+    description: "Call or book online.",
     link: "/appointments",
-    colorClass: "bg-primary-dark", // #107a02
+    colorClass: "bg-lmc-green", // #1b7a12
   },
 ];
 
