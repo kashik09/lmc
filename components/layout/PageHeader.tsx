@@ -1,13 +1,7 @@
 /**
- * PageHeader — Two-row banner for interior pages
+ * PageHeader — Interior page banner matching PageBanner style
  *
- * Structure:
- * - Row 1: Title on dark background (bg-lmc-grayDark chosen to match
- *   reference "secondary_section" pattern — darker, more neutral than green)
- * - Row 2: Optional subtitle on accent background
- *
- * NOTE: Reference site has breadcrumbs in some page headers.
- * Breadcrumbs will be added in a later ticket if needed.
+ * Green background with large bold uppercase title and optional subtitle.
  */
 
 type PageHeaderProps = {
@@ -20,24 +14,17 @@ export function PageHeader({
   subtitle,
 }: PageHeaderProps) {
   return (
-    <section>
-      {/* Title row */}
-      <div className="bg-lmc-grayDark min-h-[80px] flex items-center">
-        <div className="max-w-container mx-auto px-4 w-full">
-          <h1 className="font-heading text-white text-3xl md:text-4xl font-bold">
-            {title}
-          </h1>
-        </div>
+    <section className="bg-lmc-green">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-10 md:pb-10 md:pt-12">
+        <h1 className="text-4xl font-bold uppercase tracking-tight text-white md:text-5xl lg:text-6xl">
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="mt-3 max-w-2xl text-base font-normal text-white/85 md:text-lg">
+            {subtitle}
+          </p>
+        )}
       </div>
-
-      {/* Subtitle row — only renders if subtitle provided */}
-      {subtitle && (
-        <div className="bg-lmc-green min-h-[48px] flex items-center">
-          <div className="max-w-container mx-auto px-4 w-full">
-            <h2 className="font-heading text-lg font-semibold text-white">{subtitle}</h2>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
