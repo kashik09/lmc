@@ -36,14 +36,14 @@ export function PageHeader({
       {/* Subtitle row — only renders if subtitle provided */}
       {subtitle && (
         <div
-          className={`min-h-[40px] flex items-center ${
+          className={`min-h-[48px] flex items-center ${
             variant === "green"
               ? "bg-lmc-green text-white"
               : "bg-lmc-offWhite text-lmc-grayDark"
           }`}
         >
           <div className="max-w-container mx-auto px-4 w-full">
-            <p className="font-body text-sm">{subtitle}</p>
+            <h2 className="font-heading text-lg font-semibold">{subtitle}</h2>
           </div>
         </div>
       )}
