@@ -13,14 +13,11 @@
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
-  /** Subtitle row variant: 'default' = offWhite bg, 'green' = green bg */
-  variant?: "default" | "green";
 };
 
 export function PageHeader({
   title,
   subtitle,
-  variant = "default",
 }: PageHeaderProps) {
   return (
     <section>
@@ -35,15 +32,9 @@ export function PageHeader({
 
       {/* Subtitle row — only renders if subtitle provided */}
       {subtitle && (
-        <div
-          className={`min-h-[48px] flex items-center ${
-            variant === "green"
-              ? "bg-lmc-green text-white"
-              : "bg-lmc-offWhite text-lmc-grayDark"
-          }`}
-        >
+        <div className="bg-lmc-green min-h-[48px] flex items-center">
           <div className="max-w-container mx-auto px-4 w-full">
-            <h2 className="font-heading text-lg font-semibold">{subtitle}</h2>
+            <h2 className="font-heading text-lg font-semibold text-white">{subtitle}</h2>
           </div>
         </div>
       )}
