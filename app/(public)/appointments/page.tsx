@@ -52,29 +52,29 @@ export default function AppointmentsPage() {
       </section>
 
       <section className="py-12 md:py-16">
-        <div className="mx-auto grid max-w-container gap-8 px-4 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-container gap-8 px-7 lg:grid-cols-12">
           {/* Left Column - Form (5/12) */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 lg:pl-4">
             <AppointmentForm />
           </div>
 
-          {/* Right Column - Info Panel (6/12 with offset) */}
-          <div className="lg:col-span-6 lg:col-start-7">
-            <div className="rounded-lg border border-lmc-grayLight bg-white p-6 shadow-sm md:p-8">
+          {/* Right Column - Info Panel */}
+          <div className="lg:col-span-5 lg:col-start-7">
+            <div className="rounded-lg border border-lmc-grayLight bg-white p-5 shadow-sm">
               {/* Icon */}
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-lmc-green/10 text-lmc-green">
-                <HeartPulse className="h-7 w-7" />
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-lmc-green/10 text-lmc-green">
+                <HeartPulse className="h-6 w-6" />
               </div>
 
               {/* Description */}
-              <p className="mb-6 text-lmc-grayMedium leading-relaxed">
+              <p className="mb-4 text-sm text-lmc-grayMedium leading-relaxed">
                 {appointmentInfoPanel.description}
               </p>
 
               {/* Contact Details */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-lmc-green" />
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-lmc-green" />
                   <a
                     href={`tel:${appointmentInfoPanel.phone.replace(/\D/g, "")}`}
                     className="font-semibold text-lmc-grayDark hover:text-lmc-green"
@@ -82,8 +82,8 @@ export default function AppointmentsPage() {
                     {appointmentInfoPanel.phone}
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-lmc-green" />
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-lmc-green" />
                   <a
                     href={`mailto:${appointmentInfoPanel.email}`}
                     className="font-semibold text-lmc-grayDark hover:text-lmc-green"
@@ -91,8 +91,8 @@ export default function AppointmentsPage() {
                     {appointmentInfoPanel.email}
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-lmc-green" />
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-lmc-green" />
                   <a
                     href={appointmentInfoPanel.addressMapUrl}
                     target="_blank"
@@ -105,17 +105,17 @@ export default function AppointmentsPage() {
               </div>
 
               {/* Divider */}
-              <div className="my-6 flex items-center gap-4">
+              <div className="my-4 flex items-center gap-3">
                 <div className="h-px flex-1 bg-lmc-grayLight" />
-                <span className="text-sm font-medium text-lmc-grayMedium">
+                <span className="text-xs font-medium text-lmc-grayMedium">
                   Opening Hours
                 </span>
                 <div className="h-px flex-1 bg-lmc-grayLight" />
               </div>
 
               {/* Opening Hours */}
-              <div className="flex items-center gap-3 text-lmc-grayMedium">
-                <Clock className="h-5 w-5 text-lmc-green" />
+              <div className="flex items-center gap-2 text-sm text-lmc-grayMedium">
+                <Clock className="h-4 w-4 text-lmc-green" />
                 <span>{appointmentInfoPanel.openingHours}</span>
               </div>
             </div>
