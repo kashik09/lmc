@@ -31,9 +31,9 @@ export default function AppointmentsPage() {
       {/* Why Choose Us */}
       <section className="bg-lmc-offWhite py-10">
         <div className="mx-auto max-w-container px-4">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3 justify-items-center">
             {appointmentsWhyChooseUs.map((item) => (
-              <div key={item.id} className="flex items-start gap-4">
+              <div key={item.id} className="flex flex-col items-center text-center gap-3">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-lmc-green text-white">
                   {iconMap[item.icon]}
                 </div>
