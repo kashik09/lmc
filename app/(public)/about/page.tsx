@@ -69,7 +69,7 @@ export default function AboutPage() {
                 Who We Are
               </p>
               <h2 className="mb-4 font-heading text-2xl font-bold text-lmc-grayDark md:text-3xl">
-                Welcome to Lifeline Medical Centre
+                Our Story
               </h2>
               <p className="mb-4 font-body text-base leading-relaxed text-lmc-grayMedium">
                 Lifeline Medical Centre is a private healthcare facility established in 2015,
@@ -132,7 +132,7 @@ export default function AboutPage() {
                 For over a decade, families across Gayaza have turned to Lifeline for checkups,
                 urgent care and everything in between.
               </p>
-              <ul className="mb-5 flex flex-col gap-2.5">
+              <ul className="flex flex-col gap-2.5">
                 {whyChooseUs.map((item) => (
                   <li key={item.title} className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lmc-green/10">
@@ -144,9 +144,6 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
-              <Button asChild href="/appointments" className="rounded-full">
-                Book an Appointment
-              </Button>
             </div>
             <div className="relative">
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-md">
