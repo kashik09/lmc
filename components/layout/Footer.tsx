@@ -189,8 +189,16 @@ export function Footer() {
                 aria-label="Staff portal"
               >
                 Lifeline Medical Centre
-              </Link>{" "}
-              — Gayaza. All rights reserved.
+              </Link>
+              {" — "}
+              <Link
+                href="/roster"
+                className="text-inherit no-underline hover:text-lmc-green"
+                aria-label="Staff roster"
+              >
+                Gayaza
+              </Link>
+              . All rights reserved.
             </span>
             <div className="flex items-center gap-4">
               <Link
