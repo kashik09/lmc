@@ -61,7 +61,7 @@ export default function AboutPage() {
 
       {/* Section 1: Who We Are — image left, text right */}
       <Reveal as="section" className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-container px-4">
+        <div className="mx-auto max-w-container px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
               <Image
@@ -90,7 +90,7 @@ export default function AboutPage() {
 
       {/* Section 2: Mission / Vision / Values */}
       <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
-        <div className="mx-auto max-w-container px-4">
+        <div className="mx-auto max-w-container px-6 lg:px-8">
           <div className="mb-12 text-center">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
               What Drives Us
@@ -122,7 +122,7 @@ export default function AboutPage() {
 
       {/* Section 3: Why Gayaza Trusts Us */}
       <Reveal as="section" className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-container px-4">
+        <div className="mx-auto max-w-container px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[72px]">
             <div>
               <p className="mb-4 text-sm font-bold uppercase tracking-widest text-lmc-green">
@@ -173,8 +173,8 @@ export default function AboutPage() {
       </Reveal>
 
       {/* Section 4: Facilities */}
-      <Reveal as="section" className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-container px-4">
+      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
+        <div className="mx-auto max-w-container px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
             <div>
               <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
