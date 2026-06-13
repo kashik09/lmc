@@ -55,8 +55,8 @@ export default function PharmacyPage() {
         ]}
       />
 
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-container px-4">
+      <section className="bg-white py-16 md:py-24">
+        <div className="mx-auto max-w-container px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
             {/* Main Content — spans 2 cols */}
             <article className="lg:col-span-2">

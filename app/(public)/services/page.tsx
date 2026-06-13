@@ -72,7 +72,7 @@ export default function ServicesPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
       />
 
-      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
+      <Reveal as="section" className="bg-lmc-offWhite py-20 md:py-28">
         <div className="mx-auto max-w-container px-6 md:px-12 lg:px-20">
           {/* Section Header */}
           <div className="mb-12 text-center">
