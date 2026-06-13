@@ -73,7 +73,7 @@ export default function ServicesPage() {
       />
 
       <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
-        <div className="mx-auto max-w-container px-4">
+        <div className="mx-auto max-w-container px-6 md:px-12 lg:px-20">
           {/* Section Header */}
           <div className="mb-12 text-center">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
