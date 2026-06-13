@@ -47,8 +47,9 @@ const BLOCKS: CTABlock[] = [
 
 export default function TrapezoidCTAStrip() {
   return (
-    <section className="px-6" aria-label="Quick actions">
+    <section className="px-6" aria-labelledby="quick-actions-heading">
       <div className="mx-auto max-w-7xl">
+        <h2 id="quick-actions-heading" className="sr-only">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {BLOCKS.map((block, idx) => {
             const Icon = block.icon;
