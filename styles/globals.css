@@ -182,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 .bg-lmc-blue,
 .bg-lmc-navy,
 .bg-lmc-green {
-  color: rgba(255,255,255,0.85);
+  color: #ffffff;
 }
 .on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4, .on-dark h5, .on-dark h6,
 .bg-lmc-footerBg h1, .bg-lmc-footerBg h2, .bg-lmc-footerBg h3, .bg-lmc-footerBg h4, .bg-lmc-footerBg h5, .bg-lmc-footerBg h6,
