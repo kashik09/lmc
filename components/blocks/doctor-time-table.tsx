@@ -199,9 +199,9 @@ export async function DoctorTimeTable() {
               className="overflow-hidden rounded-lg border border-border bg-card"
             >
               <div className="bg-primary px-4 py-2">
-                <h4 className="font-heading font-semibold text-primary-foreground">
+                <h3 className="font-heading font-semibold text-primary-foreground">
                   {DAY_LABELS[day]}
-                </h4>
+                </h3>
               </div>
 
               <div className="p-4">

@@ -89,9 +89,9 @@ export default function ContactsPage() {
                     <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
                       Opening Hours
                     </p>
-                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                    <h3 className="font-heading text-[18px] font-bold text-lmc-grayDark">
                       {contactInfo.openHours}
-                    </h4>
+                    </h3>
                     <p className="text-[14.5px] text-lmc-grayDark">
                       Including weekends and public holidays.
                     </p>
@@ -107,9 +107,9 @@ export default function ContactsPage() {
                     <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
                       Phone
                     </p>
-                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                    <h3 className="font-heading text-[18px] font-bold text-lmc-grayDark">
                       {contactInfo.phones[0]}
-                    </h4>
+                    </h3>
                   </div>
                 </div>
 
@@ -122,14 +122,14 @@ export default function ContactsPage() {
                     <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
                       Email
                     </p>
-                    <h4 className="font-heading text-[18px] font-bold">
+                    <h3 className="font-heading text-[18px] font-bold">
                       <a
                         href={`mailto:${contactInfo.email}`}
                         className="text-lmc-green transition-colors hover:underline"
                       >
                         {contactInfo.email}
                       </a>
-                    </h4>
+                    </h3>
                   </div>
                 </div>
 
@@ -142,9 +142,9 @@ export default function ContactsPage() {
                     <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-lmc-grayMedium">
                       Address
                     </p>
-                    <h4 className="font-heading text-[18px] font-bold text-lmc-grayDark">
+                    <h3 className="font-heading text-[18px] font-bold text-lmc-grayDark">
                       {contactInfo.address}
-                    </h4>
+                    </h3>
                     <p className="text-[14.5px] text-lmc-grayDark">
                       Gayaza, Wakiso District, Uganda ·{" "}
                       <a

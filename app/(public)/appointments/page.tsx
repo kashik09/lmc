@@ -48,9 +48,9 @@ export default function AppointmentsPage() {
               <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-lmc-green text-white">
                 {iconMap[item.icon]}
               </div>
-              <h3 className="font-heading text-lg font-bold text-lmc-grayDark">
+              <h2 className="font-heading text-lg font-bold text-lmc-grayDark">
                 {item.title}
-              </h3>
+              </h2>
               <p className="mt-1 text-sm text-lmc-grayMedium">
                 {item.description}
               </p>
