@@ -1,0 +1,20 @@
+# Lifeline Medical Centre - robots.txt
+# https://lmc.co.ug
+
+User-agent: *
+Allow: /
+
+# Admin and auth routes - not for indexing
+Disallow: /admin
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /reception
+Disallow: /roster
+Disallow: /api/
+Disallow: /monitoring
+
+# Development routes
+Disallow: /dev/
+
+# Sitemap
+Sitemap: https://lmc.co.ug/sitemap.xml
