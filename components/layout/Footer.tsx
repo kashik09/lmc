@@ -167,9 +167,9 @@ export function Footer() {
                       <div className="mb-1 text-[11.5px] uppercase tracking-[0.1em] text-lmc-greenOnDark">
                         {item.date}
                       </div>
-                      <h5 className="m-0 text-[13.5px] font-semibold leading-[1.4] text-white group-hover:text-lmc-green transition-colors">
+                      <h4 className="m-0 text-[13.5px] font-semibold leading-[1.4] text-white group-hover:text-lmc-green transition-colors">
                         {item.title}
-                      </h5>
+                      </h4>
                     </div>
                   </Link>
                 ))}
