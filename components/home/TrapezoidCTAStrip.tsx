@@ -47,8 +47,9 @@ const BLOCKS: CTABlock[] = [
 
 export default function TrapezoidCTAStrip() {
   return (
-    <section className="px-6" aria-label="Quick actions">
+    <section className="px-6" aria-labelledby="quick-actions-heading">
       <div className="mx-auto max-w-7xl">
+        <h2 id="quick-actions-heading" className="sr-only">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {BLOCKS.map((block, idx) => {
             const Icon = block.icon;
@@ -71,10 +72,10 @@ export default function TrapezoidCTAStrip() {
 
                 {/* Text content */}
                 <div>
-                  <h3 className="mb-0.5 text-base font-bold uppercase tracking-wide">
+                  <h3 className="mb-0.5 text-base font-bold uppercase tracking-wide text-white">
                     {block.label}
                   </h3>
-                  <p className="text-sm text-white/85">{block.subtitle}</p>
+                  <p className="text-sm text-white/90">{block.subtitle}</p>
                 </div>
 
                 {/* Chevron arrow — overlaps onto next card */}

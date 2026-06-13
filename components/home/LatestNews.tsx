@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Newspaper } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { Button } from "@/components/ui/Button";
 
 /**
@@ -72,7 +72,7 @@ function NewsCard({ post }: { post: Post }) {
 
 async function getLatestPosts(): Promise<Post[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("posts")
       .select("id, title, slug, excerpt, featured_image, published_at, created_at")

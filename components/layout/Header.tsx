@@ -132,7 +132,11 @@ export function Header() {
                     <li key={d.href}>
                       <Link
                         href={d.href}
-                        className="block border-b border-[#f0f0f0] px-[18px] py-[10px] text-[12.5px] font-semibold uppercase tracking-[0.05em] text-[#3a3a3a] transition-colors last:border-b-0 hover:bg-[#fafafa] hover:text-lmc-green"
+                        className={`block border-b border-[#f0f0f0] px-[18px] py-[10px] text-[12.5px] font-semibold uppercase tracking-[0.05em] transition-colors last:border-b-0 hover:bg-[#fafafa] ${
+                          isActive(d.href)
+                            ? "bg-[#fafafa] text-lmc-green"
+                            : "text-[#3a3a3a] hover:text-lmc-green"
+                        }`}
                       >
                         {d.label}
                       </Link>
@@ -169,7 +173,7 @@ export function Header() {
             aria-hidden="true"
           />
           {/* Drawer content */}
-          <div className="relative z-50 border-t border-lmc-borderLight bg-white px-4 pb-4 lg:hidden">
+          <div className="relative z-50 max-h-[calc(100dvh-88px)] overflow-y-auto border-t border-lmc-borderLight bg-white px-4 pb-4 lg:hidden">
           {/* Emergency line in mobile drawer */}
           <div className="flex items-center gap-2 border-b border-lmc-borderLight py-3 text-sm text-lmc-textPrimary">
             <svg
@@ -214,7 +218,11 @@ export function Header() {
                       <li key={d.href}>
                         <Link
                           href={d.href}
-                          className="block py-1.5 text-sm text-lmc-textSecondary hover:text-lmc-green"
+                          className={`block py-1.5 text-sm ${
+                            isActive(d.href)
+                              ? "text-lmc-green"
+                              : "text-lmc-textSecondary hover:text-lmc-green"
+                          }`}
                         >
                           {d.label}
                         </Link>

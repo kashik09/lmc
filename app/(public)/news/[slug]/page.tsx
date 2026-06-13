@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import SearchWidget from "@/components/news/SearchWidget";
 import RecentPosts from "@/components/news/RecentPosts";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { sanitizeHtml } from "@/lib/utils/sanitize";
 
 /**
@@ -41,7 +41,7 @@ function formatDate(dateString: string): string {
 
 async function getPost(slug: string): Promise<Post | null> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("posts")
       .select(
@@ -65,7 +65,7 @@ async function getPost(slug: string): Promise<Post | null> {
 
 async function getAllPostSlugs(): Promise<string[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("posts")
       .select("slug")
