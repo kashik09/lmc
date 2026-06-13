@@ -8,6 +8,7 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   // Pattern: role(s) that can access
   "/dashboard": ["patient", "staff", "admin"],
   "/jobs/dashboard": ["staff", "admin"],
+  "/reception": ["staff", "admin"],
 };
 
 function getRequiredRoles(pathname: string): string[] | null {
