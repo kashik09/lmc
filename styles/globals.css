@@ -58,6 +58,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-soft: 0 10px 30px rgba(16, 24, 40, 0.08);
+  --shadow-card-hover: 0 18px 44px rgba(16, 24, 40, 0.14);
 }
 
 /* Dark mode DISABLED — medical sites stay light-themed

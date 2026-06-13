@@ -110,7 +110,9 @@ const config: Config = {
         lg: "var(--radius-lg)",
         xl: "var(--radius-xl)",
         full: "var(--radius-full)",
-        btn: "3px",
+        btn: "5px",       // polished button radius
+        input: "5px",     // polished input radius
+        card: "6px",      // polished card radius
       },
       spacing: {
         xs: "var(--spacing-xs)",
@@ -130,6 +132,7 @@ const config: Config = {
         cardHover: "0 6px 18px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)", // mockup --shadow-md
         header: "0 6px 18px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)",    // mockup --shadow-md
         hero: "0 20px 50px rgba(0,0,0,0.18)",                                  // mockup --shadow-lg
+        soft: "0 10px 30px rgba(16,24,40,0.08)",                               // subtle depth
       },
       maxWidth: {
         container: "1170px",
