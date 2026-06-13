@@ -95,6 +95,7 @@ export default function PostCard({ post }: { post: Post }) {
         <Link
           href={`/news/${post.slug}`}
           className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.12em] text-lmc-green transition-all hover:gap-3"
+          aria-label={`Read more about ${post.title}`}
         >
           Read More
           <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />

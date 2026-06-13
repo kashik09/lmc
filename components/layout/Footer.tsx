@@ -42,17 +42,18 @@ const latestNewsDummy = [
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h4 className="relative mb-[22px] pb-[14px] font-sans text-[13px] font-bold uppercase tracking-[0.16em] text-white">
+    <h3 className="relative mb-[22px] pb-[14px] font-sans text-[13px] font-bold uppercase tracking-[0.16em] text-white">
       {children}
       <span className="absolute bottom-0 left-0 h-[2px] w-[44px] bg-lmc-green" />
-    </h4>
+    </h3>
   );
 }
 
 export function Footer() {
   return (
     <>
-      <footer className="relative bg-lmc-footerBg pt-[88px] text-white/85">
+      <footer className="relative bg-lmc-footerBg pt-[88px] text-white/85" aria-labelledby="footer-heading">
+        <h2 id="footer-heading" className="sr-only">Footer</h2>
         {/* Angled top edge */}
         <div
           className="absolute -top-[38px] left-0 right-0 h-10"
@@ -90,7 +91,7 @@ export function Footer() {
                     <Phone className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
                       Emergency Line
                     </div>
                     <strong className="text-white">(+256) 774-202-747</strong>
@@ -101,7 +102,7 @@ export function Footer() {
                     <Mail className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
                       Email Us
                     </div>
                     <a href="mailto:info@lmc.co.ug" className="text-white">
@@ -114,7 +115,7 @@ export function Footer() {
                     <MapPin className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] opacity-60">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
                       Location
                     </div>
                     <span>

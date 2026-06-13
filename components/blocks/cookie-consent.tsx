@@ -291,7 +291,7 @@ export function CookiePreferencesButton() {
   return (
     <button
       onClick={openPreferences}
-      className="text-sm text-muted-foreground hover:text-primary"
+      className="text-sm text-white/85 transition-colors hover:text-lmc-greenOnDark"
     >
       Cookie Preferences
     </button>

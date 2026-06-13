@@ -70,6 +70,7 @@ export function FeaturedServices() {
                 <Link
                   href={`/services/${service.slug}`}
                   className="mt-auto text-sm text-primary hover:underline"
+                  aria-label={`Learn more about ${service.title}`}
                 >
                   Learn more →
                 </Link>

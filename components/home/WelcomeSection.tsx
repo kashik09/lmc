@@ -41,6 +41,7 @@ export default function WelcomeSection() {
               <Link
                 href="/about"
                 className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:gap-3 hover:bg-lmc-greenDark"
+                aria-label="Read more about Lifeline Medical Centre"
               >
                 <ArrowRight className="h-4 w-4" />
                 Read More

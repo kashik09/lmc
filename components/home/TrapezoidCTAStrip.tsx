@@ -72,10 +72,10 @@ export default function TrapezoidCTAStrip() {
 
                 {/* Text content */}
                 <div>
-                  <h3 className="mb-0.5 text-base font-bold uppercase tracking-wide">
+                  <h3 className="mb-0.5 text-base font-bold uppercase tracking-wide text-white">
                     {block.label}
                   </h3>
-                  <p className="text-sm text-white/85">{block.subtitle}</p>
+                  <p className="text-sm text-white/90">{block.subtitle}</p>
                 </div>
 
                 {/* Chevron arrow — overlaps onto next card */}
