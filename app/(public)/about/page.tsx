@@ -87,9 +87,11 @@ export default function AboutPage() {
             {missionVisionValues.map((item) => (
               <div
                 key={item.title}
-                className="border-t-4 border-lmc-green bg-white p-8"
+                className="rounded-md border border-lmc-borderLight border-t-4 border-t-lmc-green bg-white p-8 shadow-md"
               >
-                <item.icon className="mb-4 h-10 w-10 text-lmc-green" />
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-lmc-green/10">
+                  <item.icon className="h-7 w-7 text-lmc-green" />
+                </div>
                 <h3 className="mb-3 font-heading text-xl font-semibold text-lmc-grayDark">
                   {item.title}
                 </h3>
