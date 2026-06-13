@@ -9,9 +9,9 @@ import { contactForm } from "@/content/contacts";
 import { submitContact } from "@/lib/actions/contact";
 import { Button } from "@/components/ui/Button";
 import {
-  inputClass,
-  textareaClass,
-  labelClass,
+  inputClassDark,
+  textareaClassDark,
+  labelClassDark,
   errorClass,
   fieldWrapperClass,
   globalErrorClass,
@@ -126,7 +126,7 @@ export function ContactForm() {
 
       {/* Full Name */}
       <div className={fieldWrapperClass}>
-        <label htmlFor="fullName" className={labelClass}>
+        <label htmlFor="fullName" className={labelClassDark}>
           {contactForm.fields.fullName.label}
           <span className="text-red-500"> *</span>
         </label>
@@ -140,7 +140,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={!!errors.fullName}
           aria-describedby={errors.fullName ? "fullName-error" : undefined}
-          className={inputClass}
+          className={inputClassDark}
         />
         {errors.fullName && (
           <p id="fullName-error" className={errorClass}>{errors.fullName}</p>
@@ -149,7 +149,7 @@ export function ContactForm() {
 
       {/* Phone */}
       <div className={fieldWrapperClass}>
-        <label htmlFor="phone" className={labelClass}>
+        <label htmlFor="phone" className={labelClassDark}>
           {contactForm.fields.phone.label}
           <span className="text-red-500"> *</span>
         </label>
@@ -163,7 +163,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={!!errors.phone}
           aria-describedby={errors.phone ? "phone-error" : undefined}
-          className={inputClass}
+          className={inputClassDark}
         />
         {errors.phone && (
           <p id="phone-error" className={errorClass}>{errors.phone}</p>
@@ -172,7 +172,7 @@ export function ContactForm() {
 
       {/* Email */}
       <div className={fieldWrapperClass}>
-        <label htmlFor="email" className={labelClass}>
+        <label htmlFor="email" className={labelClassDark}>
           {contactForm.fields.email.label}
         </label>
         <input
@@ -184,7 +184,7 @@ export function ContactForm() {
           placeholder={contactForm.fields.email.placeholder}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
-          className={inputClass}
+          className={inputClassDark}
         />
         {errors.email && (
           <p id="email-error" className={errorClass}>{errors.email}</p>
@@ -193,7 +193,7 @@ export function ContactForm() {
 
       {/* Subject */}
       <div className={fieldWrapperClass}>
-        <label htmlFor="subject" className={labelClass}>
+        <label htmlFor="subject" className={labelClassDark}>
           {contactForm.fields.subject.label}
         </label>
         <input
@@ -203,13 +203,13 @@ export function ContactForm() {
           value={formData.subject}
           onChange={handleChange}
           placeholder={contactForm.fields.subject.placeholder}
-          className={inputClass}
+          className={inputClassDark}
         />
       </div>
 
       {/* Message */}
       <div className={fieldWrapperClass}>
-        <label htmlFor="message" className={labelClass}>
+        <label htmlFor="message" className={labelClassDark}>
           {contactForm.fields.message.label}
           <span className="text-red-500"> *</span>
         </label>
@@ -223,7 +223,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={textareaClass}
+          className={textareaClassDark}
         />
         {errors.message && (
           <p id="message-error" className={errorClass}>{errors.message}</p>
