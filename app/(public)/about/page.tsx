@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Target, Eye, Heart } from "lucide-react";
+import { Target, Eye, Heart, Check } from "lucide-react";
+import { aboutImages } from "@/content/lmc-images";
 import PageBanner from "@/components/layout/PageBanner";
 import { Button } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
@@ -15,6 +16,21 @@ import {
  *
  * Preserves existing content from content/about.ts
  */
+
+const whyChooseUs = [
+  {
+    title: "Qualified, caring clinicians",
+    description: "across general practice, maternity and diagnostics.",
+  },
+  {
+    title: "Modern on-site lab & pharmacy",
+    description: "— results and prescriptions without the extra trip.",
+  },
+  {
+    title: "Same-day appointments",
+    description: "so you're seen when it matters.",
+  },
+];
 
 const missionVisionValues = [
   {
@@ -104,7 +120,59 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
-      {/* Section 3: Facilities */}
+      {/* Section 3: Why Gayaza Trusts Us */}
+      <Reveal as="section" className="bg-white py-16 md:py-24">
+        <div className="mx-auto max-w-container px-4">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[72px]">
+            <div>
+              <p className="mb-4 text-sm font-bold uppercase tracking-widest text-lmc-green">
+                Why Gayaza Trusts Us
+              </p>
+              <h2 className="mb-5 font-heading text-3xl font-bold leading-tight text-lmc-grayDark md:text-[38px]">
+                Care that feels like family
+              </h2>
+              <p className="mb-7 max-w-[520px] font-body text-base leading-relaxed text-lmc-grayMedium">
+                For over a decade, families across Gayaza have turned to Lifeline for everyday
+                checkups, urgent care and everything in between — delivered by a team that knows
+                them by name.
+              </p>
+              <ul className="mb-8 flex flex-col gap-4">
+                {whyChooseUs.map((item) => (
+                  <li key={item.title} className="flex items-start gap-3.5">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lmc-green/10">
+                      <Check className="h-3.5 w-3.5 text-lmc-green" strokeWidth={3} />
+                    </span>
+                    <span className="text-[15px] text-lmc-grayDark">
+                      <strong className="font-bold">{item.title}</strong> {item.description}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <Button asChild href="/appointments" size="lg">
+                Book an Appointment
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-xl">
+                <Image
+                  src={aboutImages.staffGroup.src}
+                  alt={aboutImages.staffGroup.alt}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-6 -left-6 rounded-xl bg-lmc-green px-6 py-5 text-white shadow-lg">
+                <div className="font-heading text-[34px] font-black leading-none">10+</div>
+                <div className="mt-1 text-[11px] font-bold uppercase tracking-widest opacity-90">
+                  Years serving Gayaza
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Section 4: Facilities */}
       <Reveal as="section" className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-container px-4">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
@@ -131,7 +199,7 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
-      {/* Section 4: CTA Banner */}
+      {/* Section 5: CTA Banner */}
       <Reveal as="section" className="bg-lmc-green py-12 text-white md:py-16">
         <div className="mx-auto flex max-w-container flex-col gap-6 px-4 md:flex-row md:items-center md:justify-between">
           <div>
