@@ -45,7 +45,7 @@ export function SectionHeading({
 
   const eyebrowColor = isDark ? "text-lmc-greenOnDark" : "text-lmc-green";
   const titleColor = isDark ? "text-white" : "text-lmc-grayDark";
-  const subtitleColor = isDark ? "text-white/85" : "text-lmc-grayMedium";
+  const subtitleColor = isDark ? "text-white" : "text-lmc-grayMedium";
   const barColor = isDark ? "bg-lmc-greenOnDark" : "bg-lmc-green";
 
   return (

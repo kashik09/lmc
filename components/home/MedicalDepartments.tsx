@@ -77,7 +77,7 @@ export default function MedicalDepartments() {
                   <h3 className="text-base font-bold uppercase tracking-wide text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  <p className="mt-3 text-sm leading-relaxed text-white">
                     {service.description}
                   </p>
                   {/* Accent bar */}
@@ -96,7 +96,7 @@ export default function MedicalDepartments() {
               className="mb-4 h-[2px] w-[60px] bg-white/40"
               aria-hidden="true"
             />
-            <p className="text-base leading-relaxed text-white/85">
+            <p className="text-base leading-relaxed text-white">
               LMC is built on respect and powered by empathy to give back to the community. We value the fact that we were born and raise in a community and the initiative to establish the medical center is not only to give back to the community but to offer the best services including exceptional care to our community in Gayaza and the surrounding. LMC offers both inpatient and outpatient services.
             </p>
             <Link

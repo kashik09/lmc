@@ -52,7 +52,7 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
 export function Footer() {
   return (
     <>
-      <footer className="relative bg-lmc-footerBg pt-[88px] text-white/85" aria-labelledby="footer-heading">
+      <footer className="relative bg-lmc-footerBg pt-[88px] text-white" aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">Footer</h2>
         {/* Angled top edge */}
         <div
@@ -91,7 +91,7 @@ export function Footer() {
                     <Phone className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/90">
                       Emergency Line
                     </div>
                     <strong className="text-white">(+256) 774-202-747</strong>
@@ -102,7 +102,7 @@ export function Footer() {
                     <Mail className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/90">
                       Email Us
                     </div>
                     <a href="mailto:info@lmc.co.ug" className="text-white">
@@ -115,7 +115,7 @@ export function Footer() {
                     <MapPin className="h-[14px] w-[14px]" />
                   </div>
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/70">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-white/90">
                       Location
                     </div>
                     <span>

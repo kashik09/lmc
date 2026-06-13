@@ -68,7 +68,7 @@ export default function WelcomeSection() {
               <span className="text-sm font-bold uppercase tracking-[0.12em]">
                 Patient &amp; Visitor Guide
               </span>
-              <span className="mt-1 text-xs text-white/80">
+              <span className="mt-1 text-xs text-white">
                 Plan your visit to our Clinic
               </span>
             </Link>
