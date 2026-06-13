@@ -63,7 +63,7 @@ export function Footer() {
           }}
         />
 
-        <div className="mx-auto max-w-container px-7 pb-14">
+        <div className="mx-auto max-w-container px-7 pb-14 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 gap-14 md:grid-cols-3">
             {/* Column 1: About + contact */}
             <div>
