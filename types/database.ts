@@ -214,7 +214,10 @@ export type Database = {
           phone: string;
           subject: string | null;
           message: string;
+          status: "new" | "read" | "archived";
+          is_read: boolean;
           created_at: string;
+          updated_at: string;
         };
         Insert: {
           id?: string;
@@ -224,7 +227,10 @@ export type Database = {
           phone: string;
           subject?: string | null;
           message: string;
+          status?: "new" | "read" | "archived";
+          is_read?: boolean;
           created_at?: string;
+          updated_at?: string;
         };
         Update: {
           id?: string;
@@ -234,7 +240,10 @@ export type Database = {
           phone?: string | null;
           subject?: string | null;
           message?: string;
+          status?: "new" | "read" | "archived";
+          is_read?: boolean;
           created_at?: string;
+          updated_at?: string;
         };
         Relationships: [];
       };
@@ -364,7 +373,11 @@ export interface Inquiry {
   phone: string | null;
   subject: string | null;
   message: string;
+  status: "new" | "read" | "archived";
+  is_read: boolean;
   created_at: string;
+  updated_at: string;
 }
 
-export type InquiryInsert = Omit<Inquiry, "id" | "reference_number" | "created_at">;
+export type InquiryInsert = Omit<Inquiry, "id" | "reference_number" | "status" | "is_read" | "created_at" | "updated_at">;
+export type InquiryStatus = Inquiry["status"];
