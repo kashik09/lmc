@@ -181,7 +181,7 @@ export default function PrivacyPolicyPage() {
                 href="https://pdpo.go.ug"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lmc-green hover:underline"
+                className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green"
               >
                 pdpo.go.ug
               </a>
@@ -192,7 +192,7 @@ export default function PrivacyPolicyPage() {
             To exercise any of these rights, contact us at{" "}
             <a
               href="mailto:info@lmc.co.ug"
-              className="text-lmc-green hover:underline"
+              className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green"
             >
               info@lmc.co.ug
             </a>
@@ -267,18 +267,18 @@ export default function PrivacyPolicyPage() {
             1052 – block 187 Gayaza, Kyadondo
             <br />
             Phone:{" "}
-            <a href="tel:+256751873951" className="text-lmc-green hover:underline">
+            <a href="tel:+256751873951" className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green">
               (+256) 751 873 951
             </a>{" "}
             /{" "}
-            <a href="tel:+256774202747" className="text-lmc-green hover:underline">
+            <a href="tel:+256774202747" className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green">
               (+256) 774 202 747
             </a>
             <br />
             Email:{" "}
             <a
               href="mailto:info@lmc.co.ug"
-              className="text-lmc-green hover:underline"
+              className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green"
             >
               info@lmc.co.ug
             </a>
@@ -294,7 +294,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Back Link */}
           <div className="mt-8 border-t border-lmc-grayLight pt-6">
-            <Link href="/" className="text-lmc-green hover:underline">
+            <Link href="/" className="text-lmc-green underline decoration-lmc-green/50 hover:decoration-lmc-green">
               ← Back to Home
             </Link>
           </div>
