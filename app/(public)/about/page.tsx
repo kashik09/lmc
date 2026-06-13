@@ -7,14 +7,11 @@ import Reveal from "@/components/ui/Reveal";
 import {
   aboutIntro,
   aboutVision,
-  aboutFacilities,
   aboutCta,
 } from "@/content/about";
 
 /**
- * About Page — LMC story, mission/vision/values, facilities, CTA
- *
- * Preserves existing content from content/about.ts
+ * About Page — LMC story, mission/vision/values, why choose us, CTA
  */
 
 const whyChooseUs = [
@@ -59,56 +56,44 @@ export default function AboutPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
       />
 
-      {/* Section 1: Who We Are — image left, text right */}
+      {/* Section 1: Who We Are — centered intro */}
       <Reveal as="section" className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-container px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
-              <Image
-                src={aboutFacilities.image}
-                alt="Lifeline Medical Centre staff and facilities"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
-                Who We Are
-              </p>
-              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
-                {aboutIntro.heading}
-              </h2>
-              <div className="prose prose-lg max-w-none font-body text-lmc-grayDark prose-headings:font-heading prose-headings:text-lmc-grayDark prose-a:text-lmc-green prose-strong:text-lmc-grayDark">
-                {aboutIntro.paragraphs.map((para, index) => (
-                  <p key={index}>{para}</p>
-                ))}
-              </div>
-            </div>
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
+            Who We Are
+          </p>
+          <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+            {aboutIntro.heading}
+          </h2>
+          <div className="space-y-4 font-body text-base leading-relaxed text-lmc-grayMedium md:text-lg">
+            {aboutIntro.paragraphs.map((para, index) => (
+              <p key={index}>{para}</p>
+            ))}
           </div>
         </div>
       </Reveal>
 
       {/* Section 2: Mission / Vision / Values */}
       <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
-        <div className="mx-auto max-w-container px-6 lg:px-8">
-          <div className="mb-12 text-center">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="mb-10 text-center">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
               What Drives Us
             </p>
-            <h2 className="mb-4 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
+            <h2 className="font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
               Our Mission, Vision & Values
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {missionVisionValues.map((item) => (
               <div
                 key={item.title}
-                className="rounded-md border border-lmc-borderLight border-t-4 border-t-lmc-green bg-white p-8 shadow-md"
+                className="rounded-md border border-lmc-borderLight border-t-4 border-t-lmc-green bg-white p-6 shadow-md"
               >
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-lmc-green/10">
-                  <item.icon className="h-7 w-7 text-lmc-green" />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-lmc-green/10">
+                  <item.icon className="h-6 w-6 text-lmc-green" />
                 </div>
-                <h3 className="mb-3 font-heading text-xl font-semibold text-lmc-grayDark">
+                <h3 className="mb-2 font-heading text-lg font-semibold text-lmc-grayDark">
                   {item.title}
                 </h3>
                 <p className="font-body text-sm leading-relaxed text-lmc-grayMedium">
@@ -121,39 +106,39 @@ export default function AboutPage() {
       </Reveal>
 
       {/* Section 3: Why Gayaza Trusts Us */}
-      <Reveal as="section" className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-container px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[72px]">
+      <Reveal as="section" className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-widest text-lmc-green">
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
                 Why Gayaza Trusts Us
               </p>
-              <h2 className="mb-5 font-heading text-3xl font-bold leading-tight text-lmc-grayDark md:text-[38px]">
+              <h2 className="mb-4 font-heading text-2xl font-bold leading-tight text-lmc-grayDark md:text-3xl">
                 Care that feels like family
               </h2>
-              <p className="mb-7 max-w-[520px] font-body text-base leading-relaxed text-lmc-grayMedium">
+              <p className="mb-6 font-body text-base leading-relaxed text-lmc-grayMedium">
                 For over a decade, families across Gayaza have turned to Lifeline for everyday
                 checkups, urgent care and everything in between — delivered by a team that knows
                 them by name.
               </p>
-              <ul className="mb-8 flex flex-col gap-4">
+              <ul className="mb-6 flex flex-col gap-3">
                 {whyChooseUs.map((item) => (
-                  <li key={item.title} className="flex items-start gap-3.5">
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lmc-green/10">
-                      <Check className="h-3.5 w-3.5 text-lmc-green" strokeWidth={3} />
+                  <li key={item.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lmc-green/10">
+                      <Check className="h-3 w-3 text-lmc-green" strokeWidth={3} />
                     </span>
-                    <span className="text-[15px] text-lmc-grayDark">
-                      <strong className="font-bold">{item.title}</strong> {item.description}
+                    <span className="text-sm text-lmc-grayDark">
+                      <strong className="font-semibold">{item.title}</strong> {item.description}
                     </span>
                   </li>
                 ))}
               </ul>
-              <Button asChild href="/appointments" size="lg">
+              <Button asChild href="/appointments">
                 Book an Appointment
               </Button>
             </div>
             <div className="relative">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
                 <Image
                   src={aboutImages.staffGroup.src}
                   alt={aboutImages.staffGroup.alt}
@@ -161,9 +146,9 @@ export default function AboutPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 rounded-xl bg-lmc-green px-6 py-5 text-white shadow-lg">
-                <div className="font-heading text-[34px] font-black leading-none">10+</div>
-                <div className="mt-1 text-[11px] font-bold uppercase tracking-widest opacity-90">
+              <div className="absolute -bottom-4 -left-4 rounded-lg bg-lmc-green px-5 py-4 text-white shadow-md">
+                <div className="font-heading text-2xl font-black leading-none">10+</div>
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wider opacity-90">
                   Years serving Gayaza
                 </div>
               </div>
@@ -172,47 +157,19 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
-      {/* Section 4: Facilities */}
-      <Reveal as="section" className="bg-lmc-offWhite py-16 md:py-20">
-        <div className="mx-auto max-w-container px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
-            <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-lmc-green">
-                Our Facilities
-              </p>
-              <h2 className="mb-6 font-heading text-3xl font-bold text-lmc-grayDark md:text-4xl">
-                {aboutFacilities.heading}
-              </h2>
-              <p className="font-body text-lg leading-relaxed text-lmc-grayMedium">
-                {aboutFacilities.description}
-              </p>
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden bg-lmc-offWhite">
-              <Image
-                src={aboutFacilities.image}
-                alt="Lifeline Medical Centre modern facilities"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Section 5: CTA Banner */}
-      <Reveal as="section" className="bg-lmc-green py-12 text-white md:py-16">
-        <div className="mx-auto flex max-w-container flex-col gap-6 px-4 md:flex-row md:items-center md:justify-between">
+      {/* Section 4: CTA Banner */}
+      <Reveal as="section" className="bg-lmc-green py-10 text-white md:py-14">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 px-6 text-center md:flex-row md:justify-between md:text-left">
           <div>
-            <h2 className="mb-2 font-heading text-2xl font-bold md:text-3xl">
+            <h2 className="mb-1 font-heading text-xl font-bold md:text-2xl">
               {aboutCta.heading}
             </h2>
-            <p className="font-body text-white/90">{aboutCta.description}</p>
+            <p className="font-body text-sm text-white/90">{aboutCta.description}</p>
           </div>
-          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Button
               asChild
               href={aboutCta.primaryButton.href}
-              size="lg"
               className="bg-white !text-lmc-green hover:bg-lmc-offWhite"
             >
               {aboutCta.primaryButton.text}
@@ -220,7 +177,6 @@ export default function AboutPage() {
             <Button
               asChild
               href={aboutCta.secondaryButton.href}
-              size="lg"
               variant="secondary"
               className="border-white text-white hover:bg-white hover:!text-lmc-green"
             >
