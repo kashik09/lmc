@@ -160,7 +160,7 @@ export default function HeroCarousel() {
                 </p>
                 <Link
                   href={slide.ctaHref}
-                  className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-white transition-all hover:gap-3 hover:bg-lmc-greenDark"
+                  className="inline-flex items-center gap-2 rounded-btn bg-lmc-green px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-white transition-all hover:gap-3 hover:bg-lmc-greenDark"
                 >
                   {slide.ctaLabel}
                   <ArrowRight className="h-4 w-4" />

@@ -60,7 +60,7 @@ export default function MedicalDepartments() {
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="group block overflow-hidden bg-[#233a58] transition-transform hover:-translate-y-1"
+                className="group block overflow-hidden rounded-card bg-[#233a58] transition-transform hover:-translate-y-1"
               >
                 {/* TOP: Service image */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -101,7 +101,7 @@ export default function MedicalDepartments() {
             </p>
             <Link
               href="/services"
-              className="mt-6 inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-lmc-greenDark"
+              className="mt-6 inline-flex items-center gap-2 rounded-btn bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-lmc-greenDark"
             >
               <Users className="h-4 w-4" />
               All Our Services

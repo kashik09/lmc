@@ -35,7 +35,7 @@ function NewsCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/news/${post.slug}`}
-      className="group block border border-lmc-grayLight bg-white transition-shadow hover:shadow-cardHover"
+      className="group block overflow-hidden rounded-card border border-lmc-grayLight bg-white shadow-soft transition-shadow hover:shadow-cardHover"
     >
       {/* Image */}
       <div className="relative aspect-[16/10] overflow-hidden bg-lmc-offWhite">

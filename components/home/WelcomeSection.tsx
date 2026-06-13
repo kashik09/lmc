@@ -40,7 +40,7 @@ export default function WelcomeSection() {
             <div className="mt-8">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:gap-3 hover:bg-lmc-greenDark"
+                className="inline-flex items-center gap-2 rounded-btn bg-lmc-green px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:gap-3 hover:bg-lmc-greenDark"
                 aria-label="Read more about Lifeline Medical Centre"
               >
                 <ArrowRight className="h-4 w-4" />
@@ -50,7 +50,7 @@ export default function WelcomeSection() {
           </div>
 
           {/* RIGHT: Image card with bottom strip */}
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden rounded-card shadow-soft">
             <div className="relative aspect-[4/3] w-full bg-lmc-offWhite">
               <Image
                 src={cardImage.src}
