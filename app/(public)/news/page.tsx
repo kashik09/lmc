@@ -3,7 +3,7 @@ import PageBanner from "@/components/layout/PageBanner";
 import PostCard, { type Post } from "@/components/news/PostCard";
 import EmptyState from "@/components/news/EmptyState";
 import NewsSidebar from "@/components/news/NewsSidebar";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
 /**
  * News Listing Page — Mockup-style layout
@@ -23,7 +23,7 @@ export const metadata = {
 
 async function getPosts(): Promise<Post[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("posts")
       .select(

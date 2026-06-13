@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Newspaper } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
 /**
  * RecentPosts — Server component for sidebar widget
@@ -37,7 +37,7 @@ async function getRecentPosts(
   limit: number = 5
 ): Promise<Post[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase
       .from("posts")
       .select("id, slug, title, featured_image, published_at, created_at")
