@@ -33,7 +33,7 @@ export default function WidgetCard({
   return (
     <div className={`${bgClass} p-7 text-white`}>
       {/* Eyebrow */}
-      <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+      <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white">
         {eyebrow}
       </p>
 

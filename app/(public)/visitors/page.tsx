@@ -145,16 +145,17 @@ export default function VisitorsPage() {
                     <Link
                       key={card.id}
                       href={card.href}
-                      className={`group flex items-start gap-4 border border-lmc-grayLight bg-white p-5 transition-all hover:shadow-cardHover ${isDisabled ? "pointer-events-none opacity-60" : ""}`}
+                      aria-disabled={isDisabled}
+                      className={`group flex items-start gap-4 border border-lmc-grayLight bg-white p-5 transition-all hover:shadow-cardHover ${isDisabled ? "pointer-events-none" : ""}`}
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-lmc-green/10 text-lmc-green transition-colors group-hover:bg-lmc-green group-hover:text-white">
+                      <div className={`flex h-12 w-12 shrink-0 items-center justify-center transition-colors ${isDisabled ? "bg-lmc-borderLight text-lmc-textSecondary" : "bg-lmc-green/10 text-lmc-green group-hover:bg-lmc-green group-hover:text-white"}`}>
                         <Icon className="h-6 w-6" />
                       </div>
                       <div>
-                        <h3 className="font-heading text-base font-semibold text-lmc-grayDark group-hover:text-lmc-green">
+                        <h3 className={`font-heading text-base font-semibold ${isDisabled ? "text-lmc-textSecondary" : "text-lmc-grayDark group-hover:text-lmc-green"}`}>
                           {card.heading}
                         </h3>
-                        <p className="mt-1 font-body text-sm text-lmc-grayMedium">
+                        <p className="mt-1 font-body text-sm text-lmc-textSecondary">
                           {card.description}
                         </p>
                       </div>
