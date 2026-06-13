@@ -14,9 +14,8 @@ import { contactInfo } from "@/content/contacts";
  * Refs: docs/visual-rebuild/00-mockup-spec.md, mockup-reference/contacts.html
  */
 
-// TODO: Kashi to replace with real LMC Google Maps embed URL
 const GOOGLE_MAPS_EMBED_URL =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7336!2d32.5833!3d0.4833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGayaza%2C%20Uganda!5e0!3m2!1sen!2sug!4v1234567890";
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.4!2d32.6125764!3d0.4472954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177db107c33b977b%3A0x5c5dac1338e5015c!2sLifeline%20Medical%20Centre%20Gayaza!5e0!3m2!1sen!2sug";
 
 export default function ContactsPage() {
   return (

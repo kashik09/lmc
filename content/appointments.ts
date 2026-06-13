@@ -37,7 +37,7 @@ export const appointmentInfoPanel = {
   phone: "(+256) 774-202-747",
   email: "info@lmc.co.ug",
   address: "Namavundu Rd, Gayaza",
-  addressMapUrl: "https://maps.google.com/?q=Namavundu+Rd+Gayaza+Uganda",
+  addressMapUrl: "https://www.google.com/maps/place/Lifeline+Medical+Centre+Gayaza/@0.4473008,32.6100015,17z",
   openingHours: "Open 24/7 · Emergency line always available",
 };
 
