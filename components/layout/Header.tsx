@@ -173,7 +173,7 @@ export function Header() {
             aria-hidden="true"
           />
           {/* Drawer content */}
-          <div className="fixed left-0 right-0 top-[88px] z-50 max-h-[calc(100dvh-88px)] overflow-y-auto border-t border-lmc-borderLight bg-white px-4 pb-6 lg:hidden">
+          <div className="fixed left-0 right-0 top-[88px] z-50 max-h-[calc(100dvh-88px)] overflow-y-auto border-t border-lmc-borderLight bg-white px-4 pb-12 lg:hidden">
           {/* Emergency line in mobile drawer */}
           <div className="flex items-center gap-2 border-b border-lmc-borderLight py-3 text-sm text-lmc-textPrimary">
             <svg
