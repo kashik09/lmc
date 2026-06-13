@@ -182,8 +182,15 @@ export function Footer() {
         <div className="border-t border-white/10 bg-lmc-footerDark py-[22px]">
           <div className="mx-auto flex max-w-container flex-col items-center justify-between gap-3 px-7 text-[12.5px] md:flex-row">
             <span>
-              © {new Date().getFullYear()} Lifeline Medical Centre — Gayaza.
-              All rights reserved.
+              © {new Date().getFullYear()}{" "}
+              <Link
+                href="/admin"
+                className="text-inherit no-underline hover:text-lmc-green"
+                aria-label="Staff portal"
+              >
+                Lifeline Medical Centre
+              </Link>{" "}
+              — Gayaza. All rights reserved.
             </span>
             <div className="flex items-center gap-4">
               <Link
@@ -195,7 +202,6 @@ export function Footer() {
               <span className="text-white/40">·</span>
               <CookiePreferencesButton />
             </div>
-            {/* TODO: designer attribution removed per client preference */}
           </div>
         </div>
       </footer>

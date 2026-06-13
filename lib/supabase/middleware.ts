@@ -9,6 +9,7 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   "/dashboard": ["patient", "staff", "admin"],
   "/jobs/dashboard": ["staff", "admin"],
   "/reception": ["staff", "admin"],
+  "/roster": ["staff", "admin"],
 };
 
 function getRequiredRoles(pathname: string): string[] | null {
