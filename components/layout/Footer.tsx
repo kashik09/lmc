@@ -202,10 +202,17 @@ export function Footer() {
             </span>
             <div className="flex items-center gap-4">
               <Link
+                href="/terms"
+                className="transition-colors hover:text-lmc-green"
+              >
+                Terms
+              </Link>
+              <span className="text-white/40">·</span>
+              <Link
                 href="/privacy-policy"
                 className="transition-colors hover:text-lmc-green"
               >
-                Privacy Policy
+                Privacy
               </Link>
               <span className="text-white/40">·</span>
               <CookiePreferencesButton />
