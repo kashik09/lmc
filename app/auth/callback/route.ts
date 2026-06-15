@@ -25,13 +25,15 @@ export async function GET(request: Request) {
         data.user.email || "unknown"
       );
 
-      // Add warning param if suspicious
-      const redirectUrl = new URL(next, origin);
+      // Suspicious login: redirect to home with no clearance (as per flow diagram)
       if (logResult.suspicious) {
-        redirectUrl.searchParams.set("security_warning", "1");
+        const warningUrl = new URL("/", origin);
+        warningUrl.searchParams.set("auth_warning", "suspicious_login");
+        return NextResponse.redirect(warningUrl.toString());
       }
 
-      return NextResponse.redirect(redirectUrl.toString());
+      // Clear login: proceed to intended destination
+      return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
