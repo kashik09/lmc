@@ -7,6 +7,11 @@ import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, contactLimiter } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/utils/turnstile";
 import { getClientIp, getUserAgent } from "@/lib/utils/ip-security";
+import {
+  sendEmail,
+  inquiryConfirmationEmail,
+  inquiryNotificationEmail,
+} from "@/lib/email";
 
 export type ContactResult =
   | { success: true; referenceNumber: string }
@@ -73,7 +78,6 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   if (insertError) {
     console.error("[contact] inquiry insert failed:", insertError);
     Sentry.captureException(insertError, {
-      
       tags: { action: "contact_submit" },
       // DO NOT include user PII (email, phone, name) — DPPA 2019 compliance
     });
@@ -83,6 +87,36 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
       message:
         "We couldn't save your message. Please try again or call us directly.",
     };
+  }
+
+  // Send confirmation emails (non-blocking)
+  const emailData = {
+    name: fullName,
+    referenceNumber,
+    email: email || "",
+    phone,
+    subject,
+    message,
+  };
+
+  // Send to visitor (if email provided)
+  if (email) {
+    sendEmail({
+      to: email,
+      subject: `We Received Your Message - ${referenceNumber}`,
+      html: inquiryConfirmationEmail(emailData),
+    }).catch((err) => console.error("[contact] confirmation email failed:", err));
+  }
+
+  // Notify reception staff
+  const notifyEmail = process.env.LMC_NOTIFY_EMAIL;
+  if (notifyEmail) {
+    sendEmail({
+      to: notifyEmail,
+      subject: `New Contact Form Submission - ${referenceNumber}`,
+      html: inquiryNotificationEmail(emailData),
+      replyTo: email || undefined,
+    }).catch((err) => console.error("[contact] notification email failed:", err));
   }
 
   return { success: true, referenceNumber };

@@ -7,6 +7,11 @@ import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, appointmentLimiter } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/utils/turnstile";
 import { getClientIp, getUserAgent } from "@/lib/utils/ip-security";
+import {
+  sendEmail,
+  appointmentConfirmationEmail,
+  appointmentNotificationEmail,
+} from "@/lib/email";
 
 export type AppointmentResult =
   | { success: true; referenceNumber: string }
@@ -97,6 +102,36 @@ export async function submitAppointment(
       message:
         "We couldn't save your appointment request. Please try again or call us directly.",
     };
+  }
+
+  // Send confirmation emails (non-blocking)
+  const emailData = {
+    patientName: data.fullName,
+    referenceNumber,
+    department: data.department,
+    appointmentDate: toIsoDate(data.appointmentDate),
+    phone: data.phone,
+    email: data.email,
+  };
+
+  // Send to patient (if email provided)
+  if (data.email) {
+    sendEmail({
+      to: data.email,
+      subject: `Appointment Request Received - ${referenceNumber}`,
+      html: appointmentConfirmationEmail(emailData),
+    }).catch((err) => console.error("[appointment] confirmation email failed:", err));
+  }
+
+  // Notify reception staff
+  const notifyEmail = process.env.LMC_NOTIFY_EMAIL;
+  if (notifyEmail) {
+    sendEmail({
+      to: notifyEmail,
+      subject: `New Appointment Request - ${referenceNumber}`,
+      html: appointmentNotificationEmail(emailData),
+      replyTo: data.email || undefined,
+    }).catch((err) => console.error("[appointment] notification email failed:", err));
   }
 
   return { success: true, referenceNumber };
