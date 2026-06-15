@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { Inbox, Home } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { DashboardNav } from "@/components/dashboard/DashboardNav";
 
 /**
  * Dashboard layout — admin pages layout
@@ -17,48 +17,30 @@ export const metadata: Metadata = {
   },
 };
 
-const NAV_ITEMS = [
-  { href: "/reception", label: "Reception Inbox", icon: Inbox },
-  { href: "/dashboard", label: "Dashboard", icon: Home },
-  // Future items:
-  // { href: "/appointments", label: "Appointments", icon: Calendar },
-  // { href: "/staff", label: "Staff", icon: Users },
-  // { href: "/settings", label: "Settings", icon: Settings },
-];
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Check if user is admin for conditional nav items
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <div className="min-h-screen bg-lmc-pageBg">
-      {/* Simple top navigation for dashboard */}
-      <nav className="border-b border-lmc-borderLight bg-white">
-        <div className="flex items-center justify-between px-6 py-3">
-          <Link
-            href="/"
-            className="font-heading text-lg font-bold text-lmc-green"
-          >
-            LMC Admin
-          </Link>
-          <div className="flex items-center gap-1">
-            {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-lmc-textSecondary transition-colors hover:bg-lmc-pageBg hover:text-lmc-textPrimary"
-                >
-                  <Icon className="h-4 w-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
+      <DashboardNav isAdmin={isAdmin} />
       {children}
     </div>
   );
