@@ -68,7 +68,22 @@ export function LoginForm() {
       return;
     }
 
-    router.push(redirectTo);
+    // Log the login with IP security analysis
+    try {
+      const logRes = await fetch("/api/auth/log-login", { method: "POST" });
+      const logData = await logRes.json();
+
+      // Redirect with warning if suspicious
+      if (logData.suspicious) {
+        router.push(`${redirectTo}?security_warning=1`);
+      } else {
+        router.push(redirectTo);
+      }
+    } catch {
+      // Don't block login if logging fails
+      router.push(redirectTo);
+    }
+
     router.refresh();
   }
 
