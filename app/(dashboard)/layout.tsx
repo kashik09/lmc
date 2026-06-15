@@ -1,5 +1,21 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { Inbox, Home } from "lucide-react";
+
+/**
+ * Dashboard layout — admin pages layout
+ *
+ * Protected route: requires authentication
+ * SEO: noindex to keep admin pages out of search results
+ */
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Lifeline Medical Centre",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const NAV_ITEMS = [
   { href: "/reception", label: "Reception Inbox", icon: Inbox },
