@@ -62,7 +62,7 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   const { error: insertError } = await supabase.from("inquiries").insert({
     reference_number: referenceNumber,
     name: fullName,
-    email: email || null,
+    email: email || "",
     phone,
     subject: subject || null,
     message,

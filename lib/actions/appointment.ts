@@ -77,7 +77,7 @@ export async function submitAppointment(
     date_of_birth: toIsoDate(data.dateOfBirth),
     sex: data.sex,
     phone: data.phone,
-    email: data.email || null,
+    email: data.email || "",
     appointment_date: toIsoDate(data.appointmentDate),
     message: data.message || null,
     ip_address: ipAddress,

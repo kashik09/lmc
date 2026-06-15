@@ -21,10 +21,11 @@ type Post = {
   title: string;
   featured_image: string | null;
   published_at: string | null;
-  created_at: string;
+  created_at: string | null;
 };
 
-function formatDate(dateString: string): string {
+function formatDate(dateString: string | null): string {
+  if (!dateString) return "";
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
