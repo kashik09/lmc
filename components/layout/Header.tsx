@@ -84,12 +84,21 @@ export function Header() {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-lmc-borderLight bg-white transition-shadow ${
-        hasScrolled ? "shadow-header" : ""
-      }`}
-    >
-      <nav className="mx-auto flex h-[88px] max-w-container items-center justify-between px-7">
+    <>
+      {/* Skip to main content link - accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-lmc-green focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
+      <header
+        className={`sticky top-0 z-50 border-b border-lmc-borderLight bg-white transition-shadow ${
+          hasScrolled ? "shadow-header" : ""
+        }`}
+      >
+        <nav className="mx-auto flex h-[88px] max-w-container items-center justify-between px-7">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-lmc-green bg-white">
@@ -236,7 +245,8 @@ export function Header() {
           </div>
         </>
       )}
-    </header>
+      </header>
+    </>
   );
 }
 
