@@ -34,7 +34,7 @@ export default async function DashboardLayout({
       .from("profiles")
       .select("role")
       .eq("id", user.id)
-      .single();
+      .single<{ role: string }>();
     isAdmin = profile?.role === "admin";
   }
 

@@ -49,7 +49,7 @@ async function getPost(slug: string): Promise<Post | null> {
       )
       .eq("slug", slug)
       .not("published_at", "is", null)
-      .single();
+      .single<Post>();
 
     if (error) {
       console.error("Error fetching post:", error);
@@ -69,7 +69,8 @@ async function getAllPostSlugs(): Promise<string[]> {
     const { data, error } = await supabase
       .from("posts")
       .select("slug")
-      .not("published_at", "is", null);
+      .not("published_at", "is", null)
+      .returns<{ slug: string }[]>();
 
     if (error) {
       console.error("Error fetching post slugs:", error);

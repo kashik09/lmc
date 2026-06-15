@@ -144,7 +144,7 @@ export default function ReceptionInboxPage() {
       i.subject || "",
       i.message.replace(/"/g, '""'),
       i.status,
-      new Date(i.created_at).toLocaleString(),
+      i.created_at ? new Date(i.created_at).toLocaleString() : "",
     ]);
     const csv = [headers, ...rows].map((r) => r.map((c) => `"${c}"`).join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
@@ -156,7 +156,8 @@ export default function ReceptionInboxPage() {
     URL.revokeObjectURL(url);
   };
 
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "";
     const date = new Date(dateStr);
     const now = new Date();
     const diff = now.getTime() - date.getTime();
@@ -446,7 +447,7 @@ export default function ReceptionInboxPage() {
                   </h2>
                   <p className="text-sm text-lmc-textSecondary">
                     {selectedInquiry.reference_number} ·{" "}
-                    {new Date(selectedInquiry.created_at).toLocaleString()}
+                    {selectedInquiry.created_at ? new Date(selectedInquiry.created_at).toLocaleString() : ""}
                   </p>
                 </div>
                 <button

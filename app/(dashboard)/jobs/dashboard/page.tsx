@@ -17,7 +17,15 @@ export default async function JobsDashboardPage() {
   const { data: applications } = await supabase
     .from("job_applications")
     .select("*, jobs(*)")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
+
+  type ApplicationWithJob = {
+    id: string;
+    status: string;
+    created_at: string;
+    jobs: { title: string; department: string } | null;
+  };
 
   return (
     <main className="flex-1 px-4 py-8">
@@ -37,7 +45,7 @@ export default async function JobsDashboardPage() {
         <div className="mt-8">
           {applications && applications.length > 0 ? (
             <ul className="space-y-4">
-              {applications.map((app) => (
+              {(applications as ApplicationWithJob[]).map((app) => (
                 <li
                   key={app.id}
                   className="rounded-lg border border-border bg-card p-4"
