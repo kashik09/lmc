@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, contactLimiter } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/utils/turnstile";
+import { getClientIp, getUserAgent } from "@/lib/utils/ip-security";
 
 export type ContactResult =
   | { success: true; referenceNumber: string }
@@ -53,6 +54,10 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
   // Generate reference number
   const referenceNumber = generateReferenceNumber("INQ");
 
+  // Get IP for security tracking
+  const ipAddress = await getClientIp();
+  const userAgent = await getUserAgent();
+
   // Insert into database
   const { error: insertError } = await supabase.from("inquiries").insert({
     reference_number: referenceNumber,
@@ -61,6 +66,8 @@ export async function submitContact(formData: unknown): Promise<ContactResult> {
     phone,
     subject: subject || null,
     message,
+    ip_address: ipAddress,
+    user_agent: userAgent,
   });
 
   if (insertError) {

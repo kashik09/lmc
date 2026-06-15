@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { generateReferenceNumber } from "@/lib/utils/reference";
 import { checkRateLimit, appointmentLimiter } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/utils/turnstile";
+import { getClientIp, getUserAgent } from "@/lib/utils/ip-security";
 
 export type AppointmentResult =
   | { success: true; referenceNumber: string }
@@ -62,6 +63,10 @@ export async function submitAppointment(
   // Generate reference number
   const referenceNumber = generateReferenceNumber("APT");
 
+  // Get IP for security tracking
+  const ipAddress = await getClientIp();
+  const userAgent = await getUserAgent();
+
   // Insert into database with explicit field mapping (camelCase -> snake_case)
   const { error: insertError } = await supabase.from("appointments").insert({
     reference_number: referenceNumber,
@@ -75,6 +80,8 @@ export async function submitAppointment(
     email: data.email || null,
     appointment_date: toIsoDate(data.appointmentDate),
     message: data.message || null,
+    ip_address: ipAddress,
+    user_agent: userAgent,
     // status defaults to 'pending' in the DB schema, don't set it here
   });
 
