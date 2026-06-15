@@ -216,6 +216,8 @@ export type Database = {
           message: string;
           status: "new" | "read" | "archived";
           is_read: boolean;
+          ip_address: string | null;
+          user_agent: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -229,6 +231,8 @@ export type Database = {
           message: string;
           status?: "new" | "read" | "archived";
           is_read?: boolean;
+          ip_address?: string | null;
+          user_agent?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -242,6 +246,8 @@ export type Database = {
           message?: string;
           status?: "new" | "read" | "archived";
           is_read?: boolean;
+          ip_address?: string | null;
+          user_agent?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -262,6 +268,8 @@ export type Database = {
           appointment_date: string;
           message: string | null;
           status: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          ip_address: string | null;
+          user_agent: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -279,6 +287,8 @@ export type Database = {
           appointment_date: string;
           message?: string | null;
           status?: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          ip_address?: string | null;
+          user_agent?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -296,13 +306,78 @@ export type Database = {
           appointment_date?: string;
           message?: string | null;
           status?: "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+          ip_address?: string | null;
+          user_agent?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Relationships: [];
       };
+      auth_logs: {
+        Row: {
+          id: string;
+          user_id: string;
+          email: string;
+          ip_address: string;
+          user_agent: string | null;
+          is_vpn: boolean;
+          is_proxy: boolean;
+          is_datacenter: boolean;
+          country: string | null;
+          city: string | null;
+          isp: string | null;
+          login_at: string;
+          suspicious: boolean;
+          suspicious_reason: string | null;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          email: string;
+          ip_address: string;
+          user_agent?: string | null;
+          is_vpn?: boolean;
+          is_proxy?: boolean;
+          is_datacenter?: boolean;
+          country?: string | null;
+          city?: string | null;
+          isp?: string | null;
+          login_at?: string;
+          suspicious?: boolean;
+          suspicious_reason?: string | null;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          email?: string;
+          ip_address?: string;
+          user_agent?: string | null;
+          is_vpn?: boolean;
+          is_proxy?: boolean;
+          is_datacenter?: boolean;
+          country?: string | null;
+          city?: string | null;
+          isp?: string | null;
+          login_at?: string;
+          suspicious?: boolean;
+          suspicious_reason?: string | null;
+        };
+        Relationships: [];
+      };
     };
-    Views: Record<string, never>;
+    Views: {
+      user_ip_summary: {
+        Row: {
+          user_id: string;
+          email: string;
+          unique_ips: number;
+          ip_list: string[];
+          has_vpn_login: boolean;
+          has_suspicious_login: boolean;
+          last_login: string;
+        };
+      };
+    };
     Functions: Record<string, never>;
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
@@ -375,9 +450,18 @@ export interface Inquiry {
   message: string;
   status: "new" | "read" | "archived";
   is_read: boolean;
+  ip_address: string | null;
+  user_agent: string | null;
   created_at: string;
   updated_at: string;
 }
 
 export type InquiryInsert = Omit<Inquiry, "id" | "reference_number" | "status" | "is_read" | "created_at" | "updated_at">;
 export type InquiryStatus = Inquiry["status"];
+
+// ===========================================
+// AUTH LOG TYPES
+// ===========================================
+
+export type AuthLog = Tables<"auth_logs">;
+export type UserIpSummary = Database["public"]["Views"]["user_ip_summary"]["Row"];
