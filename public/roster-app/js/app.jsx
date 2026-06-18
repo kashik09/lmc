@@ -141,7 +141,6 @@
       } catch (e) {}
 
       L.load().then(function (result) {
-        console.log("[LMC] Data loaded:", result.source, result.doc);
         dispatch({ type: "init", doc: result.doc });
         publishedRef.current = JSON.stringify(result.doc);
         setDataSource(result.source);
@@ -151,8 +150,7 @@
         } else if (result.fresh) {
           toasts.push("Could not connect to server. Showing sample data.", "info", 5000);
         }
-      }).catch(function (err) {
-        console.error("Load error:", err);
+      }).catch(function () {
         setLoading(false);
         toasts.push("Something went wrong loading the roster. Please refresh the page.", "err", 6000);
       });
@@ -216,8 +214,7 @@
           toasts.push("Could not save changes. Please check your internet connection.", "err", 6000);
         }
         setPublishing(false);
-      }).catch(function (err) {
-        console.error("Publish error:", err);
+      }).catch(function () {
         setSaveState("unsaved");
         setPublishing(false);
         toasts.push("Could not save changes. Please try again.", "err", 6000);

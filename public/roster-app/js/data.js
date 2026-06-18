@@ -12,7 +12,6 @@
   // Clear old localStorage data on startup (migration to Supabase)
   try {
     if (localStorage.getItem(OLD_STORAGE_KEY)) {
-      console.log("[LMC] Clearing legacy localStorage data");
       localStorage.removeItem(OLD_STORAGE_KEY);
     }
   } catch (e) {}
@@ -65,7 +64,7 @@
         supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
       }
     } catch (e) {
-      console.warn("[LMC] Could not initialize Supabase:", e);
+      // Supabase init failed silently
     }
     return supabase;
   }
@@ -230,12 +229,10 @@
   async function loadFromSupabase() {
     var sb = await initSupabase();
     if (!sb) {
-      console.error("[LMC] Supabase client not initialized");
       return null;
     }
 
     try {
-      console.log("[LMC] Fetching from Supabase...");
 
       // Fetch all data in parallel
       var [deptsRes, docsRes, blocksRes, assignRes] = await Promise.all([
@@ -245,15 +242,8 @@
         sb.from("roster_assignments").select("*")
       ]);
 
-      // Log individual errors but don't fail completely
-      if (deptsRes.error) console.error("[LMC] Departments error:", deptsRes.error);
-      if (docsRes.error) console.error("[LMC] Doctors error:", docsRes.error);
-      if (blocksRes.error) console.error("[LMC] Time blocks error:", blocksRes.error);
-      if (assignRes.error) console.error("[LMC] Assignments error:", assignRes.error);
-
       // If ALL queries failed, return null
       if (deptsRes.error && docsRes.error && blocksRes.error && assignRes.error) {
-        console.error("[LMC] All Supabase queries failed");
         return null;
       }
 
@@ -301,7 +291,6 @@
 
       return { schema: SCHEMA, departments: departments, doctors: doctors, timeBlocks: timeBlocks, schedule: schedule };
     } catch (e) {
-      console.error("[LMC] Failed to load from Supabase:", e);
       return null;
     }
   }
@@ -319,7 +308,7 @@
       active: doctor.active
     });
 
-    if (error) console.error("[LMC] Save doctor error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -328,7 +317,7 @@
     if (!sb) return false;
 
     var { error } = await sb.from("roster_doctors").delete().eq("id", doctorId);
-    if (error) console.error("[LMC] Delete doctor error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -344,7 +333,7 @@
       color_fg: dept.color.fg
     });
 
-    if (error) console.error("[LMC] Save department error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -353,7 +342,7 @@
     if (!sb) return false;
 
     var { error } = await sb.from("roster_departments").delete().eq("id", deptId);
-    if (error) console.error("[LMC] Delete department error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -367,7 +356,7 @@
       end_time: block.end
     });
 
-    if (error) console.error("[LMC] Save time block error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -376,7 +365,7 @@
     if (!sb) return false;
 
     var { error } = await sb.from("roster_time_blocks").delete().eq("id", blockId);
-    if (error) console.error("[LMC] Delete time block error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -390,7 +379,7 @@
       doctor_id: doctorId
     }, { onConflict: "time_block_id,day,doctor_id" });
 
-    if (error) console.error("[LMC] Assign doctor error:", error);
+    // Error handled by return value
     return !error;
   }
 
@@ -404,29 +393,21 @@
       .eq("day", day)
       .eq("doctor_id", doctorId);
 
-    if (error) console.error("[LMC] Unassign doctor error:", error);
+    // Error handled by return value
     return !error;
   }
 
   /* ---------- main load function (async) ---------- */
   async function load() {
-    console.log("[LMC] Loading roster data...");
-
     // Try Supabase first
     var sbDoc = await loadFromSupabase();
 
     if (sbDoc) {
-      console.log("[LMC] Loaded from Supabase:", {
-        departments: sbDoc.departments.length,
-        doctors: sbDoc.doctors.length,
-        timeBlocks: sbDoc.timeBlocks.length
-      });
       // Use Supabase data even if some arrays are empty
       return { doc: sanitize(sbDoc), fresh: false, source: "supabase" };
     }
 
     // Fallback to seed only if Supabase completely failed
-    console.warn("[LMC] Supabase unavailable, using seed data");
     return { doc: seed(), fresh: true, source: "seed" };
   }
 
@@ -494,7 +475,6 @@
 
       return true;
     } catch (e) {
-      console.error("[LMC] Save all error:", e);
       return false;
     }
   }
