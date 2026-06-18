@@ -90,7 +90,18 @@ export async function generateStaticParams() {
 }
 
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
-  const { slug } = await params;
+  let slug: string;
+  try {
+    slug = (await params).slug;
+  } catch {
+    notFound();
+  }
+
+  // Validate slug format (alphanumeric, hyphens only)
+  if (!/^[a-z0-9-]+$/i.test(slug)) {
+    notFound();
+  }
+
   const post = await getPost(slug);
 
   if (!post) {

@@ -210,6 +210,7 @@ export function AppointmentForm() {
           onChange={handleChange}
           className={selectClass}
           disabled={loadingDoctors}
+          aria-busy={loadingDoctors}
         >
           <option value="">
             {loadingDoctors ? "Loading doctors..." : "No preference"}
