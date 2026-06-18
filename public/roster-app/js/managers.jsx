@@ -19,6 +19,8 @@
     var er = useState(null), err = er[0], setErr = er[1];
     var msg = useState(null), successMsg = msg[0], setSuccessMsg = msg[1];
     var busy = useState(false), loading = busy[0], setLoading = busy[1];
+    // Magic link disabled until custom SMTP is configured
+    var MAGIC_LINK_ENABLED = false;
     var modeS = useState("password"), mode = modeS[0], setMode = modeS[1];
 
     function submitPassword(e) {
@@ -119,7 +121,7 @@
           }, loading
             ? h(React.Fragment, null, h(window.Icon, { name: "spark", size: 16, className: "spin" }), isPassword ? " Signing in…" : " Sending link…")
             : (isPassword ? "Sign in" : "Send login link")),
-          h("button", {
+          MAGIC_LINK_ENABLED && h("button", {
             type: "button", className: "login-toggle",
             style: { marginTop: 14, background: "none", border: "none", color: "var(--green-600)", cursor: "pointer", fontSize: 13, textDecoration: "underline" },
             onClick: toggleMode
