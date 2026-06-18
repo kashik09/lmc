@@ -97,10 +97,24 @@
     /* loading state */
     var loadingS = useState(true), loading = loadingS[0], setLoading = loadingS[1];
     var dataSourceS = useState(""), dataSource = dataSourceS[0], setDataSource = dataSourceS[1];
+    var authCheckingS = useState(true), authChecking = authCheckingS[0], setAuthChecking = authCheckingS[1];
 
     /* session / login */
-    var sess = useState(function () { return L.loadSession(); });
+    var sess = useState(null);
     var user = sess[0], setUser = sess[1];
+
+    /* Check for existing Supabase session on mount */
+    useEffect(function () {
+      L.getSession().then(function (sessionUser) {
+        if (sessionUser) {
+          setUser(sessionUser);
+          L.saveSession(sessionUser);
+        }
+        setAuthChecking(false);
+      }).catch(function () {
+        setAuthChecking(false);
+      });
+    }, []);
 
     /* document history */
     var hist = useReducer(historyReducer, { past: [], present: L.seed(), future: [] });
@@ -309,11 +323,14 @@
       } });
     }
     function logout() {
-      L.clearSession(); setUser(null); patchSurf({ userMenu: false });
+      patchSurf({ userMenu: false });
+      L.signOut().then(function () {
+        setUser(null);
+      });
     }
 
     /* ============ render: loading ============ */
-    if (loading) {
+    if (loading || authChecking) {
       return h(LoadingScreen);
     }
 

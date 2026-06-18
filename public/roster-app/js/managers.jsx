@@ -11,7 +11,7 @@
   var L = window.LMC;
 
   /* =====================================================
-     LOGIN
+     LOGIN (Real Supabase Authentication)
      ===================================================== */
   function LoginScreen(props) {
     var em = useState(""), email = em[0], setEmail = em[1];
@@ -25,12 +25,21 @@
         setErr("Enter your staff email and password to continue.");
         return;
       }
-      setErr(null); setLoading(true);
-      setTimeout(function () {
-        var nm = email.split("@")[0].replace(/[._-]+/g, " ")
-          .replace(/\b\w/g, function (c) { return c.toUpperCase(); });
-        props.onLogin({ name: nm || "Admin", email: email.trim() });
-      }, 650);
+      setErr(null);
+      setLoading(true);
+
+      L.signIn(email.trim(), pass).then(function (result) {
+        if (result.error) {
+          setErr(result.error.message || "Invalid credentials. Please try again.");
+          setLoading(false);
+          return;
+        }
+        // Success - pass user data to parent
+        props.onLogin(result.data);
+      }).catch(function () {
+        setErr("Connection error. Please check your internet and try again.");
+        setLoading(false);
+      });
     }
 
     return h("div", { className: "login-wrap" },
@@ -51,7 +60,7 @@
         h("form", { className: "login-card", onSubmit: submit },
           h("div", { style: { marginBottom: 26 } }, h(window.Logo, { size: 40 })),
           h("h2", null, "Staff sign in"),
-          h("p", { className: "login-sub" }, "Sign in to manage the doctors' weekly schedule."),
+          h("p", { className: "login-sub" }, "Sign in with your staff credentials to manage the doctors' weekly schedule."),
           h(window.TextField, {
             label: "Staff email", type: "email", placeholder: "you@lmc.co.ug",
             value: email, autoFocus: true,
@@ -69,9 +78,8 @@
           }, loading
             ? h(React.Fragment, null, h(window.Icon, { name: "spark", size: 16, className: "spin" }), " Signing in…")
             : "Sign in"),
-          h("div", { className: "login-demo" },
-            h(window.Icon, { name: "info", size: 13 }),
-            h("span", null, "Demo workspace — any email & password will sign you in.")
+          h("div", { className: "login-notice", style: { marginTop: 16, fontSize: 12, color: "var(--text-soft)", textAlign: "center" } },
+            h("span", null, "Staff and admin accounts only. Contact IT for access.")
           )
         ),
         h("div", { className: "login-foot" }, "© 2026 Lifeline Medical Centre — Gayaza")

@@ -479,6 +479,83 @@
     }
   }
 
+  /* ---------- Supabase Auth ---------- */
+  async function signIn(email, password) {
+    var sb = await initSupabase();
+    if (!sb) {
+      return { error: { message: "Could not connect to authentication service." } };
+    }
+
+    // Attempt sign in
+    var authResult = await sb.auth.signInWithPassword({ email: email, password: password });
+    if (authResult.error) {
+      return { error: authResult.error };
+    }
+
+    var user = authResult.data.user;
+    if (!user) {
+      return { error: { message: "Authentication failed." } };
+    }
+
+    // Fetch user's role from profiles table
+    var profileResult = await sb.from("profiles").select("role, full_name").eq("id", user.id).single();
+    if (profileResult.error) {
+      // Profile lookup failed - sign out and reject
+      await sb.auth.signOut();
+      return { error: { message: "Could not verify staff permissions." } };
+    }
+
+    var role = profileResult.data.role;
+    if (role !== "staff" && role !== "admin") {
+      // Not authorized - sign out and reject
+      await sb.auth.signOut();
+      return { error: { message: "Access denied. Staff or admin role required." } };
+    }
+
+    // Success - return user info
+    return {
+      data: {
+        id: user.id,
+        email: user.email,
+        name: profileResult.data.full_name || user.email.split("@")[0],
+        role: role
+      }
+    };
+  }
+
+  async function signOut() {
+    var sb = await initSupabase();
+    if (sb) {
+      await sb.auth.signOut();
+    }
+    clearSession();
+  }
+
+  async function getSession() {
+    var sb = await initSupabase();
+    if (!sb) return null;
+
+    var sessionResult = await sb.auth.getSession();
+    if (!sessionResult.data.session) return null;
+
+    var user = sessionResult.data.session.user;
+    if (!user) return null;
+
+    // Verify role is still valid
+    var profileResult = await sb.from("profiles").select("role, full_name").eq("id", user.id).single();
+    if (profileResult.error) return null;
+
+    var role = profileResult.data.role;
+    if (role !== "staff" && role !== "admin") return null;
+
+    return {
+      id: user.id,
+      email: user.email,
+      name: profileResult.data.full_name || user.email.split("@")[0],
+      role: role
+    };
+  }
+
   /* ---------- session storage (local, for UI state) ---------- */
   function loadSession() {
     try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); }
@@ -506,6 +583,10 @@
     deleteTimeBlock: deleteTimeBlock,
     assignDoctor: assignDoctor,
     unassignDoctor: unassignDoctor,
+    // Auth
+    signIn: signIn,
+    signOut: signOut,
+    getSession: getSession,
     // Session (local)
     loadSession: loadSession, saveSession: saveSession, clearSession: clearSession
   };
