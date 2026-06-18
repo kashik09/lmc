@@ -11,7 +11,7 @@
 
 - **New findings:** 8
 - **CRIT:** 0 | **HIGH:** 2 | **MED:** 2 | **LOW:** 3 | **INFO:** 1
-- **Fixed this round:** 0 (awaiting approval)
+- **Fixed this round:** 3
 - **Carried forward (deferred):** 2 (L1, L4 from R1)
 
 ---
@@ -57,22 +57,19 @@
 
 ---
 
-### [HIGH-02] Dependency Vulnerabilities (15 total, 4 HIGH)
+### [HIGH-02] Dependency Vulnerabilities — FIXED ✅
 
 - **Phase:** E (Dependency Audit)
-- **Description:** `npm audit` reports 15 vulnerabilities including 4 HIGH severity.
+- **Description:** `npm audit` reported 15 vulnerabilities including 4 HIGH severity.
 - **Evidence:**
   ```
-  HIGH: fast-uri path traversal (GHSA-q3j6-qgpj-74h6)
-  HIGH: undici TLS bypass (GHSA-vmh5-mc38-953g)
-  HIGH: undici info disclosure (GHSA-pr7r-676h-xcf6)
-  HIGH: ws memory exhaustion (GHSA-96hv-2xvq-fx4p)
-
-  MODERATE: DOMPurify (8 CVEs), Next.js (13 CVEs), js-yaml DoS
+  BEFORE: 15 vulnerabilities (4 HIGH, 10 moderate, 1 low)
+  AFTER:  2 vulnerabilities (1 HIGH in Next.js core, 1 moderate)
   ```
-- **Impact:** Potential for XSS bypass, DoS, information disclosure depending on how these libraries are used.
-- **Fix:** Run `npm audit fix` — most are auto-fixable
-- **Commit:** Awaiting approval
+- **Impact:** Reduced attack surface significantly.
+- **Fix:** Ran `npm audit fix`
+- **Commit:** `6a6ae7c`
+- **Remaining:** 2 vulnerabilities in Next.js itself require version upgrade (deferred)
 
 ---
 
@@ -95,24 +92,18 @@
 
 ---
 
-### [MED-02] Console.log Statements in Roster App Production Code
+### [MED-02] Console.log Statements in Roster App — FIXED ✅
 
 - **Phase:** C (Roster App Audit)
-- **Description:** Production JS contains multiple `console.log` and `console.error` statements that leak internal state.
+- **Description:** Production JS contained multiple `console.log` and `console.error` statements.
 - **Evidence:**
-  ```javascript
-  // data.js line 238
-  console.log("[LMC] Fetching from Supabase...");
-
-  // data.js line 419
-  console.log("[LMC] Loaded from Supabase:", {...});
-
-  // app.jsx line 144
-  console.log("[LMC] Data loaded:", result.source, result.doc);
   ```
-- **Impact:** Information disclosure to anyone with browser dev tools open. Reveals Supabase connection status, data structure, error details.
-- **Fix:** Strip console statements or wrap in `NODE_ENV !== 'production'` check
-- **Commit:** Awaiting approval
+  BEFORE: 26 console.log/warn/error statements
+  AFTER:  1 (ErrorBoundary.componentDidCatch only)
+  ```
+- **Impact:** Fixed — no more info leakage via dev tools.
+- **Fix:** Stripped all console.log and console.warn statements
+- **Commit:** `2fda73d`
 
 ---
 
@@ -134,18 +125,18 @@
 
 ---
 
-### [LOW-02] Development React Builds in Roster App
+### [LOW-02] Development React Builds in Roster App — FIXED ✅
 
 - **Phase:** C (Roster App Audit)
-- **Description:** The roster app loads React development builds, not production.
+- **Description:** The roster app was loading React development builds.
 - **Evidence:**
-  ```html
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js">
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js">
   ```
-- **Impact:** Larger bundle size, slower performance, extra warnings in console.
-- **Fix:** Switch to `react.production.min.js` and `react-dom.production.min.js`
-- **Commit:** Awaiting approval
+  BEFORE: react.development.js + react-dom.development.js
+  AFTER:  react.production.min.js + react-dom.production.min.js
+  ```
+- **Impact:** Fixed — smaller bundle, faster load, no dev warnings.
+- **Fix:** Switched to production builds
+- **Commit:** `2fda73d`
 
 ---
 
@@ -244,15 +235,15 @@ Forms require valid Turnstile CAPTCHA tokens which cannot be bypassed programmat
 | L1 | `/dev/heading-preview` accessible | Low risk, noindex tag present |
 | L4 | Newsletter form has no CAPTCHA | Low risk, email only |
 
-### From Round 2 (Awaiting Approval)
+### From Round 2 (Remaining)
 
-| ID | Issue | Severity | Fix Ready |
-|----|-------|----------|-----------|
-| HIGH-01 | Roster app fake auth | HIGH | Need architectural decision |
-| HIGH-02 | Dependency vulnerabilities | HIGH | `npm audit fix` |
-| MED-01 | Roster app publicly accessible | MED | Add middleware auth |
-| MED-02 | Console.log in production | MED | Strip statements |
-| LOW-02 | React dev builds | LOW | Switch to production |
+| ID | Issue | Severity | Status |
+|----|-------|----------|--------|
+| HIGH-01 | Roster app fake auth | HIGH | Needs architectural decision |
+| HIGH-02 | Dependency vulnerabilities | ~~HIGH~~ | ✅ FIXED (2 remain in Next.js) |
+| MED-01 | Roster app publicly accessible | MED | Needs architectural decision |
+| MED-02 | Console.log in production | ~~MED~~ | ✅ FIXED |
+| LOW-02 | React dev builds | ~~LOW~~ | ✅ FIXED |
 
 ---
 
