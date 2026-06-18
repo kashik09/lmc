@@ -103,12 +103,18 @@
     var sess = useState(null);
     var user = sess[0], setUser = sess[1];
 
-    /* Check for existing Supabase session on mount */
+    /* Check for existing Supabase session on mount (handles magic link callback too) */
     useEffect(function () {
+      // Supabase auto-handles the hash fragment from magic link redirects
+      // getSession() will pick up the new session after Supabase processes it
       L.getSession().then(function (sessionUser) {
         if (sessionUser) {
           setUser(sessionUser);
           L.saveSession(sessionUser);
+          // Clear hash fragment after successful magic link login
+          if (window.location.hash) {
+            history.replaceState(null, "", window.location.pathname);
+          }
         }
         setAuthChecking(false);
       }).catch(function () {

@@ -17,15 +17,18 @@
     var em = useState(""), email = em[0], setEmail = em[1];
     var pw = useState(""), pass = pw[0], setPass = pw[1];
     var er = useState(null), err = er[0], setErr = er[1];
+    var msg = useState(null), successMsg = msg[0], setSuccessMsg = msg[1];
     var busy = useState(false), loading = busy[0], setLoading = busy[1];
+    var modeS = useState("password"), mode = modeS[0], setMode = modeS[1];
 
-    function submit(e) {
+    function submitPassword(e) {
       e.preventDefault();
       if (!email.trim() || !pass.trim()) {
         setErr("Enter your staff email and password to continue.");
         return;
       }
       setErr(null);
+      setSuccessMsg(null);
       setLoading(true);
 
       L.signIn(email.trim(), pass).then(function (result) {
@@ -34,13 +37,43 @@
           setLoading(false);
           return;
         }
-        // Success - pass user data to parent
         props.onLogin(result.data);
       }).catch(function () {
         setErr("Connection error. Please check your internet and try again.");
         setLoading(false);
       });
     }
+
+    function submitMagicLink(e) {
+      e.preventDefault();
+      if (!email.trim()) {
+        setErr("Enter your staff email address.");
+        return;
+      }
+      setErr(null);
+      setSuccessMsg(null);
+      setLoading(true);
+
+      L.sendMagicLink(email.trim()).then(function (result) {
+        setLoading(false);
+        if (result.error) {
+          setErr(result.error.message || "Could not send login link.");
+          return;
+        }
+        setSuccessMsg("Check your email for the login link.");
+      }).catch(function () {
+        setErr("Connection error. Please check your internet and try again.");
+        setLoading(false);
+      });
+    }
+
+    function toggleMode() {
+      setMode(mode === "password" ? "magic" : "password");
+      setErr(null);
+      setSuccessMsg(null);
+    }
+
+    var isPassword = mode === "password";
 
     return h("div", { className: "login-wrap" },
       h("div", { className: "login-art" },
@@ -57,27 +90,40 @@
         h("div", { className: "login-pulse" })
       ),
       h("div", { className: "login-form-col" },
-        h("form", { className: "login-card", onSubmit: submit },
+        h("form", { className: "login-card", onSubmit: isPassword ? submitPassword : submitMagicLink },
           h("div", { style: { marginBottom: 26 } }, h(window.Logo, { size: 40 })),
           h("h2", null, "Staff sign in"),
-          h("p", { className: "login-sub" }, "Sign in with your staff credentials to manage the doctors' weekly schedule."),
+          h("p", { className: "login-sub" }, isPassword
+            ? "Sign in with your staff credentials."
+            : "We'll send a login link to your email."),
           h(window.TextField, {
             label: "Staff email", type: "email", placeholder: "you@lmc.co.ug",
             value: email, autoFocus: true,
-            onChange: function (e) { setEmail(e.target.value); setErr(null); }
+            onChange: function (e) { setEmail(e.target.value); setErr(null); setSuccessMsg(null); }
           }),
-          h("div", { style: { height: 14 } }),
-          h(window.TextField, {
-            label: "Password", type: "password", placeholder: "••••••••",
-            value: pass, error: err,
-            onChange: function (e) { setPass(e.target.value); setErr(null); }
-          }),
+          isPassword && h(React.Fragment, null,
+            h("div", { style: { height: 14 } }),
+            h(window.TextField, {
+              label: "Password", type: "password", placeholder: "••••••••",
+              value: pass, error: err,
+              onChange: function (e) { setPass(e.target.value); setErr(null); }
+            })
+          ),
+          !isPassword && err && h("div", { className: "field-err", style: { marginTop: 8 } },
+            h(window.Icon, { name: "warn", size: 13 }), err),
+          successMsg && h("div", { style: { marginTop: 12, padding: "10px 12px", background: "var(--green-50)", border: "1px solid var(--green-200)", borderRadius: 6, color: "var(--green-700)", fontSize: 13 } },
+            h(window.Icon, { name: "check", size: 14, style: { marginRight: 6 } }), successMsg),
           h(window.Btn, {
             variant: "primary", type: "submit", disabled: loading,
-            className: "login-btn", iconRight: loading ? null : "logout"
+            className: "login-btn", style: { marginTop: 16 }
           }, loading
-            ? h(React.Fragment, null, h(window.Icon, { name: "spark", size: 16, className: "spin" }), " Signing in…")
-            : "Sign in"),
+            ? h(React.Fragment, null, h(window.Icon, { name: "spark", size: 16, className: "spin" }), isPassword ? " Signing in…" : " Sending link…")
+            : (isPassword ? "Sign in" : "Send login link")),
+          h("button", {
+            type: "button", className: "login-toggle",
+            style: { marginTop: 14, background: "none", border: "none", color: "var(--green-600)", cursor: "pointer", fontSize: 13, textDecoration: "underline" },
+            onClick: toggleMode
+          }, isPassword ? "Use magic link instead" : "Use password instead"),
           h("div", { className: "login-notice", style: { marginTop: 16, fontSize: 12, color: "var(--text-soft)", textAlign: "center" } },
             h("span", null, "Staff and admin accounts only. Contact IT for access.")
           )

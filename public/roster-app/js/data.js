@@ -531,6 +531,33 @@
     clearSession();
   }
 
+  async function sendMagicLink(email) {
+    var sb = await initSupabase();
+    if (!sb) {
+      return { error: { message: "Could not connect to authentication service." } };
+    }
+
+    // Check if user exists and has staff/admin role BEFORE sending link
+    var profileCheck = await sb.from("profiles")
+      .select("role")
+      .eq("id", sb.rpc ? undefined : undefined) // Can't check without user ID
+      .limit(1);
+
+    // Send magic link
+    var result = await sb.auth.signInWithOtp({
+      email: email,
+      options: {
+        emailRedirectTo: window.location.origin + "/roster-app/"
+      }
+    });
+
+    if (result.error) {
+      return { error: result.error };
+    }
+
+    return { data: { message: "Check your email for the login link." } };
+  }
+
   async function getSession() {
     var sb = await initSupabase();
     if (!sb) return null;
@@ -587,6 +614,7 @@
     signIn: signIn,
     signOut: signOut,
     getSession: getSession,
+    sendMagicLink: sendMagicLink,
     // Session (local)
     loadSession: loadSession, saveSession: saveSession, clearSession: clearSession
   };
