@@ -1,0 +1,63 @@
+/*
+ * Design System — Default Theme
+ *
+ * Override any --ui-* variable in your app's CSS to customize the theme.
+ * All values use HSL channels (without the hsl() wrapper) for composability.
+ */
+
+:root {
+  /* Primary */
+  --ui-primary: 142 72% 29%;
+  --ui-primary-foreground: 0 0% 100%;
+  --ui-primary-dark: 142 80% 24%;
+
+  /* Secondary */
+  --ui-secondary: 207 100% 64%;
+  --ui-secondary-foreground: 0 0% 16%;
+
+  /* Accent */
+  --ui-accent: 207 100% 64%;
+  --ui-accent-foreground: 0 0% 0%;
+
+  /* Neutrals */
+  --ui-background: 0 0% 100%;
+  --ui-foreground: 222 47% 11%;
+  --ui-muted: 210 40% 96%;
+  --ui-muted-foreground: 215 16% 47%;
+
+  /* Card */
+  --ui-card: 0 0% 100%;
+  --ui-card-foreground: 222 47% 11%;
+
+  /* Borders & Inputs */
+  --ui-border: 214 32% 91%;
+  --ui-input: 214 32% 91%;
+  --ui-ring: 142 72% 29%;
+
+  /* Semantic */
+  --ui-destructive: 0 84% 60%;
+  --ui-destructive-foreground: 0 0% 100%;
+  --ui-success: 142 72% 29%;
+  --ui-warning: 45 93% 47%;
+
+  /* Radius */
+  --ui-radius-sm: 0.25rem;
+  --ui-radius-md: 0.5rem;
+  --ui-radius-lg: 0.75rem;
+  --ui-radius-xl: 1rem;
+  --ui-radius-full: 9999px;
+  --ui-radius-btn: 5px;
+  --ui-radius-input: 5px;
+  --ui-radius-card: 6px;
+
+  /* Shadows */
+  --ui-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --ui-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --ui-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --ui-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --ui-shadow-card-hover: 0 6px 18px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --ui-shadow-soft: 0 10px 30px rgba(16, 24, 40, 0.08);
+
+  /* Layout */
+  --ui-max-width-container: 1170px;
+}
